@@ -16,7 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends Activity {
+public class MainActivity extends BaseActivity {
 
 	private ExpandableListView mExpandableListView;
 
@@ -28,7 +28,7 @@ public class MainActivity extends Activity {
 	private List<String> fpyTs;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_main);
@@ -39,37 +39,26 @@ public class MainActivity extends Activity {
 	private void initData() {
 		arrows = new int[] { R.drawable.arrow_bottom, R.drawable.arrow_bottom };
 		tasks = new ArrayList();
-		tasks.add("ÎÒµÄÈÎÎñ");
-		tasks.add("·ÖÅäÈÎÎñ");
+		tasks.add("æˆ‘çš„ä»»åŠ¡");
+		tasks.add("åˆ†é…ä»»åŠ¡");
 
 		myTs = new ArrayList();
-		myTs.add("ÒÑ¾­Íê³ÉµÄ");
-		myTs.add("Î´Íê³ÉµÄ(2)");
-		myTs.add("½«Òª¿ªÊ¼µÄ(12)");
+		myTs.add("å·²ç»å®Œæˆ(1)");
+		myTs.add("æœªå®Œæˆ(2)");
+		myTs.add("å°†è¦å¼€å§‹çš„(12)");
 
 		fpyTs = new ArrayList();
-		fpyTs.add("ÒÑ¾­Íê³ÉµÄ(8)");
-		fpyTs.add("Î´Íê³ÉµÄ(2)");
-		fpyTs.add("½«Òª¿ªÊ¼µÄ(12)");
+		fpyTs.add("å·²ç»å®Œæˆ(4)");
+		fpyTs.add("æœªå®Œæˆ(8)");
+		fpyTs.add("å°†è¦å¼€å§‹çš„(6)");
 	}
 
-	/**
-	 * 
-	 * 
-	 * @user:pang
-	 * @data:2015Äê7ÔÂ19ÈÕ
-	 * @todo:³õÊ¼»¯
-	 * @return:void
-	 */
 	private void initPart() {
 
-		// ×¼±¸ºÃÊı¾İ
 		initData();
 
 		mExpandableListView = (ExpandableListView) findViewById(R.id.expandablelistview);
-		// È¥µô¼ıÍ·
 		mExpandableListView.setGroupIndicator(null);
-		// ÉèÖÃadapter£¬ÕÒadapterÒªÊı¾İ
 		mExpandableListView.setAdapter(new MyExpandableListAdapter());
 
 		mExpandableListView.setOnChildClickListener(new OnChildClickListener() {
@@ -92,9 +81,6 @@ public class MainActivity extends Activity {
 
 	private class MyExpandableListAdapter extends BaseExpandableListAdapter {
 
-		/**
-		 * »ñÈ¡Ö¸¶¨×éµÄ³¤¶È£¬¼´Ö¸¶¨×éÓĞ¶àÉÙ¸ö×ÓÁĞ±íÏî
-		 */
 		@Override
 		public int getChildrenCount(int groupPosition) {
 			int total = 0;
@@ -106,17 +92,11 @@ public class MainActivity extends Activity {
 			return total;
 		}
 
-		/**
-		 * ·µ»ØÖ¸¶¨×éÎ»ÖÃ£¬×ÓÁĞ±íÏîµÄÎ»ÖÃ
-		 */
 		@Override
 		public long getChildId(int groupPosition, int childPosition) {
 			return childPosition;
 		}
 
-		/**
-		 * »ñµÃÖ¸¶¨×éÎ»ÖÃ£¬Ö¸¶¨×ÓÁĞ±íÏî´¦£¬×ÓÁĞ±íÏîÖĞµÄÊı¾İ
-		 */
 		@Override
 		public Object getChild(int groupPosition, int childPosition) {
 			String title = "";
@@ -128,9 +108,6 @@ public class MainActivity extends Activity {
 			return title;
 		}
 
-		/**
-		 * ·µ»ØÖ¸¶¨×éÎ»ÖÃ£¬Ö¸¶¨×ÓÁĞ±íÏîµÄÍâ¹Û
-		 */
 		@Override
 		public View getChildView(int groupPosition, int childPosition,
 				boolean isLastChild, View convertView, ViewGroup parent) {
@@ -142,33 +119,21 @@ public class MainActivity extends Activity {
 			return view;
 		}
 
-		/**
-		 * »ñµÃ×éµÄ¸öÊı
-		 */
 		@Override
 		public int getGroupCount() {
 			return tasks.size();
 		}
 
-		/**
-		 * ·µ»ØÖ¸¶¨×éÎ»ÖÃ
-		 */
 		@Override
 		public long getGroupId(int groupPosition) {
 			return groupPosition;
 		}
 
-		/**
-		 * ·µ»ØÖ¸¶¨×éÁĞ±íÏîÖĞµÄÊı¾İ
-		 */
 		@Override
 		public Object getGroup(int groupPosition) {
 			return tasks.get(groupPosition);
 		}
 
-		/**
-		 * ·µ»Ø×éÁĞ±íÏîµÄÍâ¹Û
-		 */
 		@Override
 		public View getGroupView(int groupPosition, boolean isExpanded,
 				View convertView, ViewGroup parent) {
@@ -180,25 +145,19 @@ public class MainActivity extends Activity {
 			group_title.setTextSize(20);
 			ImageView group_img = (ImageView) view.findViewById(R.id.group_img);
 			if (isExpanded) {
-				group_img.setImageResource(R.drawable.arrow_top);// ¼ıÍ·ÏòÉÏ
-			} else {// ÕÛµş
-				group_img.setImageResource(R.drawable.arrow_bottom);// ¼ıÍ·ÏòÏÂ
+				group_img.setImageResource(R.drawable.arrow_top);//
+			} else {// ï¿½Ûµï¿½
+				group_img.setImageResource(R.drawable.arrow_bottom);//
 			}
 
 			return view;
 		}
 
-		/**
-		 * ÅĞ¶ÏÊÇ·ñÎÈ¶¨
-		 */
 		@Override
 		public boolean hasStableIds() {
 			return false;
 		}
 
-		/**
-		 * µ±Ñ¡Ôñ×Ó½ÚµãÊ±µ÷ÓÃ
-		 */
 		@Override
 		public boolean isChildSelectable(int groupPosition, int childPosition) {
 			return true;
