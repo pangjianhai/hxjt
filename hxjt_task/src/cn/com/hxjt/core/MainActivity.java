@@ -25,10 +25,19 @@ public class MainActivity extends BaseActivity {
 
 	private ExpandableListView mExpandableListView;
 
+	/**
+	 * 箭头
+	 */
 	private int[] arrows;
 
+	/**
+	 * 两个分类
+	 */
 	private List<String> tasks;
 
+	/**
+	 * 每类下面的任务属性和数量
+	 */
 	private List<String> myTs;
 	private List<String> fpyTs;
 
@@ -41,6 +50,12 @@ public class MainActivity extends BaseActivity {
 		initPart();
 	}
 
+	/**
+	 * @user:pang
+	 * @data:2015年7月19日
+	 * @todo:初始化数据
+	 * @return:void
+	 */
 	private void initData() {
 		arrows = new int[] { R.drawable.arrow_bottom, R.drawable.arrow_bottom };
 		tasks = new ArrayList();
@@ -84,6 +99,11 @@ public class MainActivity extends BaseActivity {
 		});
 	}
 
+	/**
+	 * @todo 适配器
+	 * @author pang
+	 *
+	 */
 	private class MyExpandableListAdapter extends BaseExpandableListAdapter {
 
 		@Override
