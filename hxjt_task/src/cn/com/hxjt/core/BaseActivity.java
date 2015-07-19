@@ -17,6 +17,7 @@ import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest;
 
 /**
+ * @TODO 父类
  * @author pang
  *
  */

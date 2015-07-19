@@ -16,6 +16,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/**
+ * @todo 首页
+ * @author pang
+ *
+ */
 public class MainActivity extends BaseActivity {
 
 	private ExpandableListView mExpandableListView;
