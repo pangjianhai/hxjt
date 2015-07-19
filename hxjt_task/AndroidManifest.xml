@@ -24,6 +24,8 @@
         </activity>
         <activity android:name=".TaskListLayoutActivity" >
         </activity>
+        <activity android:name=".TaskDetailLayoutActivity" >
+        </activity>
     </application>
 
 </manifest>
