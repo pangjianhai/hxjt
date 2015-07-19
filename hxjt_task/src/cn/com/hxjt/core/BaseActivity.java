@@ -37,6 +37,13 @@ public class BaseActivity extends Activity {
 		ActivityCollector.removeActivity(this);
 	}
 
+	/**
+	 * @return
+	 * @user:pang
+	 * @data:2015年7月19日
+	 * @todo:能否联网
+	 * @return:boolean
+	 */
 	public boolean isNetWorkConnected() {
 		ConnectivityManager cm = (ConnectivityManager) BaseActivity.this
 				.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -47,6 +54,15 @@ public class BaseActivity extends Activity {
 		return false;
 	}
 
+	/**
+	 * @param url
+	 * @param p
+	 * @param rcb
+	 * @user:pang
+	 * @data:2015年7月19日
+	 * @todo:普通的http请求
+	 * @return:void
+	 */
 	public void send_normal_request(String url, Map<String, String> p,
 			RequestCallBack<?> rcb) {
 		if (!isNetWorkConnected()) {
@@ -58,7 +74,7 @@ public class BaseActivity extends Activity {
 		if (p != null) {
 			Iterator<Map.Entry<String, String>> it = p.entrySet().iterator();
 			/**
-			 * ��Ӳ���
+			 * 构造参数
 			 */
 			while (it.hasNext()) {
 				Map.Entry<String, String> entry = it.next();
