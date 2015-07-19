@@ -7,8 +7,19 @@ package cn.com.hxjt.core.entity;
  */
 public class TaskEntity {
 
+	/**
+	 * 任务ID
+	 */
 	private String id;
+	/**
+	 * 任务标题
+	 */
 	private String title;
+	
+	/**
+	 * 执行人ID
+	 */
+	private String executorId;
 
 	public String getId() {
 		return id;
@@ -24,6 +35,14 @@ public class TaskEntity {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	public String getExecutorId() {
+		return executorId;
+	}
+
+	public void setExecutorId(String executorId) {
+		this.executorId = executorId;
 	}
 
 }
