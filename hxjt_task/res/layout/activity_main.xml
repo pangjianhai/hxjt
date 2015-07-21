@@ -28,10 +28,46 @@
     </RelativeLayout>
 
     <LinearLayout
+        android:id="@+id/layout_space_ops"
+        android:layout_width="fill_parent"
+        android:layout_height="30dp"
+        android:layout_below="@+id/layout_space_title_bar"
+        android:background="@color/white"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/assigne_task"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/task_create_bg"
+            android:text="分配"
+            android:textColor="@color/deepgray"
+            android:textSize="14dp" />
+
+        <Button
+            android:id="@+id/approve_task"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:text="申请"
+            android:textColor="@color/deepgray"
+            android:textSize="14dp" />
+
+        <Button
+            android:id="@+id/crate_task"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:text="创建"
+            android:textColor="@color/deepgray"
+            android:textSize="14dp" />
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/layout_space_content"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/layout_space_title_bar"
+        android:layout_below="@+id/layout_space_ops"
         android:layout_marginTop="5dp"
         android:orientation="vertical" >
 
