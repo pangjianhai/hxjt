@@ -3,7 +3,7 @@ package cn.com.hxjt.core;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -188,6 +188,20 @@ public class MainActivity extends BaseActivity {
 			return true;
 		}
 
+	}
+
+	/**
+	 * 
+	 * @param v
+	 * @user:pang
+	 * @data:2015年7月21日
+	 * @todo:创建任务
+	 * @return:void
+	 */
+	public void create_task_ops(View v) {
+		Intent intent = new Intent(MainActivity.this,
+				CreateTaskAssgineActivity.class);
+		startActivity(intent);
 	}
 
 }

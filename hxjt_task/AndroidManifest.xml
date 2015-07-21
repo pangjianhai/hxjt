@@ -26,6 +26,8 @@
         </activity>
         <activity android:name=".TaskDetailLayoutActivity" >
         </activity>
+        <activity android:name=".CreateTaskAssgineActivity" >
+        </activity>
     </application>
 
 </manifest>

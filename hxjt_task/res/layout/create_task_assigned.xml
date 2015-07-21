@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="首页"
+            android:text="分配任务"
             android:textColor="@color/black"
             android:textSize="20sp" />
     </RelativeLayout>
@@ -40,44 +40,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/task_create_bg"
-            android:text="分配"
+            android:onClick="create_task_ops"
+            android:text="保存"
             android:textColor="@color/orange"
-            android:textSize="14dp" 
-            android:onClick="create_task_ops"/>
+            android:textSize="14dp" />
 
         <Button
             android:id="@+id/approve_task"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/task_create_bg"
-            android:text="申请"
-            android:textColor="@color/orange"
-            android:textSize="14dp" android:onClick="create_task_ops"/>
-
-        <Button
-            android:id="@+id/crate_task"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/task_create_bg"
             android:onClick="create_task_ops"
-            android:text="创建"
+            android:text="取消"
             android:textColor="@color/orange"
             android:textSize="14dp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/layout_space_content"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/layout_space_ops"
-        android:layout_marginTop="5dp"
-        android:orientation="vertical" >
-
-        <ExpandableListView
-            android:id="@+id/expandablelistview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
     </LinearLayout>
 
 </RelativeLayout>
