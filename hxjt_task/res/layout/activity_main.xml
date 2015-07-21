@@ -41,25 +41,25 @@
             android:layout_height="wrap_content"
             android:background="@drawable/task_create_bg"
             android:text="分配"
-            android:textColor="@color/deepgray"
+            android:textColor="@color/orange"
             android:textSize="14dp" />
 
         <Button
             android:id="@+id/approve_task"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/white"
+            android:background="@drawable/task_create_bg"
             android:text="申请"
-            android:textColor="@color/deepgray"
+            android:textColor="@color/orange"
             android:textSize="14dp" />
 
         <Button
             android:id="@+id/crate_task"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/white"
+            android:background="@drawable/task_create_bg"
             android:text="创建"
-            android:textColor="@color/deepgray"
+            android:textColor="@color/orange"
             android:textSize="14dp" />
     </LinearLayout>
 
