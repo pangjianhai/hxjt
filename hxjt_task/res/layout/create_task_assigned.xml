@@ -40,7 +40,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/task_create_bg"
-            android:onClick="create_task_ops"
+            android:onClick="save_or_cancel"
             android:text="保存"
             android:textColor="@color/orange"
             android:textSize="14dp" />
@@ -50,10 +50,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/task_create_bg"
-            android:onClick="create_task_ops"
+            android:onClick="save_or_cancel"
             android:text="取消"
             android:textColor="@color/orange"
             android:textSize="14dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_space_form"
+        android:layout_width="fill_parent"
+        android:layout_height="30dp"
+        android:layout_below="@+id/layout_space_ops"
+        android:background="@color/white"
+        android:orientation="horizontal" >
     </LinearLayout>
 
 </RelativeLayout>

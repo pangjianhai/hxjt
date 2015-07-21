@@ -25,6 +25,6 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity {
 	 * @todo:创建任务
 	 * @return:void
 	 */
-	public void create_task_ops(View v) {
+	public void save_or_cancel(View v) {
 	}
 }
