@@ -83,7 +83,7 @@ public class BaseActivity extends Activity {
 			}
 		}
 		HttpUtils http = new HttpUtils();
-		http.send(HttpRequest.HttpMethod.POST, url, params, rcb);
+		http.send(HttpRequest.HttpMethod.GET, url, params, rcb);
 	}
 
 	/**
