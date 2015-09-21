@@ -199,9 +199,22 @@ public class MainActivity extends BaseActivity {
 	 * @return:void
 	 */
 	public void create_task_ops(View v) {
-		Intent intent = new Intent(MainActivity.this,
-				CreateTaskAssgineActivity.class);
-		startActivity(intent);
+		if (v.getId() == R.id.assigne_task) {// fenpei
+			Intent intent = new Intent(MainActivity.this,
+					CreateTaskAssgineActivity.class);
+			intent.putExtra("type", "assign");
+			startActivity(intent);
+		} else if (v.getId() == R.id.approve_task) {// shenqing
+			Intent intent = new Intent(MainActivity.this,
+					CreateTaskAssgineActivity.class);
+			intent.putExtra("type", "approve");
+			startActivity(intent);
+		} else if (v.getId() == R.id.crate_task) {// chuangjian
+			Intent intent = new Intent(MainActivity.this,
+					CreateTaskAssgineActivity.class);
+			intent.putExtra("type", "create");
+			startActivity(intent);
+		}
 	}
 
 }

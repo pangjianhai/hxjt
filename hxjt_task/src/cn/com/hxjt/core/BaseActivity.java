@@ -8,6 +8,7 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 import cn.com.hxjt.core.util.ActivityCollector;
 
@@ -83,6 +84,18 @@ public class BaseActivity extends Activity {
 		}
 		HttpUtils http = new HttpUtils();
 		http.send(HttpRequest.HttpMethod.POST, url, params, rcb);
+	}
+
+	/**
+	 * 
+	 * @param v
+	 * @user:pang
+	 * @data:2015年9月21日
+	 * @todo:回退
+	 * @return:void
+	 */
+	public void backoff(View v) {
+		this.finish();
 	}
 
 }
