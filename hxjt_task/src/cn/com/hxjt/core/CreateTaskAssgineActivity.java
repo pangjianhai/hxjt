@@ -25,12 +25,11 @@ import com.lidroid.xutils.http.callback.RequestCallBack;
 public class CreateTaskAssgineActivity extends ParentTaskActivity {
 
 	private EditText taskName;
-	private Spinner belongPro;
+	private Spinner projectType, belongPro;
 	private ArrayAdapter<String> proTypesAd = null;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		System.out.println("***************************onCreate");
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.create_task_assigned);
@@ -40,12 +39,12 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity {
 
 	private void initPart() {
 		taskName = (EditText) findViewById(R.id.taskName);
+		projectType = (Spinner) findViewById(R.id.projectType);
 		belongPro = (Spinner) findViewById(R.id.belongPro);
 	}
 
 	private void initProType() {
 		String url = GlobalUrl.IP + GlobalUrl.getProTypes;
-		System.out.println("*********url:" + url);
 		try {
 			RequestCallBack<String> rcb = new RequestCallBack<String>() {
 
@@ -53,7 +52,6 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity {
 				public void onSuccess(ResponseInfo<String> responseInfo) {
 					String data = responseInfo.result;
 					// ["数据仓库建设","软件开发","未知"]
-					System.out.println("data:" + data);
 					String newData = data.substring(1, data.length() - 1);
 					String[] types = newData.split(",");
 					String[] nt = new String[types.length];
@@ -63,7 +61,7 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity {
 					proTypesAd = new ArrayAdapter<String>(
 							CreateTaskAssgineActivity.this,
 							android.R.layout.simple_spinner_item, nt);
-					belongPro.setAdapter(proTypesAd);
+					projectType.setAdapter(proTypesAd);
 				}
 
 				@Override
