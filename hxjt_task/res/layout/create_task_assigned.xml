@@ -93,7 +93,7 @@
                 android:layout_weight="1"
                 android:text="项目类型" />
 
-            <EditText
+            <Spinner
                 android:id="@+id/projectType"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
@@ -129,7 +129,7 @@
                 android:layout_weight="1"
                 android:text="接 收 人" />
 
-            <EditText
+            <Spinner
                 android:id="@+id/receiver"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"

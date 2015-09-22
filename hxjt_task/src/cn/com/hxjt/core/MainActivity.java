@@ -199,6 +199,7 @@ public class MainActivity extends BaseActivity {
 	 * @return:void
 	 */
 	public void create_task_ops(View v) {
+		System.out.println("create_task_ops:::::::::::::::::::::::::::::");
 		if (v.getId() == R.id.assigne_task) {// fenpei
 			Intent intent = new Intent(MainActivity.this,
 					CreateTaskAssgineActivity.class);
