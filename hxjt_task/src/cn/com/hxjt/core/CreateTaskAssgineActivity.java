@@ -1,5 +1,6 @@
 package cn.com.hxjt.core;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -7,14 +8,21 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.InputType;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TimePicker;
 import cn.com.hxjt.core.cons.GlobalUrl;
 
 import com.lidroid.xutils.exception.HttpException;
@@ -26,13 +34,15 @@ import com.lidroid.xutils.http.callback.RequestCallBack;
  * @author pang
  *
  */
-public class CreateTaskAssgineActivity extends ParentTaskActivity {
+public class CreateTaskAssgineActivity extends ParentTaskActivity implements
+		View.OnTouchListener {
 
 	private EditText taskName;
 	private Spinner projectType, belongPro, receiver;
 	private ArrayAdapter<String> proTypesAd = null;
 	private ArrayAdapter<String> userAd = null;
 	private ArrayAdapter<String> proAd = null;
+	private EditText st;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -64,6 +74,8 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity {
 		projectType = (Spinner) findViewById(R.id.projectType);
 		belongPro = (Spinner) findViewById(R.id.belongPro);
 		receiver = (Spinner) findViewById(R.id.receiver);
+		st = (EditText) findViewById(R.id.st);
+		st.setOnTouchListener(this);
 	}
 
 	private void initProType() {
@@ -144,6 +156,9 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity {
 				@Override
 				public void onSuccess(ResponseInfo<String> responseInfo) {
 					String data = responseInfo.result;
+					if (data == null || "".equals(data)) {
+						return;
+					}
 					// ["数据仓库建设","软件开发","未知"]
 					String newData = data.substring(1, data.length() - 1);
 					String[] types = newData.split(",");
@@ -178,5 +193,66 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity {
 	 * @return:void
 	 */
 	public void save_or_cancel(View v) {
+	}
+
+	@Override
+	public boolean onTouch(View v, MotionEvent event) {
+		if (event.getAction() == MotionEvent.ACTION_DOWN) {
+
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			View view = View.inflate(this, R.layout.date_time_dialog, null);
+			final DatePicker datePicker = (DatePicker) view
+					.findViewById(R.id.date_picker);
+			final TimePicker timePicker = (android.widget.TimePicker) view
+					.findViewById(R.id.time_picker);
+			builder.setView(view);
+
+			Calendar cal = Calendar.getInstance();
+			cal.setTimeInMillis(System.currentTimeMillis());
+			datePicker.init(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH),
+					cal.get(Calendar.DAY_OF_MONTH), null);
+
+			timePicker.setIs24HourView(true);
+			timePicker.setCurrentHour(cal.get(Calendar.HOUR_OF_DAY));
+			timePicker.setCurrentMinute(Calendar.MINUTE);
+
+			if (v.getId() == R.id.st) {
+				final int inType = st.getInputType();
+				st.setInputType(InputType.TYPE_NULL);
+				st.onTouchEvent(event);
+				st.setInputType(inType);
+				st.setSelection(st.getText().length());
+
+				builder.setTitle("选取时间");
+				builder.setPositiveButton("确  定",
+						new DialogInterface.OnClickListener() {
+
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+
+								StringBuffer sb = new StringBuffer();
+								sb.append(String.format("%d-%02d-%02d",
+										datePicker.getYear(),
+										datePicker.getMonth() + 1,
+										datePicker.getDayOfMonth()));
+								sb.append("  ");
+								sb.append(timePicker.getCurrentHour())
+										.append(":")
+										.append(timePicker.getCurrentMinute());
+
+								st.setText(sb);
+								st.requestFocus();
+
+								dialog.cancel();
+							}
+						});
+
+			}
+			Dialog dialog = builder.create();
+			dialog.show();
+		}
+
+		return true;
 	}
 }
