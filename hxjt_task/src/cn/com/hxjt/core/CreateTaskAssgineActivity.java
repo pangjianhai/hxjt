@@ -10,6 +10,8 @@ import org.json.JSONObject;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -30,6 +32,7 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity {
 	private Spinner projectType, belongPro, receiver;
 	private ArrayAdapter<String> proTypesAd = null;
 	private ArrayAdapter<String> userAd = null;
+	private ArrayAdapter<String> proAd = null;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -39,6 +42,21 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity {
 		initPart();
 		initProType();
 		initUser();
+
+		projectType.setOnItemSelectedListener(new OnItemSelectedListener() {
+			@Override
+			public void onItemSelected(AdapterView<?> arg0, View arg1,
+					int arg2, long arg3) {
+				String proType = proTypesAd.getItem(arg2);
+				getPro(proType);
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
+				// TODO Auto-generated method stub
+
+			}
+		});
 	}
 
 	private void initPart() {
@@ -88,14 +106,12 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity {
 				@Override
 				public void onSuccess(ResponseInfo<String> responseInfo) {
 					String data = responseInfo.result;
-					System.out.println("data:" + data);
 					String[] nt = null;
 					try {
 						JSONArray array = new JSONArray(data);
 						nt = new String[array.length()];
 						for (int i = 0; i < array.length(); i++) {
 							JSONObject o = (JSONObject) array.get(i);
-							System.out.println("o:" + o);
 							String loginName = o.getString("LoginName");
 							nt[i] = loginName;
 						}
@@ -113,6 +129,40 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity {
 				}
 			};
 			Map param_map = new HashMap();
+			send_normal_request(url, param_map, rcb);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void getPro(String proT) {
+		String url = GlobalUrl.IP + GlobalUrl.getProByType + "?projectType="
+				+ proT;
+		try {
+			RequestCallBack<String> rcb = new RequestCallBack<String>() {
+
+				@Override
+				public void onSuccess(ResponseInfo<String> responseInfo) {
+					String data = responseInfo.result;
+					// ["数据仓库建设","软件开发","未知"]
+					String newData = data.substring(1, data.length() - 1);
+					String[] types = newData.split(",");
+					String[] nt = new String[types.length];
+					for (int i = 0; i < nt.length; i++) {
+						nt[i] = types[i].substring(1, types[i].length() - 1);
+					}
+					proAd = new ArrayAdapter<String>(
+							CreateTaskAssgineActivity.this,
+							android.R.layout.simple_spinner_item, nt);
+					belongPro.setAdapter(proAd);
+				}
+
+				@Override
+				public void onFailure(HttpException error, String msg) {
+				}
+			};
+			Map param_map = new HashMap();
+			param_map.put("projectType", proT);
 			send_normal_request(url, param_map, rcb);
 		} catch (Exception e) {
 			e.printStackTrace();

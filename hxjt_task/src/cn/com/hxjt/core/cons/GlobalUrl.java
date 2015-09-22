@@ -18,4 +18,9 @@ public class GlobalUrl {
 	 * 获取所有的执行人
 	 */
 	public static String getUsers = "user/GetAllUsers?loginName=zhoumeng";
+
+	/**
+	 * 根据项目类型获取项目
+	 */
+	public static String getProByType = "project/GetProjects";
 }
