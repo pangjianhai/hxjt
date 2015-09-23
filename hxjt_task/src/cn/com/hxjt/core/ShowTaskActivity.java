@@ -42,7 +42,7 @@ public class ShowTaskActivity extends ParentTaskActivity implements IApplyOps {
 		setContentView(R.layout.show_task_detail);
 		System.out.println("initPart");
 		initPart();
-		taskId = "1180";// getIntent().getStringExtra("taskId");
+		taskId = getIntent().getStringExtra("taskId");
 		getDetail();
 		renderBtn();
 	}
@@ -252,6 +252,7 @@ public class ShowTaskActivity extends ParentTaskActivity implements IApplyOps {
 				@Override
 				public void onSuccess(ResponseInfo<String> responseInfo) {
 					String data = responseInfo.result;
+					freshPage();
 				}
 
 				@Override

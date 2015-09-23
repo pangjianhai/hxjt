@@ -23,7 +23,11 @@
         <activity
             android:name="cn.com.hxjt.core.MainActivity"
             android:label="@string/app_name" >
-           
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".TaskListLayoutActivity" >
         </activity>
@@ -32,11 +36,6 @@
         <activity android:name=".CreateTaskAssgineActivity" >
         </activity>
         <activity android:name=".ShowTaskActivity" >
-             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 
