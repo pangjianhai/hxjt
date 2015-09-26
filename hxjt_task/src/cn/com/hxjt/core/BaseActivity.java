@@ -34,8 +34,6 @@ public class BaseActivity extends InstrumentedActivity {
 	public void onCreate(Bundle b) {
 		super.onCreate(b);
 		this.loginName = GloableApplication.getLoginName();
-		System.out.println("*************************通过application获取loginName："
-				+ loginName);
 		ActivityCollector.addActivity(this);
 
 	}
