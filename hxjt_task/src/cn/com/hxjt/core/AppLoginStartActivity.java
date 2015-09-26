@@ -141,6 +141,10 @@ public class AppLoginStartActivity extends ParentTaskActivity {
 		 */
 		new SharedPreInto(AppLoginStartActivity.this).initAccountAfterReg(
 				loginName, name, pwd);
+		/**
+		 * 全局变量设置
+		 */
+		GloableApplication.setLoginName(loginName);
 		Intent intent = new Intent();
 		intent.setClass(AppLoginStartActivity.this, HomeActivity.class);
 		startActivity(intent);
