@@ -43,4 +43,9 @@ public class GlobalUrl {
 	 * 自建任务
 	 */
 	public static String createOwnTask = "task/CreateOwnTask";
+
+	/**
+	 * 获取任务详情
+	 */
+	public static String getTaskInfo = "task/GetTaskInfo";
 }

@@ -12,6 +12,7 @@ import org.json.JSONObject;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.MotionEvent;
@@ -371,7 +372,6 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity implements
 			url = GlobalUrl.IP + GlobalUrl.createOwnTask;
 		}
 		url = url + param;
-		System.out.println("url:" + url);
 		try {
 			RequestCallBack<String> rcb = new RequestCallBack<String>() {
 
@@ -383,6 +383,7 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity implements
 						String taskId = j.getString("ID");
 						Toast.makeText(getApplicationContext(),
 								"taskId:" + taskId, Toast.LENGTH_SHORT).show();
+						showTaskDetail(taskId);
 					} catch (JSONException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -400,5 +401,20 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity implements
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	/**
+	 * 
+	 * @param taskId
+	 * @user:pang
+	 * @data:2015年9月28日
+	 * @todo:查看项目详情
+	 * @return:void
+	 */
+	private void showTaskDetail(String taskId) {
+		Intent intent = new Intent(CreateTaskAssgineActivity.this,
+				ShowTaskActivity.class);
+		intent.putExtra("taskId", taskId);
+		startActivity(intent);
 	}
 }
