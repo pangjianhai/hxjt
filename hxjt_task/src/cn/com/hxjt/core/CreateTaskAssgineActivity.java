@@ -266,7 +266,6 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity implements
 			param.append("&projectPosition=null");
 			param.append("&project=" + belongPro.getSelectedItem().toString());
 			String st_str = st.getText().toString() + ":00";
-			System.out.println("st_str:" + st_str);
 			
 			param.append("&requiredCompletionDate=20150925235959");
 			if (!type.equals("create")) {
