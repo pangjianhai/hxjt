@@ -37,6 +37,7 @@ import com.lidroid.xutils.http.callback.RequestCallBack;
 public class CreateTaskAssgineActivity extends ParentTaskActivity implements
 		View.OnTouchListener {
 
+	private String type;
 	private EditText taskName;
 	private Spinner projectType, belongPro, receiver;
 	private ArrayAdapter<String> proTypesAd = null;
@@ -67,6 +68,7 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity implements
 
 			}
 		});
+		type = getIntent().getStringExtra("type");
 	}
 
 	private void initPart() {
@@ -124,7 +126,8 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity implements
 						nt = new String[array.length()];
 						for (int i = 0; i < array.length(); i++) {
 							JSONObject o = (JSONObject) array.get(i);
-							String loginName = o.getString("LoginName");
+							// String loginName = o.getString("LoginName");
+							String loginName = o.getString("Name");
 							nt[i] = loginName;
 						}
 					} catch (JSONException e) {
@@ -182,17 +185,6 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity implements
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-
-	/**
-	 * 
-	 * @param v
-	 * @user:pang
-	 * @data:2015年7月21日
-	 * @todo:创建任务
-	 * @return:void
-	 */
-	public void save_or_cancel(View v) {
 	}
 
 	@Override
@@ -254,5 +246,39 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity implements
 		}
 
 		return true;
+	}
+
+	/**
+	 * 
+	 * @param v
+	 * @user:pang
+	 * @data:2015年7月21日
+	 * @todo:创建任务
+	 * @return:void
+	 */
+	public void save_or_cancel(View v) {
+		if (v.getId() == R.id.add_save_task) {
+			StringBuilder param = new StringBuilder("?");
+			param.append("loginName=" + loginName);
+			param.append("&taskName=" + taskName.getText().toString());
+			param.append("&projectType="
+					+ projectType.getSelectedItem().toString());
+			param.append("&projectPosition=null");
+			param.append("&project=" + belongPro.getSelectedItem().toString());
+			String st_str = st.getText().toString() + ":00";
+			System.out.println("st_str:" + st_str);
+			
+			param.append("&requiredCompletionDate=20150925235959");
+			if (!type.equals("create")) {
+				param.append("&arranger="
+						+ receiver.getSelectedItem().toString());
+				param.append("&isNeedCheck=true");
+				param.append("&isNeedCheck=true");
+			}
+			System.out.println("receiver.getSelectedItem().toString():"
+					+ receiver.getSelectedItem().toString());
+		} else if (v.getId() == R.id.add_cancel_task) {
+			finish();
+		}
 	}
 }

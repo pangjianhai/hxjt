@@ -36,7 +36,7 @@
         android:orientation="horizontal" >
 
         <Button
-            android:id="@+id/assigne_task"
+            android:id="@+id/add_save_task"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/task_create_bg"
@@ -46,7 +46,7 @@
             android:textSize="14dp" />
 
         <Button
-            android:id="@+id/approve_task"
+            android:id="@+id/add_cancel_task"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/task_create_bg"
