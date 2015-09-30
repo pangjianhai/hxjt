@@ -3,6 +3,7 @@ package cn.com.hxjt.core;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.com.hxjt.core.entity.TaskEntity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -202,17 +203,17 @@ public class MainActivity extends BaseActivity {
 		if (v.getId() == R.id.assigne_task) {// fenpei
 			Intent intent = new Intent(MainActivity.this,
 					CreateTaskAssgineActivity.class);
-			intent.putExtra("type", "assign");
+			intent.putExtra("type", TaskEntity.TASK_TYPE_ASSIGN);
 			startActivity(intent);
 		} else if (v.getId() == R.id.approve_task) {// shenqing
 			Intent intent = new Intent(MainActivity.this,
 					CreateTaskAssgineActivity.class);
-			intent.putExtra("type", "approve");
+			intent.putExtra("type", TaskEntity.TASK_TYPE_APPLY);
 			startActivity(intent);
 		} else if (v.getId() == R.id.crate_task) {// chuangjian
 			Intent intent = new Intent(MainActivity.this,
 					CreateTaskAssgineActivity.class);
-			intent.putExtra("type", "create");
+			intent.putExtra("type", TaskEntity.TASK_TYPE_CREATE);
 			startActivity(intent);
 		}
 	}

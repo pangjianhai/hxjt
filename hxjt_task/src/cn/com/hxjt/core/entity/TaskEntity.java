@@ -7,6 +7,10 @@ package cn.com.hxjt.core.entity;
  */
 public class TaskEntity {
 
+	public static final String TASK_TYPE_ASSIGN = "0";
+	public static final String TASK_TYPE_APPLY = "1";
+	public static final String TASK_TYPE_CREATE = "2";
+
 	/**
 	 * 任务ID
 	 */
@@ -15,7 +19,7 @@ public class TaskEntity {
 	 * 任务标题
 	 */
 	private String title;
-	
+
 	/**
 	 * 执行人ID
 	 */

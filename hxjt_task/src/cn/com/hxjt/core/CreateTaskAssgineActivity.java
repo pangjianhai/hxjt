@@ -25,6 +25,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TimePicker;
 import cn.com.hxjt.core.cons.GlobalUrl;
+import cn.com.hxjt.core.entity.TaskEntity;
 import cn.com.hxjt.core.util.CommonDateUtil;
 
 import com.lidroid.xutils.exception.HttpException;
@@ -312,10 +313,16 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity implements
 			Date dt = CommonDateUtil.getTime(st_str);
 			String str = CommonDateUtil.getDateTimeForStr(dt);
 			param.append("&requiredCompletionDate=" + str);
-			if (!type.equals("create")) {
+			if (!type.equals(TaskEntity.TASK_TYPE_CREATE)) {
+				param.append("&isNeedCheck=true");
+			}
+			if (type.equals(TaskEntity.TASK_TYPE_ASSIGN)) {
+				param.append("&receiver="
+						+ receiver.getSelectedItem().toString());
+			}
+			if (type.equals(TaskEntity.TASK_TYPE_APPLY)) {
 				param.append("&arranger="
 						+ receiver.getSelectedItem().toString());
-				param.append("&isNeedCheck=true");
 			}
 			save(param.toString());
 		} else if (v.getId() == R.id.add_cancel_task) {
@@ -333,11 +340,11 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity implements
 	 */
 	private void save(String param) {
 		String url = "";
-		if (type.equals("assign")) {
+		if (type.equals(TaskEntity.TASK_TYPE_ASSIGN)) {
 			url = GlobalUrl.IP + GlobalUrl.assignTask;
-		} else if (type.equals("approve")) {
+		} else if (type.equals(TaskEntity.TASK_TYPE_APPLY)) {
 			url = GlobalUrl.IP + GlobalUrl.applyTask;
-		} else if (type.equals("create")) {
+		} else if (type.equals(TaskEntity.TASK_TYPE_CREATE)) {
 			url = GlobalUrl.IP + GlobalUrl.createOwnTask;
 		}
 		url = url + param;
