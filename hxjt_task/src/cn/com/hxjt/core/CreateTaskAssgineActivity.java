@@ -41,8 +41,9 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity implements
 
 	private String type;
 	private EditText taskName;
-	private Spinner projectType, belongPro, receiver;
+	private Spinner projectType, belongPro, belongProPosition, receiver;
 	private ArrayAdapter<String> proTypesAd = null;
+	private ArrayAdapter<String> proPositionsAd = null;
 	private ArrayAdapter<String> userAd = null;
 	private ArrayAdapter<String> proAd = null;
 	private EditText st;
@@ -62,6 +63,7 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity implements
 					int arg2, long arg3) {
 				String proType = proTypesAd.getItem(arg2);
 				getPro(proType);
+				getProPosition(proType);
 			}
 
 			@Override
@@ -77,6 +79,7 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity implements
 		taskName = (EditText) findViewById(R.id.taskName);
 		projectType = (Spinner) findViewById(R.id.projectType);
 		belongPro = (Spinner) findViewById(R.id.belongPro);
+		belongProPosition = (Spinner) findViewById(R.id.belongProPosition);
 		receiver = (Spinner) findViewById(R.id.receiver);
 		st = (EditText) findViewById(R.id.st);
 		st.setOnTouchListener(this);
@@ -101,6 +104,79 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity implements
 							CreateTaskAssgineActivity.this,
 							android.R.layout.simple_spinner_item, nt);
 					projectType.setAdapter(proTypesAd);
+				}
+
+				@Override
+				public void onFailure(HttpException error, String msg) {
+				}
+			};
+			Map param_map = new HashMap();
+			send_normal_request(url, param_map, rcb);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void getPro(String proT) {
+		System.out.println("*******getPro:" + proT);
+		String url = GlobalUrl.IP + GlobalUrl.getProByType + "?projectType="
+				+ proT;
+		try {
+			RequestCallBack<String> rcb = new RequestCallBack<String>() {
+
+				@Override
+				public void onSuccess(ResponseInfo<String> responseInfo) {
+					String data = responseInfo.result;
+					if (data == null || "".equals(data) || "[]".equals(data)) {
+						return;
+					}
+					// ["数据仓库建设","软件开发","未知"]
+					String newData = data.substring(1, data.length() - 1);
+					String[] types = newData.split(",");
+					String[] nt = new String[types.length];
+					for (int i = 0; i < nt.length; i++) {
+						nt[i] = types[i].substring(1, types[i].length() - 1);
+					}
+					proAd = new ArrayAdapter<String>(
+							CreateTaskAssgineActivity.this,
+							android.R.layout.simple_spinner_item, nt);
+					belongPro.setAdapter(proAd);
+				}
+
+				@Override
+				public void onFailure(HttpException error, String msg) {
+				}
+			};
+			Map param_map = new HashMap();
+			param_map.put("projectType", proT);
+			send_normal_request(url, param_map, rcb);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void getProPosition(String proT) {
+		String url = GlobalUrl.IP + GlobalUrl.getProjectPositions
+				+ "?projectType=" + proT;
+		try {
+			RequestCallBack<String> rcb = new RequestCallBack<String>() {
+
+				@Override
+				public void onSuccess(ResponseInfo<String> responseInfo) {
+					String data = responseInfo.result;
+					if (data == null || "".equals(data) || "[]".equals(data)) {
+						return;
+					}
+					String newData = data.substring(1, data.length() - 1);
+					String[] types = newData.split(",");
+					String[] nt = new String[types.length];
+					for (int i = 0; i < nt.length; i++) {
+						nt[i] = types[i].substring(1, types[i].length() - 1);
+					}
+					proPositionsAd = new ArrayAdapter<String>(
+							CreateTaskAssgineActivity.this,
+							android.R.layout.simple_spinner_item, nt);
+					belongProPosition.setAdapter(proPositionsAd);
 				}
 
 				@Override
@@ -146,43 +222,6 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity implements
 				}
 			};
 			Map param_map = new HashMap();
-			send_normal_request(url, param_map, rcb);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	private void getPro(String proT) {
-		String url = GlobalUrl.IP + GlobalUrl.getProByType + "?projectType="
-				+ proT;
-		try {
-			RequestCallBack<String> rcb = new RequestCallBack<String>() {
-
-				@Override
-				public void onSuccess(ResponseInfo<String> responseInfo) {
-					String data = responseInfo.result;
-					if (data == null || "".equals(data)) {
-						return;
-					}
-					// ["数据仓库建设","软件开发","未知"]
-					String newData = data.substring(1, data.length() - 1);
-					String[] types = newData.split(",");
-					String[] nt = new String[types.length];
-					for (int i = 0; i < nt.length; i++) {
-						nt[i] = types[i].substring(1, types[i].length() - 1);
-					}
-					proAd = new ArrayAdapter<String>(
-							CreateTaskAssgineActivity.this,
-							android.R.layout.simple_spinner_item, nt);
-					belongPro.setAdapter(proAd);
-				}
-
-				@Override
-				public void onFailure(HttpException error, String msg) {
-				}
-			};
-			Map param_map = new HashMap();
-			param_map.put("projectType", proT);
 			send_normal_request(url, param_map, rcb);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -265,17 +304,16 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity implements
 			param.append("&taskName=" + taskName.getText().toString());
 			param.append("&projectType="
 					+ projectType.getSelectedItem().toString());
-			param.append("&projectPosition=null");
+			param.append("&projectPosition="
+					+ belongProPosition.getSelectedItem().toString());
 			param.append("&project=" + belongPro.getSelectedItem().toString());
 			String st_str = st.getText().toString() + ":00";
 			Date dt = CommonDateUtil.getTime(st_str);
 			String str = CommonDateUtil.getDateTimeForStr(dt);
-			System.out.println("str:" + str);
 			param.append("&requiredCompletionDate=" + str);
 			if (!type.equals("create")) {
 				param.append("&arranger="
 						+ receiver.getSelectedItem().toString());
-				param.append("&isNeedCheck=true");
 				param.append("&isNeedCheck=true");
 			}
 		} else if (v.getId() == R.id.add_cancel_task) {

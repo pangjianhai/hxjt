@@ -13,6 +13,11 @@ public class GlobalUrl {
 	 * 获取项目类型
 	 */
 	public static String getProTypes = "project/GetProjectTypes";
+	
+	/**
+	 * 获取项目类型
+	 */
+	public static String getProjectPositions = "project/GetProjectPositions";
 
 	/**
 	 * 获取所有的执行人
