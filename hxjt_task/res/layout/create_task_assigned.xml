@@ -138,11 +138,14 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/receiver_notice_layout"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal" >
+            android:orientation="horizontal"
+            android:visibility="visible" >
 
             <TextView
+                android:id="@+id/receiver_notice"
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

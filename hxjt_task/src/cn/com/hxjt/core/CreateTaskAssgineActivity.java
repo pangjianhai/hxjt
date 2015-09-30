@@ -12,7 +12,6 @@ import org.json.JSONObject;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.MotionEvent;
@@ -23,6 +22,7 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -52,6 +52,10 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity implements
 	private ArrayAdapter<String> proAd = null;
 	private EditText st;
 
+	/***** 需要控制是否显示 ***/
+	private LinearLayout receiver_notice_layout;
+	private TextView receiver_notice;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -79,10 +83,13 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity implements
 		type = getIntent().getStringExtra("type");
 		if (type.equals(TaskEntity.TASK_TYPE_ASSIGN)) {// fenpei
 			add_task_title.setText("分配任务");
+			receiver_notice.setText("接  收 人");
 		} else if (type.equals(TaskEntity.TASK_TYPE_APPLY)) {// shenqing
-			add_task_title.setText("申请任务");
+			add_task_title.setText("安 排 人");
+			receiver_notice.setText("");
 		} else if (type.equals(TaskEntity.TASK_TYPE_CREATE)) {// chuangjian
 			add_task_title.setText("创建任务");
+			receiver_notice_layout.setVisibility(View.GONE);
 		}
 	}
 
@@ -95,6 +102,9 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity implements
 		st = (EditText) findViewById(R.id.st);
 		st.setOnTouchListener(this);
 		add_task_title = (TextView) findViewById(R.id.add_task_title);
+
+		receiver_notice_layout = (LinearLayout) findViewById(R.id.receiver_notice_layout);
+		receiver_notice = (TextView) findViewById(R.id.receiver_notice);
 	}
 
 	private void initProType() {
@@ -130,7 +140,6 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity implements
 	}
 
 	private void getPro(String proT) {
-		System.out.println("*******getPro:" + proT);
 		String url = GlobalUrl.IP + GlobalUrl.getProByType + "?projectType="
 				+ proT;
 		try {
