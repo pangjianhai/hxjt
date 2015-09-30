@@ -1,6 +1,7 @@
 package cn.com.hxjt.core;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,6 +25,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TimePicker;
 import cn.com.hxjt.core.cons.GlobalUrl;
+import cn.com.hxjt.core.util.CommonDateUtil;
 
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.ResponseInfo;
@@ -266,16 +268,16 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity implements
 			param.append("&projectPosition=null");
 			param.append("&project=" + belongPro.getSelectedItem().toString());
 			String st_str = st.getText().toString() + ":00";
-			
-			param.append("&requiredCompletionDate=20150925235959");
+			Date dt = CommonDateUtil.getTime(st_str);
+			String str = CommonDateUtil.getDateTimeForStr(dt);
+			System.out.println("str:" + str);
+			param.append("&requiredCompletionDate=" + str);
 			if (!type.equals("create")) {
 				param.append("&arranger="
 						+ receiver.getSelectedItem().toString());
 				param.append("&isNeedCheck=true");
 				param.append("&isNeedCheck=true");
 			}
-			System.out.println("receiver.getSelectedItem().toString():"
-					+ receiver.getSelectedItem().toString());
 		} else if (v.getId() == R.id.add_cancel_task) {
 			finish();
 		}
