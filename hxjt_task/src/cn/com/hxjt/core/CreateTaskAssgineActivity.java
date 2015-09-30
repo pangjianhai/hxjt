@@ -26,6 +26,7 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 import cn.com.hxjt.core.cons.GlobalUrl;
 import cn.com.hxjt.core.entity.TaskEntity;
 import cn.com.hxjt.core.util.CommonDateUtil;
@@ -375,11 +376,21 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity implements
 				@Override
 				public void onSuccess(ResponseInfo<String> responseInfo) {
 					String data = responseInfo.result;
-					System.out.println("data:" + data);
+					try {
+						JSONObject j = new JSONObject(data);
+						String taskId = j.getString("ID");
+						Toast.makeText(getApplicationContext(),
+								"taskId:" + taskId, Toast.LENGTH_SHORT).show();
+					} catch (JSONException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 
 				@Override
 				public void onFailure(HttpException error, String msg) {
+					Toast.makeText(getApplicationContext(), "哦，服务器出问题了",
+							Toast.LENGTH_SHORT).show();
 				}
 			};
 			Map param_map = new HashMap();
