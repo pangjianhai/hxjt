@@ -102,6 +102,8 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity implements
 		receiver = (Spinner) findViewById(R.id.receiver);
 		st = (EditText) findViewById(R.id.st);
 		st.setOnTouchListener(this);
+		String date = CommonDateUtil.getCurrTime();
+		st.setText(date.subSequence(0, date.length() - 2));
 		add_task_title = (TextView) findViewById(R.id.add_task_title);
 
 		receiver_notice_layout = (LinearLayout) findViewById(R.id.receiver_notice_layout);
