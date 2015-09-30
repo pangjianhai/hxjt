@@ -298,6 +298,7 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity implements
 	 * @return:void
 	 */
 	public void save_or_cancel(View v) {
+
 		if (v.getId() == R.id.add_save_task) {
 			StringBuilder param = new StringBuilder("?");
 			param.append("loginName=" + loginName);
@@ -316,8 +317,48 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity implements
 						+ receiver.getSelectedItem().toString());
 				param.append("&isNeedCheck=true");
 			}
+			save(param.toString());
 		} else if (v.getId() == R.id.add_cancel_task) {
 			finish();
+		}
+	}
+
+	/**
+	 * 
+	 * @param param
+	 * @user:pang
+	 * @data:2015年9月30日
+	 * @todo:真正的添加
+	 * @return:void
+	 */
+	private void save(String param) {
+		String url = "";
+		if (type.equals("assign")) {
+			url = GlobalUrl.IP + GlobalUrl.assignTask;
+		} else if (type.equals("approve")) {
+			url = GlobalUrl.IP + GlobalUrl.applyTask;
+		} else if (type.equals("create")) {
+			url = GlobalUrl.IP + GlobalUrl.createOwnTask;
+		}
+		url = url + param;
+		System.out.println("url:" + url);
+		try {
+			RequestCallBack<String> rcb = new RequestCallBack<String>() {
+
+				@Override
+				public void onSuccess(ResponseInfo<String> responseInfo) {
+					String data = responseInfo.result;
+					System.out.println("data:" + data);
+				}
+
+				@Override
+				public void onFailure(HttpException error, String msg) {
+				}
+			};
+			Map param_map = new HashMap();
+			send_normal_request(url, param_map, rcb);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 }

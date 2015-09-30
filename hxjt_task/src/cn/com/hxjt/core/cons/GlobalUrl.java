@@ -13,9 +13,9 @@ public class GlobalUrl {
 	 * 获取项目类型
 	 */
 	public static String getProTypes = "project/GetProjectTypes";
-	
+
 	/**
-	 * 获取项目类型
+	 * 获取项目类型岗位
 	 */
 	public static String getProjectPositions = "project/GetProjectPositions";
 
@@ -28,4 +28,19 @@ public class GlobalUrl {
 	 * 根据项目类型获取项目
 	 */
 	public static String getProByType = "project/GetProjects";
+
+	/**
+	 * 分配任务
+	 */
+	public static String assignTask = "task/AssignTask";
+
+	/**
+	 * 申请任务
+	 */
+	public static String applyTask = "task/ApplyTask";
+
+	/**
+	 * 自建任务
+	 */
+	public static String createOwnTask = "task/CreateOwnTask";
 }
