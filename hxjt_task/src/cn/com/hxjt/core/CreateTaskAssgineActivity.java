@@ -12,6 +12,7 @@ import org.json.JSONObject;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.MotionEvent;
@@ -23,6 +24,7 @@ import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import cn.com.hxjt.core.cons.GlobalUrl;
 import cn.com.hxjt.core.entity.TaskEntity;
@@ -41,6 +43,7 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity implements
 		View.OnTouchListener {
 
 	private String type;
+	private TextView add_task_title;
 	private EditText taskName;
 	private Spinner projectType, belongPro, belongProPosition, receiver;
 	private ArrayAdapter<String> proTypesAd = null;
@@ -74,6 +77,13 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity implements
 			}
 		});
 		type = getIntent().getStringExtra("type");
+		if (type.equals(TaskEntity.TASK_TYPE_ASSIGN)) {// fenpei
+			add_task_title.setText("分配任务");
+		} else if (type.equals(TaskEntity.TASK_TYPE_APPLY)) {// shenqing
+			add_task_title.setText("申请任务");
+		} else if (type.equals(TaskEntity.TASK_TYPE_CREATE)) {// chuangjian
+			add_task_title.setText("创建任务");
+		}
 	}
 
 	private void initPart() {
@@ -84,6 +94,7 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity implements
 		receiver = (Spinner) findViewById(R.id.receiver);
 		st = (EditText) findViewById(R.id.st);
 		st.setOnTouchListener(this);
+		add_task_title = (TextView) findViewById(R.id.add_task_title);
 	}
 
 	private void initProType() {
