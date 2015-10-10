@@ -23,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="分配任务"
+            android:text="任务详情"
             android:textColor="@color/black"
             android:textSize="20sp" />
     </RelativeLayout>
@@ -42,17 +42,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/task_create_bg"
             android:onClick="save_or_cancel"
-            android:text="保存"
-            android:textColor="@color/orange"
-            android:textSize="14dp" />
-
-        <Button
-            android:id="@+id/add_cancel_task"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/task_create_bg"
-            android:onClick="save_or_cancel"
-            android:text="取消"
+            android:text="处理"
             android:textColor="@color/orange"
             android:textSize="14dp" />
     </LinearLayout>
@@ -62,8 +52,66 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_below="@+id/layout_space_ops"
-        android:background="@color/white"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:padding="10dp" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:divider="@color/black"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:showDividers="middle" >
+
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="任务内容"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/show_taskName"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:divider="@color/black"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="重要程度"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/show_important"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="紧急程度"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/show_emergent"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -74,10 +122,11 @@
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="任务内容" />
+                android:text="所属项目"
+                android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/taskName"
+                android:id="@+id/show_belongPro"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3" />
@@ -92,28 +141,11 @@
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="所属项目" />
+                android:text="项目岗位"
+                android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/belongPro"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="3" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" >
-
-            <TextView
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="项目岗位" />
-
-            <TextView
-                android:id="@+id/belongProPosition"
+                android:id="@+id/show_belongProPosition"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3" />
@@ -129,10 +161,11 @@
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="安 排 人" />
+                android:text="安 排 人"
+                android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/arranger"
+                android:id="@+id/show_arranger"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3" />
@@ -145,14 +178,15 @@
             android:visibility="visible" >
 
             <TextView
-                android:id="@+id/receiver_notice"
+                android:id="@+id/show_receiver_notice"
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="接 收 人" />
+                android:text="接 收 人"
+                android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/receiver"
+                android:id="@+id/show_receiver"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3" />
@@ -168,10 +202,11 @@
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="创 建 人" />
+                android:text="创 建 人"
+                android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/creator"
+                android:id="@+id/show_creator"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3" />
@@ -186,10 +221,11 @@
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="规定完成时间" />
+                android:text="规定完成时间"
+                android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/requiredCompletionDate"
+                android:id="@+id/show_requiredCompletionDate"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3" />
@@ -204,10 +240,11 @@
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="完成时间" />
+                android:text="完成时间"
+                android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/completionDate"
+                android:id="@+id/show_completionDate"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3" />

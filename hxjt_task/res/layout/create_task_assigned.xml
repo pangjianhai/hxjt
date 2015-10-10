@@ -74,7 +74,8 @@
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="任务内容" />
+                android:text="任务内容"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/taskName"
@@ -92,7 +93,8 @@
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="项目类型" />
+                android:text="项目类型"
+                android:textStyle="bold" />
 
             <Spinner
                 android:id="@+id/projectType"
@@ -110,7 +112,8 @@
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="所属项目" />
+                android:text="所属项目"
+                android:textStyle="bold" />
 
             <Spinner
                 android:id="@+id/belongPro"
@@ -128,7 +131,8 @@
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="项目岗位" />
+                android:text="项目岗位"
+                android:textStyle="bold" />
 
             <Spinner
                 android:id="@+id/belongProPosition"
@@ -149,7 +153,8 @@
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="接 收 人" />
+                android:text="接 收 人"
+                android:textStyle="bold" />
 
             <Spinner
                 android:id="@+id/receiver"
@@ -167,7 +172,8 @@
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="完成时间" />
+                android:text="完成时间"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/st"

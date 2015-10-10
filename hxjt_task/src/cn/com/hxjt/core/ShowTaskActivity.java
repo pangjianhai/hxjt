@@ -26,7 +26,8 @@ public class ShowTaskActivity extends ParentTaskActivity {
 	private TaskBean tb = null;
 
 	private TextView taskName, belongPro, belongProPosition, arranger,
-			receiver, creator, requiredCompletionDate, completionDate;
+			receiver, creator, requiredCompletionDate, completionDate,
+			importantLevel, emergentLevel;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -35,7 +36,7 @@ public class ShowTaskActivity extends ParentTaskActivity {
 		setContentView(R.layout.show_task_detail);
 		System.out.println("initPart");
 		initPart();
-		taskId = getIntent().getStringExtra("taskId");
+		taskId = "1180";// getIntent().getStringExtra("taskId");
 		getDetail();
 	}
 
@@ -46,14 +47,16 @@ public class ShowTaskActivity extends ParentTaskActivity {
 	 * @return:void
 	 */
 	private void initPart() {
-		taskName = (TextView) findViewById(R.id.taskName);
-		belongPro = (TextView) findViewById(R.id.belongPro);
-		belongProPosition = (TextView) findViewById(R.id.belongProPosition);
-		arranger = (TextView) findViewById(R.id.arranger);
-		receiver = (TextView) findViewById(R.id.receiver);
-		creator = (TextView) findViewById(R.id.creator);
-		requiredCompletionDate = (TextView) findViewById(R.id.requiredCompletionDate);
-		completionDate = (TextView) findViewById(R.id.completionDate);
+		taskName = (TextView) findViewById(R.id.show_taskName);
+		belongPro = (TextView) findViewById(R.id.show_belongPro);
+		belongProPosition = (TextView) findViewById(R.id.show_belongProPosition);
+		arranger = (TextView) findViewById(R.id.show_arranger);
+		receiver = (TextView) findViewById(R.id.show_receiver);
+		creator = (TextView) findViewById(R.id.show_creator);
+		requiredCompletionDate = (TextView) findViewById(R.id.show_requiredCompletionDate);
+		completionDate = (TextView) findViewById(R.id.show_completionDate);
+		importantLevel = (TextView) findViewById(R.id.show_important);
+		emergentLevel = (TextView) findViewById(R.id.show_emergent);
 	}
 
 	/**
@@ -109,6 +112,8 @@ public class ShowTaskActivity extends ParentTaskActivity {
 			ct = "";
 		}
 		completionDate.setText(ct);
+		importantLevel.setText(tb.getImportantLevel());
+		emergentLevel.setText(tb.getEmergentLevel());
 	}
 
 }
