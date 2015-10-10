@@ -32,14 +32,28 @@ public class ShowTaskActivity extends ParentTaskActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		initPart();
 		setContentView(R.layout.show_task_detail);
+		System.out.println("initPart");
+		initPart();
 		taskId = getIntent().getStringExtra("taskId");
 		getDetail();
 	}
 
+	/**
+	 * @user:pang
+	 * @data:2015年10月10日
+	 * @todo:初始化元素
+	 * @return:void
+	 */
 	private void initPart() {
-
+		taskName = (TextView) findViewById(R.id.taskName);
+		belongPro = (TextView) findViewById(R.id.belongPro);
+		belongProPosition = (TextView) findViewById(R.id.belongProPosition);
+		arranger = (TextView) findViewById(R.id.arranger);
+		receiver = (TextView) findViewById(R.id.receiver);
+		creator = (TextView) findViewById(R.id.creator);
+		requiredCompletionDate = (TextView) findViewById(R.id.requiredCompletionDate);
+		completionDate = (TextView) findViewById(R.id.completionDate);
 	}
 
 	/**
@@ -57,6 +71,7 @@ public class ShowTaskActivity extends ParentTaskActivity {
 				public void onSuccess(ResponseInfo<String> responseInfo) {
 					String data = responseInfo.result;
 					tb = TaskUtil.getBeanByJson(data);
+					System.out.println(tb + ":data:" + data);
 					renderFace(tb);
 				}
 
@@ -82,7 +97,18 @@ public class ShowTaskActivity extends ParentTaskActivity {
 	 * @return:void
 	 */
 	private void renderFace(TaskBean tb) {
-
+		taskName.setText(tb.getName());
+		belongPro.setText(tb.getPro());
+		belongProPosition.setText(tb.getProPosition());
+		arranger.setText(tb.getArranger());
+		receiver.setText(tb.getReceiver());
+		creator.setText(tb.getCreator());
+		requiredCompletionDate.setText(tb.getRequireCompleteDate());
+		String ct = tb.getCompleteDate();
+		if ("null".equals(ct)) {
+			ct = "";
+		}
+		completionDate.setText(ct);
 	}
 
 }
