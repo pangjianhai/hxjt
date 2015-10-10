@@ -49,6 +49,7 @@ public class HomeActivity extends BaseActivity {
 		setContentView(R.layout.activity_main);
 
 		initPart();
+		initAlis();
 	}
 
 	/**

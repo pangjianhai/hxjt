@@ -7,6 +7,4 @@ package cn.com.hxjt.core;
  */
 public class ParentTaskActivity extends BaseActivity {
 
-	public String loginName = "zhuoqilin";
-
 }

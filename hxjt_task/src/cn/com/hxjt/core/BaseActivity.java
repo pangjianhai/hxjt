@@ -28,7 +28,7 @@ import com.lidroid.xutils.http.client.HttpRequest;
  *
  */
 public class BaseActivity extends InstrumentedActivity {
-	public String userId;
+	public String loginName = "zhuoqilin";
 
 	@Override
 	public void onCreate(Bundle b) {
@@ -126,7 +126,7 @@ public class BaseActivity extends InstrumentedActivity {
 	};
 
 	public void initAlis() {
-		mHandler.sendMessage(mHandler.obtainMessage(MSG_SET_ALIAS, userId));
+		mHandler.sendMessage(mHandler.obtainMessage(MSG_SET_ALIAS, loginName));
 	}
 
 	private final TagAliasCallback mAliasCallback = new TagAliasCallback() {
