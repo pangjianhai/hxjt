@@ -52,17 +52,17 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_below="@+id/layout_space_ops"
+        android:divider="@drawable/divider2"
         android:orientation="vertical"
-        android:padding="10dp" >
+        android:padding="10dp"
+        android:showDividers="middle|end" >
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:divider="@color/black"
             android:gravity="center_horizontal"
-            android:orientation="horizontal"
-            android:showDividers="middle" >
+            android:orientation="horizontal" >
 
             <TextView
                 android:layout_width="50dp"
@@ -82,7 +82,6 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:divider="@color/black"
             android:gravity="center_horizontal"
             android:orientation="horizontal" >
 
@@ -97,7 +96,15 @@
                 android:id="@+id/show_important"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:layout_weight="3" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal" >
 
             <TextView
                 android:layout_width="50dp"
@@ -110,7 +117,7 @@
                 android:id="@+id/show_emergent"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:layout_weight="3" />
         </LinearLayout>
 
         <LinearLayout
@@ -161,7 +168,7 @@
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="安 排 人"
+                android:text="安  排  人"
                 android:textStyle="bold" />
 
             <TextView
@@ -182,7 +189,7 @@
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="接 收 人"
+                android:text="接  收  人"
                 android:textStyle="bold" />
 
             <TextView
@@ -202,7 +209,7 @@
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="创 建 人"
+                android:text="创  建  人"
                 android:textStyle="bold" />
 
             <TextView
