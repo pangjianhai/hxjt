@@ -10,6 +10,11 @@ public class GlobalUrl {
 	public static String IP = "http://222.174.100.181:8998/";
 
 	/**
+	 * 登录
+	 */
+	public static String login = "user/Login";
+
+	/**
 	 * 获取项目类型
 	 */
 	public static String getProTypes = "project/GetProjectTypes";

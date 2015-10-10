@@ -48,13 +48,15 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="cn.com.hxjt.core.HomeActivity"
+            android:name="cn.com.hxjt.core.AppLoginStartActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name="cn.com.hxjt.core.HomeActivity" >
         </activity>
         <activity android:name=".TaskListLayoutActivity" >
         </activity>
