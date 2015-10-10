@@ -6,16 +6,16 @@ import java.util.Map;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.os.Bundle;
+import android.view.Window;
+import android.widget.Toast;
 import cn.com.hxjt.core.cons.GlobalUrl;
-import cn.com.hxjt.core.entity.TaskEntity;
+import cn.com.hxjt.core.entity.TaskBean;
+import cn.com.hxjt.core.util.TaskUtil;
 
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
-
-import android.os.Bundle;
-import android.view.Window;
-import android.widget.Toast;
 
 /**
  * @todo 任务详情activity
@@ -25,6 +25,7 @@ import android.widget.Toast;
 public class ShowTaskActivity extends ParentTaskActivity {
 	// 任务ID
 	private String taskId;
+	private TaskBean tb = null;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -49,11 +50,8 @@ public class ShowTaskActivity extends ParentTaskActivity {
 				@Override
 				public void onSuccess(ResponseInfo<String> responseInfo) {
 					String data = responseInfo.result;
-					try {
-						JSONObject j = new JSONObject(data);
-					} catch (JSONException e) {
-						e.printStackTrace();
-					}
+					tb = TaskUtil.getBeanByJson(data);
+					renderFace(tb);
 				}
 
 				@Override
@@ -67,6 +65,18 @@ public class ShowTaskActivity extends ParentTaskActivity {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	/**
+	 * 
+	 * @param tb
+	 * @user:pang
+	 * @data:2015年10月10日
+	 * @todo:渲染界面
+	 * @return:void
+	 */
+	private void renderFace(TaskBean tb) {
+
 	}
 
 }
