@@ -3,11 +3,9 @@ package cn.com.hxjt.core;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.os.Bundle;
 import android.view.Window;
+import android.widget.TextView;
 import android.widget.Toast;
 import cn.com.hxjt.core.cons.GlobalUrl;
 import cn.com.hxjt.core.entity.TaskBean;
@@ -27,13 +25,21 @@ public class ShowTaskActivity extends ParentTaskActivity {
 	private String taskId;
 	private TaskBean tb = null;
 
+	private TextView taskName, belongPro, belongProPosition, arranger,
+			receiver, creator, requiredCompletionDate, completionDate;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		initPart();
 		setContentView(R.layout.show_task_detail);
 		taskId = getIntent().getStringExtra("taskId");
 		getDetail();
+	}
+
+	private void initPart() {
+
 	}
 
 	/**

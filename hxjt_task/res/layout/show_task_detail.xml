@@ -76,26 +76,8 @@
                 android:layout_weight="1"
                 android:text="任务内容" />
 
-            <EditText
-                android:id="@+id/taskName"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="3" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" >
-
             <TextView
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="项目类型" />
-
-            <Spinner
-                android:id="@+id/projectType"
+                android:id="@+id/taskName"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3" />
@@ -112,7 +94,7 @@
                 android:layout_weight="1"
                 android:text="所属项目" />
 
-            <Spinner
+            <TextView
                 android:id="@+id/belongPro"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
@@ -130,7 +112,7 @@
                 android:layout_weight="1"
                 android:text="项目岗位" />
 
-            <Spinner
+            <TextView
                 android:id="@+id/belongProPosition"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
@@ -138,7 +120,25 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/receiver_notice_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:visibility="visible" >
+
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="安 排 人" />
+
+            <TextView
+                android:id="@+id/arranger"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3" />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -151,8 +151,45 @@
                 android:layout_weight="1"
                 android:text="接 收 人" />
 
-            <Spinner
+            <TextView
                 android:id="@+id/receiver"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:visibility="visible" >
+
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="创 建 人" />
+
+            <TextView
+                android:id="@+id/creator"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="规定完成时间" />
+
+            <TextView
+                android:id="@+id/requiredCompletionDate"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3" />
@@ -169,8 +206,8 @@
                 android:layout_weight="1"
                 android:text="完成时间" />
 
-            <EditText
-                android:id="@+id/st"
+            <TextView
+                android:id="@+id/completionDate"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3" />
