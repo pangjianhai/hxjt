@@ -38,16 +38,22 @@ public class AppLoginStartActivity extends ParentTaskActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		validBeforeRender();
 		setContentView(R.layout.app_login);
 		mUser = (LineEditText) findViewById(R.id.login_user_edit);
 		mPassword = (LineEditText) findViewById(R.id.login_passwd_edit);
 
+	}
+
+	private void validBeforeRender() {
 		String local_loginName = new SharedPreInto(AppLoginStartActivity.this)
 				.getSharedFieldValue("loginName");
 		String local_pwd = new SharedPreInto(AppLoginStartActivity.this)
 				.getSharedFieldValue("password");
-		if (loginName != null && !"".equals(loginName) && pwd != null
-				&& !"".equals(pwd)) {
+		if (local_loginName != null && !"".equals(local_loginName)
+				&& local_pwd != null && !"".equals(local_pwd)) {
+			loginName = local_loginName;
+			pwd = local_pwd;
 			realLogin(local_loginName, local_pwd);
 		}
 
