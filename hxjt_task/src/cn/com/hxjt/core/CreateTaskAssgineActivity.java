@@ -372,6 +372,7 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity implements
 			url = GlobalUrl.IP + GlobalUrl.createOwnTask;
 		}
 		url = url + param;
+		System.out.println("url:" + url);
 		try {
 			RequestCallBack<String> rcb = new RequestCallBack<String>() {
 
@@ -392,8 +393,10 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity implements
 
 				@Override
 				public void onFailure(HttpException error, String msg) {
-					Toast.makeText(getApplicationContext(), "哦，服务器出问题了",
+					Toast.makeText(getApplicationContext(), "服务器出问题了",
 							Toast.LENGTH_SHORT).show();
+					System.out.println("msg:" + msg);
+					error.printStackTrace();
 				}
 			};
 			Map param_map = new HashMap();
