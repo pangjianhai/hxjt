@@ -54,13 +54,15 @@
         android:layout_below="@+id/layout_space_ops"
         android:divider="@drawable/divider2"
         android:orientation="vertical"
-        android:padding="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         android:showDividers="middle|end" >
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:background="@drawable/task_ly_style"
             android:gravity="center_horizontal"
             android:orientation="horizontal" >
 
@@ -82,6 +84,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:background="@drawable/task_ly_style"
             android:gravity="center_horizontal"
             android:orientation="horizontal" >
 
@@ -103,6 +106,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:background="@drawable/task_ly_style"
             android:gravity="center_horizontal"
             android:orientation="horizontal" >
 
@@ -123,6 +127,7 @@
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/task_ly_style"
             android:orientation="horizontal" >
 
             <TextView
@@ -142,6 +147,7 @@
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/task_ly_style"
             android:orientation="horizontal" >
 
             <TextView
@@ -161,6 +167,7 @@
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/task_ly_style"
             android:orientation="horizontal"
             android:visibility="visible" >
 
@@ -181,6 +188,7 @@
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/task_ly_style"
             android:orientation="horizontal"
             android:visibility="visible" >
 
@@ -202,6 +210,7 @@
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/task_ly_style"
             android:orientation="horizontal"
             android:visibility="visible" >
 
@@ -222,6 +231,7 @@
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/task_ly_style"
             android:orientation="horizontal" >
 
             <TextView
@@ -241,6 +251,7 @@
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/task_ly_style"
             android:orientation="horizontal" >
 
             <TextView
