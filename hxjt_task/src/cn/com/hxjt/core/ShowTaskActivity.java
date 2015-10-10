@@ -27,7 +27,7 @@ public class ShowTaskActivity extends ParentTaskActivity {
 
 	private TextView taskName, belongPro, belongProPosition, arranger,
 			receiver, creator, requiredCompletionDate, completionDate,
-			importantLevel, emergentLevel;
+			importantLevel, emergentLevel, show_runningState;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -57,6 +57,7 @@ public class ShowTaskActivity extends ParentTaskActivity {
 		completionDate = (TextView) findViewById(R.id.show_completionDate);
 		importantLevel = (TextView) findViewById(R.id.show_important);
 		emergentLevel = (TextView) findViewById(R.id.show_emergent);
+		show_runningState = (TextView) findViewById(R.id.show_runningState);
 	}
 
 	/**
@@ -103,6 +104,7 @@ public class ShowTaskActivity extends ParentTaskActivity {
 		taskName.setText(tb.getName());
 		belongPro.setText(tb.getPro());
 		belongProPosition.setText(tb.getProPosition());
+		show_runningState.setText(tb.getRunningState());
 		arranger.setText(tb.getArranger());
 		receiver.setText(tb.getReceiver());
 		creator.setText(tb.getCreator());
