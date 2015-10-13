@@ -119,6 +119,8 @@ public class AppLoginStartActivity extends ParentTaskActivity {
 
 				@Override
 				public void onFailure(HttpException error, String msg) {
+					Toast.makeText(getApplicationContext(), "网络有问题哦",
+							Toast.LENGTH_SHORT).show();
 				}
 			};
 			Map param_map = new HashMap();
@@ -158,7 +160,7 @@ public class AppLoginStartActivity extends ParentTaskActivity {
 	 * @author pang
 	 */
 	private void loginFail() {
-		Toast.makeText(getApplicationContext(), "账号有误", Toast.LENGTH_SHORT)
+		Toast.makeText(getApplicationContext(), "鉴权失败，账号有误", Toast.LENGTH_SHORT)
 				.show();
 	}
 
