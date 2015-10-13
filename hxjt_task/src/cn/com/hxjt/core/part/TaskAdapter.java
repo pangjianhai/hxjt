@@ -5,11 +5,13 @@ import java.util.List;
 
 import android.content.Context;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 import cn.com.hxjt.core.R;
 import cn.com.hxjt.core.entity.TaskBean;
+import cn.com.hxjt.core.util.TaskClickOps;
 
 /**
  * @TODO 任务适配器
@@ -20,10 +22,13 @@ public class TaskAdapter extends BaseAdapter {
 	private List<TaskBean> dataSourceList = new ArrayList<TaskBean>();
 	private HolderView holder;
 	private Context context;
+	private TaskClickOps ops;
 
-	public TaskAdapter(Context context, List<TaskBean> dataSourceList) {
+	public TaskAdapter(Context context, TaskClickOps ops,
+			List<TaskBean> dataSourceList) {
 		super();
 		this.context = context;
+		this.ops = ops;
 		this.dataSourceList = dataSourceList;
 	}
 
@@ -45,8 +50,7 @@ public class TaskAdapter extends BaseAdapter {
 	@Override
 	public View getView(final int position, View convertview, ViewGroup parent) {
 		holder = new HolderView();
-		TaskBean t = dataSourceList.get(position);
-		System.out.println("I:" + position + "-->" + t);
+		final TaskBean t = dataSourceList.get(position);
 		if (convertview == null) {
 			convertview = View.inflate(context, R.layout.tasks_list_item, null);
 			holder.item_task_name = (TextView) convertview
@@ -56,6 +60,13 @@ public class TaskAdapter extends BaseAdapter {
 			holder = (HolderView) convertview.getTag();
 		}
 		holder.item_task_name.setText(t.getName());
+		
+		holder.item_task_name.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				ops.clickTask(t.getId());				
+			}});
 		return convertview;
 	}
 

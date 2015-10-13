@@ -16,6 +16,7 @@ import android.widget.ListView;
 import cn.com.hxjt.core.cons.GlobalUrl;
 import cn.com.hxjt.core.entity.TaskBean;
 import cn.com.hxjt.core.part.TaskAdapter;
+import cn.com.hxjt.core.util.TaskClickOps;
 
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.ResponseInfo;
@@ -26,7 +27,8 @@ import com.lidroid.xutils.http.callback.RequestCallBack;
  * @author pang
  *
  */
-public class TaskListLayoutActivity extends BaseActivity {
+public class TaskListLayoutActivity extends BaseActivity implements
+		TaskClickOps {
 	private ListView tasks_lv;
 	private List<TaskBean> ds = new ArrayList<TaskBean>();
 	private TaskAdapter adapter = null;
@@ -68,7 +70,8 @@ public class TaskListLayoutActivity extends BaseActivity {
 	 */
 	private void initPart() {
 		tasks_lv = (ListView) findViewById(R.id.tasks_lv);
-		adapter = new TaskAdapter(TaskListLayoutActivity.this, ds);
+		adapter = new TaskAdapter(TaskListLayoutActivity.this,
+				TaskListLayoutActivity.this, ds);
 		tasks_lv.setAdapter(adapter);
 	}
 
@@ -118,5 +121,13 @@ public class TaskListLayoutActivity extends BaseActivity {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public void clickTask(String taskId) {
+		Intent intent = new Intent(TaskListLayoutActivity.this,
+				ShowTaskActivity.class);
+		intent.putExtra("taskId", taskId);
+		startActivity(intent);
 	}
 }
