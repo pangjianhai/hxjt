@@ -103,6 +103,9 @@ public class AppLoginStartActivity extends ParentTaskActivity {
 				@Override
 				public void onSuccess(ResponseInfo<String> responseInfo) {
 					String data = responseInfo.result;
+					if (data == null || "".equals(data) || "null".equals(data)) {
+						loginFail();
+					}
 					try {
 						JSONObject j = new JSONObject(data);
 						// 返回的JSON有Name字段说明登录成功否则为失败
