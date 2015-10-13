@@ -73,7 +73,8 @@ public class HomeActivity extends BaseActivity {
 			@Override
 			public boolean onChildClick(ExpandableListView parent, View v,
 					int groupPosition, int childPosition, long id) {
-				String title = "";
+				int type = 0;
+				String param = "";
 				String url = GlobalUrl.IP;
 				TaskNumBean tnb = null;
 				if (groupPosition == 0) {
@@ -85,9 +86,13 @@ public class HomeActivity extends BaseActivity {
 				}
 				url = url + "?loginName=" + loginName + "&taskType="
 						+ tnb.getType();
-				System.out.println("url:" + url);
-				Toast.makeText(getApplicationContext(), url, Toast.LENGTH_SHORT)
-						.show();
+				type = groupPosition;
+				param = tnb.getType();
+				Intent intent = new Intent(HomeActivity.this,
+						TaskListLayoutActivity.class);
+				intent.putExtra("type", type);
+				intent.putExtra("param", param);
+				startActivity(intent);
 				return false;
 			}
 		});
