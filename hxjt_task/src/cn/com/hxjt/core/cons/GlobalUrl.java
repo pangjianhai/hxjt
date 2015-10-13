@@ -66,4 +66,8 @@ public class GlobalUrl {
 	public static String acceptTaskApply = "task/AcceptTaskApply";
 	// 审核
 	public static String approveTask = "task/ApproveTask";
+	/**
+	 * 获取任务数量信息
+	 */
+	public static String getTasksCountInfo = "task/GetTasksCountInfo";
 }

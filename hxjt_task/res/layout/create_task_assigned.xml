@@ -181,6 +181,27 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="3" />
         </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/isNeedCheck_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:visibility="gone" >
+
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="需要审核"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/isNeedCheck"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3" />
+        </LinearLayout>
     </LinearLayout>
 
 </RelativeLayout>

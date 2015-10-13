@@ -47,15 +47,17 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity implements
 	private String type;
 	private TextView add_task_title;
 	private EditText taskName;
-	private Spinner projectType, belongPro, belongProPosition, receiver;
+	private Spinner projectType, belongPro, belongProPosition, receiver,
+			isNeedCheck;
 	private ArrayAdapter<String> proTypesAd = null;
 	private ArrayAdapter<String> proPositionsAd = null;
 	private ArrayAdapter<String> userAd = null;
 	private ArrayAdapter<String> proAd = null;
+	private ArrayAdapter<String> checkAd = null;
 	private EditText st;
 
 	/***** 需要控制是否显示 ***/
-	private LinearLayout receiver_notice_layout;
+	private LinearLayout receiver_notice_layout, isNeedCheck_layout;
 	private TextView receiver_notice;
 
 	@Override
@@ -66,6 +68,7 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity implements
 		initPart();
 		initProType();
 		initUser();
+		initCheck();
 
 		projectType.setOnItemSelectedListener(new OnItemSelectedListener() {
 			@Override
@@ -78,7 +81,6 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity implements
 
 			@Override
 			public void onNothingSelected(AdapterView<?> arg0) {
-				// TODO Auto-generated method stub
 
 			}
 		});
@@ -92,6 +94,7 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity implements
 		} else if (type.equals(TaskEntity.TASK_TYPE_CREATE)) {// chuangjian
 			add_task_title.setText("创建任务");
 			receiver_notice_layout.setVisibility(View.GONE);
+			isNeedCheck_layout.setVisibility(View.VISIBLE);
 		}
 	}
 
@@ -101,6 +104,7 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity implements
 		belongPro = (Spinner) findViewById(R.id.belongPro);
 		belongProPosition = (Spinner) findViewById(R.id.belongProPosition);
 		receiver = (Spinner) findViewById(R.id.receiver);
+		isNeedCheck = (Spinner) findViewById(R.id.isNeedCheck);
 		st = (EditText) findViewById(R.id.st);
 		st.setOnTouchListener(this);
 		String date = CommonDateUtil.getCurrTime();
@@ -109,6 +113,9 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity implements
 
 		receiver_notice_layout = (LinearLayout) findViewById(R.id.receiver_notice_layout);
 		receiver_notice = (TextView) findViewById(R.id.receiver_notice);
+		
+		isNeedCheck_layout = (LinearLayout) findViewById(R.id.isNeedCheck_layout);
+		
 	}
 
 	private void initProType() {
@@ -253,6 +260,13 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity implements
 		}
 	}
 
+	private void initCheck() {
+		String[] nt = { "是", "否" };
+		checkAd = new ArrayAdapter<String>(CreateTaskAssgineActivity.this,
+				android.R.layout.simple_spinner_item, nt);
+		isNeedCheck.setAdapter(checkAd);
+	}
+
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
 		if (event.getAction() == MotionEvent.ACTION_DOWN) {
@@ -338,7 +352,13 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity implements
 			String str = CommonDateUtil.getDateTimeForStr(dt);
 			param.append("&requiredCompletionDate=" + str);
 			if (!type.equals(TaskEntity.TASK_TYPE_CREATE)) {
-				param.append("&isNeedCheck=true");
+				boolean isCheck = false;
+				String isNeedCheck_str = isNeedCheck.getSelectedItem()
+						.toString();
+				if ("是".equals(isNeedCheck_str)) {
+					isCheck = true;
+				}
+				param.append("&isNeedCheck=").append(isCheck);
 			}
 			if (type.equals(TaskEntity.TASK_TYPE_ASSIGN)) {
 				param.append("&receiver="
@@ -372,7 +392,7 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity implements
 			url = GlobalUrl.IP + GlobalUrl.createOwnTask;
 		}
 		url = url + param;
-		System.out.println("url:" + url);
+		// System.out.println("url:" + url);
 		try {
 			RequestCallBack<String> rcb = new RequestCallBack<String>() {
 
@@ -395,7 +415,6 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity implements
 				public void onFailure(HttpException error, String msg) {
 					Toast.makeText(getApplicationContext(), "服务器出问题了",
 							Toast.LENGTH_SHORT).show();
-					System.out.println("msg:" + msg);
 					error.printStackTrace();
 				}
 			};
