@@ -12,6 +12,6 @@
         android:gravity="left"
         android:padding="2dp"
         android:textColor="@color/bgray"
-        android:textSize="18sp" />
+        android:textSize="20sp" />
 
 </LinearLayout>
