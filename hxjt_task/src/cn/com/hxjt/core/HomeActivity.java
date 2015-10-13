@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import cn.com.hxjt.core.cons.GlobalUrl;
 import cn.com.hxjt.core.entity.TaskEntity;
+import cn.com.hxjt.core.entity.TaskNumBean;
 
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.ResponseInfo;
@@ -48,8 +49,9 @@ public class HomeActivity extends BaseActivity {
 	/**
 	 * 每类下面的任务属性和数量
 	 */
-	private List<String> myTs;
-	private List<String> fpyTs;
+
+	List<TaskNumBean> myNumList = new ArrayList();
+	List<TaskNumBean> assignNumList = new ArrayList();
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -61,54 +63,34 @@ public class HomeActivity extends BaseActivity {
 		initAlis();
 	}
 
-	/**
-	 * @user:pang
-	 * @data:2015年7月19日
-	 * @todo:初始化数据
-	 * @return:void
-	 */
-	private void initData1() {
-		arrows = new int[] { R.drawable.arrow_bottom, R.drawable.arrow_bottom };
-		tasks = new ArrayList();
-		tasks.add("我的任务");
-		tasks.add("分配任务");
-
-		myTs = new ArrayList();
-		myTs.add("已经完成(1)");
-		myTs.add("未完成(2)");
-		myTs.add("将要开始的(12)");
-
-		fpyTs = new ArrayList();
-		fpyTs.add("已经完成(4)");
-		fpyTs.add("未完成(8)");
-		fpyTs.add("将要开始的(6)");
-	}
-
 	private void initPart() {
 
 		initData();
-
 		mExpandableListView = (ExpandableListView) findViewById(R.id.expandablelistview);
 		mExpandableListView.setGroupIndicator(null);
-		mExpandableListView.setAdapter(new MyExpandableListAdapter());
+		mExpandableListView.setOnChildClickListener(new OnChildClickListener() {
 
-		// mExpandableListView.setOnChildClickListener(new
-		// OnChildClickListener() {
-		//
-		// @Override
-		// public boolean onChildClick(ExpandableListView parent, View v,
-		// int groupPosition, int childPosition, long id) {
-		// String title = "";
-		// if (groupPosition == 0) {
-		// title = myTs.get(childPosition);
-		// } else {
-		// title = fpyTs.get(childPosition);
-		// }
-		// Toast.makeText(getApplicationContext(), title,
-		// Toast.LENGTH_SHORT).show();
-		// return false;
-		// }
-		// });
+			@Override
+			public boolean onChildClick(ExpandableListView parent, View v,
+					int groupPosition, int childPosition, long id) {
+				String title = "";
+				String url = GlobalUrl.IP;
+				TaskNumBean tnb = null;
+				if (groupPosition == 0) {
+					url = url + GlobalUrl.getMyTask;
+					tnb = myNumList.get(childPosition);
+				} else {
+					url = url + GlobalUrl.getArrangedTask;
+					tnb = assignNumList.get(childPosition);
+				}
+				url = url + "?loginName=" + loginName + "&taskType="
+						+ tnb.getType();
+				System.out.println("url:" + url);
+				Toast.makeText(getApplicationContext(), url, Toast.LENGTH_SHORT)
+						.show();
+				return false;
+			}
+		});
 	}
 
 	private void initData() {
@@ -117,18 +99,8 @@ public class HomeActivity extends BaseActivity {
 		tasks.add("我的任务");
 		tasks.add("分配任务");
 
-		myTs = new ArrayList();
-		myTs.add("已经完成(1)");
-		myTs.add("未完成(2)");
-		myTs.add("将要开始的(12)");
-
-		fpyTs = new ArrayList();
-		fpyTs.add("已经完成(4)");
-		fpyTs.add("未完成(8)");
-		fpyTs.add("将要开始的(6)");
 		String url = GlobalUrl.IP + GlobalUrl.getTasksCountInfo + "?loginName="
 				+ loginName;
-		System.out.println("url:" + url);
 		try {
 			RequestCallBack<String> rcb = new RequestCallBack<String>() {
 
@@ -136,14 +108,56 @@ public class HomeActivity extends BaseActivity {
 				public void onSuccess(ResponseInfo<String> responseInfo) {
 					String data = responseInfo.result;
 					data = data.substring(1, data.length() - 1);
-					System.out.println("***********data:" + data);
 					Pattern datePattern = Pattern.compile("\"\\w*,\\w*,\\d*\"",
 							Pattern.CASE_INSENSITIVE);
 					Matcher matcher = datePattern.matcher(data);
 					while (matcher.find()) {
-						String a = matcher.group();
-						System.out.println(a);
+						String orginalStr = matcher.group();
+						orginalStr = orginalStr.substring(1,
+								orginalStr.length() - 1);
+						String[] str = orginalStr.split(",");
+						String type = str[0];
+						String param = str[1];
+						String num = str[2];
+						String display = "";
+						TaskNumBean tnb = new TaskNumBean();
+						if ("Today".equals(param)) {
+							param = "Today";
+							display = "今天";
+						} else if ("Tomorrow".equals(param)) {
+							param = "Tomorrow";
+							display = "明天";
+						} else if ("ThiwWeek".equals(param)) {
+							param = "ThisWeek";
+							display = "本周";
+						} else if ("NextWeek".equals(param)) {
+							param = "NextWeek";
+							display = "下周";
+						} else if ("Later".equals(param)) {
+							param = "Later";
+							display = "即将";
+						} else if ("LongLater".equals(param)) {
+							param = "LongLater";
+							display = "以后再说";
+						} else if ("Overdue".equals(param)) {
+							param = "Overdue";
+							display = "逾期";
+						} else if ("All".equals(param)) {
+							param = "All";
+							display = "所有";
+						}
+						tnb.setDisplay(display);
+						tnb.setType(param);
+						tnb.setNum(num);
+
+						if ("MyTask".equals(type)) {
+							myNumList.add(tnb);
+						} else if ("ArrangeTask".equals(type)) {
+							assignNumList.add(tnb);
+						}
+
 					}
+					render();
 				}
 
 				@Override
@@ -159,6 +173,16 @@ public class HomeActivity extends BaseActivity {
 	}
 
 	/**
+	 * @user:pang
+	 * @data:2015年10月13日
+	 * @todo:渲染一棵树
+	 * @return:void
+	 */
+	private void render() {
+		mExpandableListView.setAdapter(new MyExpandableListAdapter());
+	}
+
+	/**
 	 * @todo 适配器
 	 * @author pang
 	 *
@@ -169,9 +193,9 @@ public class HomeActivity extends BaseActivity {
 		public int getChildrenCount(int groupPosition) {
 			int total = 0;
 			if (groupPosition == 0) {
-				total = myTs.size();
+				total = myNumList.size();
 			} else {
-				total = fpyTs.size();
+				total = assignNumList.size();
 			}
 			return total;
 		}
@@ -184,10 +208,13 @@ public class HomeActivity extends BaseActivity {
 		@Override
 		public Object getChild(int groupPosition, int childPosition) {
 			String title = "";
+			TaskNumBean t = null;
 			if (groupPosition == 0) {
-				title = myTs.get(childPosition);
+				t = myNumList.get(childPosition);
+				title = t.getDisplay() + "(" + t.getNum() + ")";
 			} else {
-				title = fpyTs.get(childPosition);
+				t = assignNumList.get(childPosition);
+				title = t.getDisplay() + "(" + t.getNum() + ")";
 			}
 			return title;
 		}

@@ -70,4 +70,13 @@ public class GlobalUrl {
 	 * 获取任务数量信息
 	 */
 	public static String getTasksCountInfo = "task/GetTasksCountInfo";
+
+	/**
+	 * 获取我的任务总数
+	 */
+	public static String getMyTask = "task/SearchMyTasks";
+	/**
+	 * 获取分配任务的相关数目
+	 */
+	public static String getArrangedTask = "task/SearchTasksAssign";
 }
