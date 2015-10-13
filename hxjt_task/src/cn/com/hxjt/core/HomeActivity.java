@@ -1,9 +1,12 @@
 package cn.com.hxjt.core;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-import cn.com.hxjt.core.entity.TaskEntity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -16,6 +19,12 @@ import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import cn.com.hxjt.core.cons.GlobalUrl;
+import cn.com.hxjt.core.entity.TaskEntity;
+
+import com.lidroid.xutils.exception.HttpException;
+import com.lidroid.xutils.http.ResponseInfo;
+import com.lidroid.xutils.http.callback.RequestCallBack;
 
 /**
  * @todo 首页
@@ -58,7 +67,7 @@ public class HomeActivity extends BaseActivity {
 	 * @todo:初始化数据
 	 * @return:void
 	 */
-	private void initData() {
+	private void initData1() {
 		arrows = new int[] { R.drawable.arrow_bottom, R.drawable.arrow_bottom };
 		tasks = new ArrayList();
 		tasks.add("我的任务");
@@ -83,22 +92,70 @@ public class HomeActivity extends BaseActivity {
 		mExpandableListView.setGroupIndicator(null);
 		mExpandableListView.setAdapter(new MyExpandableListAdapter());
 
-		mExpandableListView.setOnChildClickListener(new OnChildClickListener() {
+		// mExpandableListView.setOnChildClickListener(new
+		// OnChildClickListener() {
+		//
+		// @Override
+		// public boolean onChildClick(ExpandableListView parent, View v,
+		// int groupPosition, int childPosition, long id) {
+		// String title = "";
+		// if (groupPosition == 0) {
+		// title = myTs.get(childPosition);
+		// } else {
+		// title = fpyTs.get(childPosition);
+		// }
+		// Toast.makeText(getApplicationContext(), title,
+		// Toast.LENGTH_SHORT).show();
+		// return false;
+		// }
+		// });
+	}
 
-			@Override
-			public boolean onChildClick(ExpandableListView parent, View v,
-					int groupPosition, int childPosition, long id) {
-				String title = "";
-				if (groupPosition == 0) {
-					title = myTs.get(childPosition);
-				} else {
-					title = fpyTs.get(childPosition);
+	private void initData() {
+		arrows = new int[] { R.drawable.arrow_bottom, R.drawable.arrow_bottom };
+		tasks = new ArrayList();
+		tasks.add("我的任务");
+		tasks.add("分配任务");
+
+		myTs = new ArrayList();
+		myTs.add("已经完成(1)");
+		myTs.add("未完成(2)");
+		myTs.add("将要开始的(12)");
+
+		fpyTs = new ArrayList();
+		fpyTs.add("已经完成(4)");
+		fpyTs.add("未完成(8)");
+		fpyTs.add("将要开始的(6)");
+		String url = GlobalUrl.IP + GlobalUrl.getTasksCountInfo + "?loginName="
+				+ loginName;
+		System.out.println("url:" + url);
+		try {
+			RequestCallBack<String> rcb = new RequestCallBack<String>() {
+
+				@Override
+				public void onSuccess(ResponseInfo<String> responseInfo) {
+					String data = responseInfo.result;
+					data = data.substring(1, data.length() - 1);
+					System.out.println("***********data:" + data);
+					Pattern datePattern = Pattern.compile("\"\\w*,\\w*,\\d*\"",
+							Pattern.CASE_INSENSITIVE);
+					Matcher matcher = datePattern.matcher(data);
+					while (matcher.find()) {
+						String a = matcher.group();
+						System.out.println(a);
+					}
 				}
-				Toast.makeText(getApplicationContext(), title,
-						Toast.LENGTH_SHORT).show();
-				return false;
-			}
-		});
+
+				@Override
+				public void onFailure(HttpException error, String msg) {
+					error.printStackTrace();
+				}
+			};
+			Map param_map = new HashMap();
+			send_normal_request(url, param_map, rcb);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
