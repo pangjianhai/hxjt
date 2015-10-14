@@ -1,10 +1,8 @@
 package cn.com.hxjt.core;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.json.JSONArray;
@@ -26,17 +24,13 @@ import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 import cn.com.hxjt.core.cons.GlobalUrl;
-import cn.com.hxjt.core.entity.FileEntity;
 import cn.com.hxjt.core.entity.TaskEntity;
-import cn.com.hxjt.core.part.AttachmentAdapter;
 import cn.com.hxjt.core.util.CommonDateUtil;
-import cn.com.hxjt.core.util.IAttachmentOps;
 
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.ResponseInfo;
@@ -48,7 +42,7 @@ import com.lidroid.xutils.http.callback.RequestCallBack;
  *
  */
 public class CreateTaskAssgineActivity extends ParentTaskActivity implements
-		View.OnTouchListener, IAttachmentOps {
+		View.OnTouchListener {
 	public static final int FILE_RESULT_CODE = 1;
 
 	private String type;
@@ -68,9 +62,9 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity implements
 	private TextView receiver_notice;
 
 	/************* 附件 **********/
-	private ListView create_docs_list;
-	private List<FileEntity> ds = new ArrayList<FileEntity>();
-	private AttachmentAdapter adapter;
+	// private ListView create_docs_list;
+	// private List<FileEntity> ds = new ArrayList<FileEntity>();
+	// private AttachmentAdapter adapter;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -128,10 +122,10 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity implements
 
 		isNeedCheck_layout = (LinearLayout) findViewById(R.id.isNeedCheck_layout);
 		// 附件
-		create_docs_list = (ListView) findViewById(R.id.create_docs_list);
-		adapter = new AttachmentAdapter(CreateTaskAssgineActivity.this,
-				CreateTaskAssgineActivity.this, ds);
-		create_docs_list.setAdapter(adapter);
+		// create_docs_list = (ListView) findViewById(R.id.create_docs_list);
+		// adapter = new AttachmentAdapter(CreateTaskAssgineActivity.this,
+		// CreateTaskAssgineActivity.this, ds);
+		// create_docs_list.setAdapter(adapter);
 
 	}
 
@@ -459,70 +453,40 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity implements
 		intent.putExtra("taskId", taskId);
 		startActivity(intent);
 	}
-
-	/**
+	/*
+	*//**
 	 * @param v
 	 * @user:pang
 	 * @data:2015年10月14日
 	 * @todo:添加附件
 	 * @return:void
 	 */
-	public void addAttachment(View v) {
-		Intent intent = new Intent(CreateTaskAssgineActivity.this,
-				LocalSysFileManager.class);
-		startActivityForResult(intent, FILE_RESULT_CODE);
-	}
-
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (FILE_RESULT_CODE == requestCode) {
-			Bundle bundle = null;
-			if (data != null && (bundle = data.getExtras()) != null) {
-				String path = bundle.getString("file");
-				if (fileExist(path)) {
-					Toast.makeText(getApplicationContext(), "文件已经选择了",
-							Toast.LENGTH_SHORT).show();
-					return;
-				}
-				String[] ps = path.split("/");
-				String name = ps[ps.length - 1];
-				FileEntity fe = new FileEntity();
-				fe.setName(name);
-				fe.setPath(path);
-				ds.add(fe);
-				adapter.notifyDataSetChanged();
-			}
-		}
-	}
-
-	public boolean fileExist(String path) {
-		boolean is = false;
-		for (int i = 0; i < ds.size(); i++) {
-			FileEntity fe = ds.get(i);
-			String f = fe.getPath();
-			if (path.equals(f)) {
-				is = true;
-				break;
-			}
-		}
-		return is;
-	}
-
-	@Override
-	public void delAtt(String path) {
-		for (int i = 0; i < ds.size(); i++) {
-			FileEntity fe = ds.get(i);
-			String f = fe.getPath();
-			if (path.equals(f)) {
-				ds.remove(i);
-				break;
-			}
-		}
-		adapter.notifyDataSetChanged();
-	}
-
-	@Override
-	public void download(String attId) {
-
-	}
+	/*
+	 * public void addAttachment(View v) { Intent intent = new
+	 * Intent(CreateTaskAssgineActivity.this, LocalSysFileManager.class);
+	 * startActivityForResult(intent, FILE_RESULT_CODE); }
+	 * 
+	 * @Override protected void onActivityResult(int requestCode, int
+	 * resultCode, Intent data) { if (FILE_RESULT_CODE == requestCode) { Bundle
+	 * bundle = null; if (data != null && (bundle = data.getExtras()) != null) {
+	 * String path = bundle.getString("file"); if (fileExist(path)) {
+	 * Toast.makeText(getApplicationContext(), "文件已经选择了",
+	 * Toast.LENGTH_SHORT).show(); return; } String[] ps = path.split("/");
+	 * String name = ps[ps.length - 1]; FileEntity fe = new FileEntity();
+	 * fe.setName(name); fe.setPath(path); ds.add(fe);
+	 * adapter.notifyDataSetChanged(); } } }
+	 * 
+	 * public boolean fileExist(String path) { boolean is = false; for (int i =
+	 * 0; i < ds.size(); i++) { FileEntity fe = ds.get(i); String f =
+	 * fe.getPath(); if (path.equals(f)) { is = true; break; } } return is; }
+	 * 
+	 * @Override public void delAtt(String path) { for (int i = 0; i <
+	 * ds.size(); i++) { FileEntity fe = ds.get(i); String f = fe.getPath(); if
+	 * (path.equals(f)) { ds.remove(i); break; } }
+	 * adapter.notifyDataSetChanged(); }
+	 * 
+	 * @Override public void download(String attId) {
+	 * 
+	 * }
+	 */
 }
