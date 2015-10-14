@@ -3,6 +3,7 @@ package cn.com.hxjt.core;
 import java.util.HashMap;
 import java.util.Map;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -275,10 +276,9 @@ public class ShowTaskActivity extends ParentTaskActivity implements IApplyOps {
 	 * @return:void
 	 */
 	private void freshPage() {
-		// Intent intent = new Intent(ShowTaskActivity.this,
-		// ShowTaskActivity.class);
-		// intent.putExtra("taskId", taskId);
-		// startActivity(intent);
+		Intent intent = new Intent(ShowTaskActivity.this, HomeActivity.class);
+		intent.putExtra("taskId", taskId);
+		startActivity(intent);
 		finish();
 	}
 
