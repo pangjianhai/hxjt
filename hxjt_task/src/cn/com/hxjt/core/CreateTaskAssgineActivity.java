@@ -492,7 +492,15 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity implements
 
 	@Override
 	public void delAtt(String path) {
-
+		for (int i = 0; i < ds.size(); i++) {
+			FileEntity fe = ds.get(i);
+			String f = fe.getPath();
+			if (path.equals(f)) {
+				ds.remove(i);
+				break;
+			}
+		}
+		adapter.notifyDataSetChanged();
 	}
 
 	@Override
