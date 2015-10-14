@@ -5,7 +5,6 @@ import java.util.Map;
 
 import android.os.Bundle;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
@@ -221,15 +220,15 @@ public class ShowTaskActivity extends ParentTaskActivity implements IApplyOps {
 		}
 		StringBuilder param = new StringBuilder("");
 		param.append("?loginName=" + loginName + "&taskID=").append(taskId);
-		if (R.id.ops_approve == v.getId()) {
-			param.append("isApprovePass=true");
-		}
 		real_ops_for_task(url + param.toString(), v.getId());
 	}
 
+	/**
+	 * 审核通过或者不通过
+	 */
 	@Override
 	public void apply(boolean isPass) {
-		String url = GlobalUrl.IP + GlobalUrl.acceptTaskApply;
+		String url = GlobalUrl.IP + GlobalUrl.approveTask;
 		StringBuilder param = new StringBuilder("");
 		param.append("?loginName=" + loginName + "&taskID=").append(taskId);
 		param.append("isApprovePass=").append(isPass);
