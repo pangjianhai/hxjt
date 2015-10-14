@@ -35,7 +35,6 @@ import cn.com.hxjt.core.cons.GlobalUrl;
 import cn.com.hxjt.core.entity.FileEntity;
 import cn.com.hxjt.core.entity.TaskEntity;
 import cn.com.hxjt.core.part.AttachmentAdapter;
-import cn.com.hxjt.core.part.LocalSysFileManager;
 import cn.com.hxjt.core.util.CommonDateUtil;
 import cn.com.hxjt.core.util.IAttachmentOps;
 

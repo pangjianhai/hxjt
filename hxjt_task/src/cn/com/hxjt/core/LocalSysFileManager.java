@@ -1,4 +1,4 @@
-﻿package cn.com.hxjt.core.part;
+﻿package cn.com.hxjt.core;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -14,8 +14,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import cn.com.hxjt.core.CreateTaskAssgineActivity;
-import cn.com.hxjt.core.R;
+import cn.com.hxjt.core.part.LocalSysAdapter;
 
 public class LocalSysFileManager extends ListActivity {
 	private List<String> items = null;
@@ -34,20 +33,6 @@ public class LocalSysFileManager extends ListActivity {
 
 		setContentView(R.layout.sysfilesselect);
 		mPath = (TextView) findViewById(R.id.mPath);
-		// Button buttonConfirm = (Button) findViewById(R.id.buttonConfirm);
-		// buttonConfirm.setOnClickListener(new OnClickListener() {
-		//
-		// public void onClick(View v) {
-		// Intent data = new Intent(LocalSysFileManager.this,
-		// LocalSysAcivity.class);
-		// Bundle bundle = new Bundle();
-		// bundle.putString("file", curPath);
-		// data.putExtras(bundle);
-		// setResult(2, data);
-		// finish();
-		//
-		// }
-		// });
 		Button buttonCancle = (Button) findViewById(R.id.buttonCancle);
 		buttonCancle.setOnClickListener(new OnClickListener() {
 
