@@ -35,6 +35,7 @@ import cn.com.hxjt.core.cons.GlobalUrl;
 import cn.com.hxjt.core.entity.FileEntity;
 import cn.com.hxjt.core.entity.TaskEntity;
 import cn.com.hxjt.core.part.AttachmentAdapter;
+import cn.com.hxjt.core.part.LocalSysFileManager;
 import cn.com.hxjt.core.util.CommonDateUtil;
 import cn.com.hxjt.core.util.IAttachmentOps;
 
@@ -49,6 +50,7 @@ import com.lidroid.xutils.http.callback.RequestCallBack;
  */
 public class CreateTaskAssgineActivity extends ParentTaskActivity implements
 		View.OnTouchListener, IAttachmentOps {
+	public static final int FILE_RESULT_CODE = 1;
 
 	private String type;
 	private TextView add_task_title;
@@ -126,8 +128,11 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity implements
 		receiver_notice = (TextView) findViewById(R.id.receiver_notice);
 
 		isNeedCheck_layout = (LinearLayout) findViewById(R.id.isNeedCheck_layout);
-
+		// 附件
 		create_docs_list = (ListView) findViewById(R.id.create_docs_list);
+		adapter = new AttachmentAdapter(CreateTaskAssgineActivity.this,
+				CreateTaskAssgineActivity.this, ds);
+		create_docs_list.setAdapter(adapter);
 
 	}
 
@@ -464,10 +469,20 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity implements
 	 * @return:void
 	 */
 	public void addAttachment(View v) {
-		create_docs_list = (ListView) findViewById(R.id.create_docs_list);
-		adapter = new AttachmentAdapter(CreateTaskAssgineActivity.this,
-				CreateTaskAssgineActivity.this, ds);
-		create_docs_list.setAdapter(adapter);
+		Intent intent = new Intent(CreateTaskAssgineActivity.this,
+				LocalSysFileManager.class);
+		startActivityForResult(intent, FILE_RESULT_CODE);
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (FILE_RESULT_CODE == requestCode) {
+			Bundle bundle = null;
+			if (data != null && (bundle = data.getExtras()) != null) {
+				String path = bundle.getString("file");
+				System.out.println("*********path:" + path);
+			}
+		}
 	}
 
 	@Override
