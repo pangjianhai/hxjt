@@ -94,7 +94,7 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity implements
 		} else if (type.equals(TaskEntity.TASK_TYPE_CREATE)) {// chuangjian
 			add_task_title.setText("创建任务");
 			receiver_notice_layout.setVisibility(View.GONE);
-			isNeedCheck_layout.setVisibility(View.VISIBLE);
+			isNeedCheck_layout.setVisibility(View.GONE);
 		}
 	}
 
@@ -113,9 +113,9 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity implements
 
 		receiver_notice_layout = (LinearLayout) findViewById(R.id.receiver_notice_layout);
 		receiver_notice = (TextView) findViewById(R.id.receiver_notice);
-		
+
 		isNeedCheck_layout = (LinearLayout) findViewById(R.id.isNeedCheck_layout);
-		
+
 	}
 
 	private void initProType() {
@@ -351,6 +351,7 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity implements
 			Date dt = CommonDateUtil.getTime(st_str);
 			String str = CommonDateUtil.getDateTimeForStr(dt);
 			param.append("&requiredCompletionDate=" + str);
+			// 非自建任务需要选择是否审核
 			if (!type.equals(TaskEntity.TASK_TYPE_CREATE)) {
 				boolean isCheck = false;
 				String isNeedCheck_str = isNeedCheck.getSelectedItem()
@@ -360,10 +361,12 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity implements
 				}
 				param.append("&isNeedCheck=").append(isCheck);
 			}
+			// 分配任务需要有接收者
 			if (type.equals(TaskEntity.TASK_TYPE_ASSIGN)) {
 				param.append("&receiver="
 						+ receiver.getSelectedItem().toString());
 			}
+			// 申请任务需要有安排者
 			if (type.equals(TaskEntity.TASK_TYPE_APPLY)) {
 				param.append("&arranger="
 						+ receiver.getSelectedItem().toString());
