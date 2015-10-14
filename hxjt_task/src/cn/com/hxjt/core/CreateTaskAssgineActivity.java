@@ -479,6 +479,11 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity implements
 			Bundle bundle = null;
 			if (data != null && (bundle = data.getExtras()) != null) {
 				String path = bundle.getString("file");
+				if (fileExist(path)) {
+					Toast.makeText(getApplicationContext(), "文件已经选择了",
+							Toast.LENGTH_SHORT).show();
+					return;
+				}
 				String[] ps = path.split("/");
 				String name = ps[ps.length - 1];
 				FileEntity fe = new FileEntity();
@@ -488,6 +493,19 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity implements
 				adapter.notifyDataSetChanged();
 			}
 		}
+	}
+
+	public boolean fileExist(String path) {
+		boolean is = false;
+		for (int i = 0; i < ds.size(); i++) {
+			FileEntity fe = ds.get(i);
+			String f = fe.getPath();
+			if (path.equals(f)) {
+				is = true;
+				break;
+			}
+		}
+		return is;
 	}
 
 	@Override
