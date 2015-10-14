@@ -1,8 +1,10 @@
 package cn.com.hxjt.core;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.json.JSONArray;
@@ -24,13 +26,17 @@ import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 import cn.com.hxjt.core.cons.GlobalUrl;
+import cn.com.hxjt.core.entity.FileEntity;
 import cn.com.hxjt.core.entity.TaskEntity;
+import cn.com.hxjt.core.part.AttachmentAdapter;
 import cn.com.hxjt.core.util.CommonDateUtil;
+import cn.com.hxjt.core.util.IAttachmentOps;
 
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.ResponseInfo;
@@ -42,7 +48,7 @@ import com.lidroid.xutils.http.callback.RequestCallBack;
  *
  */
 public class CreateTaskAssgineActivity extends ParentTaskActivity implements
-		View.OnTouchListener {
+		View.OnTouchListener, IAttachmentOps {
 
 	private String type;
 	private TextView add_task_title;
@@ -59,6 +65,11 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity implements
 	/***** 需要控制是否显示 ***/
 	private LinearLayout receiver_notice_layout, isNeedCheck_layout;
 	private TextView receiver_notice;
+
+	/************* 附件 **********/
+	private ListView create_docs_list;
+	private List<FileEntity> ds = new ArrayList<FileEntity>();
+	private AttachmentAdapter adapter;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -115,6 +126,8 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity implements
 		receiver_notice = (TextView) findViewById(R.id.receiver_notice);
 
 		isNeedCheck_layout = (LinearLayout) findViewById(R.id.isNeedCheck_layout);
+
+		create_docs_list = (ListView) findViewById(R.id.create_docs_list);
 
 	}
 
@@ -441,5 +454,29 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity implements
 				ShowTaskActivity.class);
 		intent.putExtra("taskId", taskId);
 		startActivity(intent);
+	}
+
+	/**
+	 * @param v
+	 * @user:pang
+	 * @data:2015年10月14日
+	 * @todo:添加附件
+	 * @return:void
+	 */
+	public void addAttachment(View v) {
+		create_docs_list = (ListView) findViewById(R.id.create_docs_list);
+		adapter = new AttachmentAdapter(CreateTaskAssgineActivity.this,
+				CreateTaskAssgineActivity.this, ds);
+		create_docs_list.setAdapter(adapter);
+	}
+
+	@Override
+	public void delAtt(int position) {
+
+	}
+
+	@Override
+	public void download(String attId) {
+
 	}
 }
