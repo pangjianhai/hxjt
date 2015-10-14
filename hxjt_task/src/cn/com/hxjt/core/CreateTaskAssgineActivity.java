@@ -102,7 +102,7 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity implements
 			receiver_notice.setText("接  收 人");
 		} else if (type.equals(TaskEntity.TASK_TYPE_APPLY)) {// shenqing
 			add_task_title.setText("申请任务");
-			receiver_notice.setText("接  收 人");
+			receiver_notice.setText("安  排  人");
 		} else if (type.equals(TaskEntity.TASK_TYPE_CREATE)) {// chuangjian
 			add_task_title.setText("创建任务");
 			receiver_notice_layout.setVisibility(View.GONE);

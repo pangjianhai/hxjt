@@ -51,15 +51,17 @@ public class TaskListLayoutActivity extends BaseActivity implements
 
 	private void buildUrl() {
 		Intent it = getIntent();
-		type = it.getIntExtra("", 0);
+		type = it.getIntExtra("type", 0);
 		param = it.getStringExtra("param");
 		url = GlobalUrl.IP;
+		System.out.println("detail:" + type);
 		if (type == 0) {
 			url = url + GlobalUrl.getMyTask;
 		} else {
 			url = url + GlobalUrl.getArrangedTask;
 		}
 		url = url + "?loginName=" + loginName + "&taskType=" + param;
+		System.out.println("url:" + url);
 	}
 
 	/**
