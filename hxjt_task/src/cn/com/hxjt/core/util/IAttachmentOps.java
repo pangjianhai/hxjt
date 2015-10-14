@@ -15,7 +15,7 @@ public interface IAttachmentOps {
 	 * @todo:删除附件
 	 * @return:void
 	 */
-	public void delAtt(int position);
+	public void delAtt(String path);
 
 	/**
 	 * 

@@ -479,13 +479,19 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity implements
 			Bundle bundle = null;
 			if (data != null && (bundle = data.getExtras()) != null) {
 				String path = bundle.getString("file");
-				System.out.println("*********path:" + path);
+				String[] ps = path.split("/");
+				String name = ps[ps.length - 1];
+				FileEntity fe = new FileEntity();
+				fe.setName(name);
+				fe.setPath(path);
+				ds.add(fe);
+				adapter.notifyDataSetChanged();
 			}
 		}
 	}
 
 	@Override
-	public void delAtt(int position) {
+	public void delAtt(String path) {
 
 	}
 

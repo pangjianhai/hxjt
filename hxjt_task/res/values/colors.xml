@@ -2,6 +2,7 @@
 <resources>
 
     <color name="blue">#539FDA</color>
+    <color name="red">#FF0000</color>
     <color name="white">#ffffffff</color>
     <color name="gray">#eeeeee</color>
     <color name="lightgray">#F0F0F0</color>

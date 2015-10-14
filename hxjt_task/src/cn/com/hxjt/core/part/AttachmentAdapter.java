@@ -53,26 +53,31 @@ public class AttachmentAdapter extends BaseAdapter {
 		holder = new HolderView();
 		final FileEntity t = dataSourceList.get(position);
 		if (convertview == null) {
-			convertview = View.inflate(context, R.layout.tasks_list_item, null);
-			holder.item_task_name = (TextView) convertview
-					.findViewById(R.id.item_task_name);
+			convertview = View
+					.inflate(context, R.layout.adddoc_list_item, null);
+			holder.add_att_name = (TextView) convertview
+					.findViewById(R.id.add_att_name);
+			holder.add_att_del = (TextView) convertview
+					.findViewById(R.id.add_att_del);
 			convertview.setTag(holder);
 		} else {
 			holder = (HolderView) convertview.getTag();
 		}
-		holder.item_task_name.setText(t.getName());
+		holder.add_att_name.setText(t.getName());
 
-		holder.item_task_name.setOnClickListener(new OnClickListener() {
+		holder.add_att_del.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
+				String path = t.getPath();
+				ops.delAtt(path);
 			}
 		});
 		return convertview;
 	}
 
 	private class HolderView {
-		private TextView item_task_name;
+		private TextView add_att_name, add_att_del;
 	}
 
 }
