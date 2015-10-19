@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 import cn.com.hxjt.core.cons.GlobalUrl;
 import cn.com.hxjt.core.part.LineEditText;
@@ -34,12 +35,15 @@ public class AppLoginStartActivity extends ParentTaskActivity {
 	 */
 	private String loginName, name, pwd;
 
+	private ProgressBar loading_now;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		validBeforeRender();
 		setContentView(R.layout.app_login);
+		loading_now = (ProgressBar) findViewById(R.id.loading_now);
+		validBeforeRender();
 		mUser = (LineEditText) findViewById(R.id.login_user_edit);
 		mPassword = (LineEditText) findViewById(R.id.login_passwd_edit);
 
@@ -95,6 +99,7 @@ public class AppLoginStartActivity extends ParentTaskActivity {
 	 * @return:void
 	 */
 	private void realLogin(String loginName, String pwd) {
+		loading_now.setVisibility(View.VISIBLE);
 		String url = GlobalUrl.IP + GlobalUrl.login;
 		url = url + "?loginName=" + loginName + "&pwd=" + pwd;
 		try {
@@ -115,6 +120,7 @@ public class AppLoginStartActivity extends ParentTaskActivity {
 						} else {
 							loginFail();
 						}
+						loading_now.setVisibility(View.GONE);
 					} catch (JSONException e) {
 						e.printStackTrace();
 					}
@@ -124,6 +130,7 @@ public class AppLoginStartActivity extends ParentTaskActivity {
 				public void onFailure(HttpException error, String msg) {
 					Toast.makeText(getApplicationContext(), "网络有问题哦",
 							Toast.LENGTH_SHORT).show();
+					loading_now.setVisibility(View.GONE);
 				}
 			};
 			Map param_map = new HashMap();
