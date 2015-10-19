@@ -58,11 +58,9 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/layout_space_form"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_below="@+id/layout_space_ops"
-        android:background="@color/white"
         android:orientation="vertical" >
 
         <LinearLayout
@@ -99,6 +97,7 @@
             <Spinner
                 android:id="@+id/eprojectType"
                 android:layout_width="150dp"
+                style="@style/spinner_style"
                 android:layout_height="wrap_content"
                 android:layout_weight="3" />
         </LinearLayout>

@@ -4,7 +4,6 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -33,6 +32,11 @@ import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 
+/**
+ * @todo 编辑任务
+ * @author pang
+ *
+ */
 public class EditTaskActivity extends ParentTaskActivity implements
 		View.OnTouchListener {
 	public static final int FILE_RESULT_CODE = 1;
@@ -43,9 +47,7 @@ public class EditTaskActivity extends ParentTaskActivity implements
 	private EditText st;
 	private ArrayAdapter<String> proTypesAd = null;
 	private ArrayAdapter<String> proPositionsAd = null;
-	private ArrayAdapter<String> userAd = null;
 	private ArrayAdapter<String> proAd = null;
-	private ArrayAdapter<String> checkAd = null;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -281,7 +283,6 @@ public class EditTaskActivity extends ParentTaskActivity implements
 			url = GlobalUrl.IP + GlobalUrl.createOwnTask;
 		}
 		url = url + param;
-		// System.out.println("url:" + url);
 		try {
 			RequestCallBack<String> rcb = new RequestCallBack<String>() {
 
@@ -295,7 +296,6 @@ public class EditTaskActivity extends ParentTaskActivity implements
 								"taskId:" + taskId, Toast.LENGTH_SHORT).show();
 						showTaskDetail(taskId);
 					} catch (JSONException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}
