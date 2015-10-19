@@ -53,6 +53,10 @@ public class GlobalUrl {
 	 * 获取任务详情
 	 */
 	public static String getTaskInfo = "task/GetTaskInfo";
+	/**
+	 * 获取任务附件
+	 */
+	public static String getTaskAttachmentInfos = "attachment/GetTaskAttachmentInfos";
 
 	// 获取可以执行的操作
 	public static String getAvailableOpsByTaskAndUser = "task/GetAvailableOpsByTaskAndUser";
@@ -79,4 +83,9 @@ public class GlobalUrl {
 	 * 获取分配任务的相关数目
 	 */
 	public static String getArrangedTask = "task/SearchTasksAssign";
+
+	/**
+	 * 下载附件
+	 */
+	public static String getAttachment = "attachment/GetAttachment";
 }

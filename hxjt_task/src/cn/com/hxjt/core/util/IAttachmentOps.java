@@ -25,5 +25,5 @@ public interface IAttachmentOps {
 	 * @todo:下载附件
 	 * @return:void
 	 */
-	public void download(String attId);
+	public void download(String attId, String name);
 }

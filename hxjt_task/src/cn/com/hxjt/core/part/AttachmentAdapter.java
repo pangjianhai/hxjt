@@ -52,32 +52,33 @@ public class AttachmentAdapter extends BaseAdapter {
 	public View getView(final int position, View convertview, ViewGroup parent) {
 		holder = new HolderView();
 		final FileEntity t = dataSourceList.get(position);
+		final String attId = t.getId();
+		final String attName = t.getName();
 		if (convertview == null) {
-			convertview = View
-					.inflate(context, R.layout.adddoc_list_item, null);
+			convertview = View.inflate(context, R.layout.showdoc_list_item,
+					null);
 			holder.add_att_name = (TextView) convertview
 					.findViewById(R.id.add_att_name);
-			holder.add_att_del = (TextView) convertview
-					.findViewById(R.id.add_att_del);
+			holder.show_doc_download = (TextView) convertview
+					.findViewById(R.id.show_doc_download);
 			convertview.setTag(holder);
 		} else {
 			holder = (HolderView) convertview.getTag();
 		}
 		holder.add_att_name.setText(t.getName());
 
-		holder.add_att_del.setOnClickListener(new OnClickListener() {
+		holder.show_doc_download.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				String path = t.getPath();
-				ops.delAtt(path);
+				ops.download(attId, attName);
 			}
 		});
 		return convertview;
 	}
 
 	private class HolderView {
-		private TextView add_att_name, add_att_del;
+		private TextView add_att_name, show_doc_download;
 	}
 
 }
