@@ -55,23 +55,27 @@ public class TaskAdapter extends BaseAdapter {
 			convertview = View.inflate(context, R.layout.tasks_list_item, null);
 			holder.item_task_name = (TextView) convertview
 					.findViewById(R.id.item_task_name);
+			holder.item_task_time = (TextView) convertview
+					.findViewById(R.id.item_task_time);
 			convertview.setTag(holder);
 		} else {
 			holder = (HolderView) convertview.getTag();
 		}
 		holder.item_task_name.setText(t.getName());
-		
-		holder.item_task_name.setOnClickListener(new OnClickListener(){
+
+		holder.item_task_name.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				ops.clickTask(t.getId());				
-			}});
+				ops.clickTask(t.getId());
+			}
+		});
+		holder.item_task_time.setText(t.getRequireCompleteDate());
 		return convertview;
 	}
 
 	private class HolderView {
-		private TextView item_task_name;
+		private TextView item_task_name, item_task_time;
 	}
 
 }

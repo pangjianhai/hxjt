@@ -39,7 +39,7 @@
             android:id="@+id/tasks_lv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:dividerHeight="2dp"
+            android:dividerHeight="1dp"
             android:footerDividersEnabled="true"
             android:padding="4dp" />
     </LinearLayout>

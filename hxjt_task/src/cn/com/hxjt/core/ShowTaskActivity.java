@@ -324,7 +324,6 @@ public class ShowTaskActivity extends ParentTaskActivity implements IApplyOps,
 				@Override
 				public void onSuccess(ResponseInfo<String> responseInfo) {
 					String data = responseInfo.result;
-					System.out.println("_______________data:" + data);
 					if (data == null || "".equals(data) || "[]".equals(data)) {
 						return;
 					}
