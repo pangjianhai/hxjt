@@ -90,6 +90,17 @@
             android:textColor="@color/orange"
             android:textSize="14dp"
             android:visibility="gone" />
+
+        <Button
+            android:id="@+id/ops_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/task_create_bg"
+            android:onClick="ops_task"
+            android:text="编辑"
+            android:textColor="@color/orange"
+            android:textSize="14dp"
+            android:visibility="visible" />
     </LinearLayout>
 
     <LinearLayout

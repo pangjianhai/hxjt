@@ -53,7 +53,8 @@ public class ShowTaskActivity extends ParentTaskActivity implements IApplyOps,
 			receiver, creator, requiredCompletionDate, completionDate,
 			importantLevel, emergentLevel, show_runningState;
 
-	private Button ops_sig, ops_cancel, ops_submit, ops_get, ops_approve;
+	private Button ops_sig, ops_cancel, ops_submit, ops_get, ops_approve,
+			ops_edit;
 
 	private ListView doc_lv;
 	private List<FileEntity> ds = new ArrayList<FileEntity>();
@@ -95,6 +96,7 @@ public class ShowTaskActivity extends ParentTaskActivity implements IApplyOps,
 		ops_submit = (Button) findViewById(R.id.ops_submit);
 		ops_get = (Button) findViewById(R.id.ops_get);
 		ops_approve = (Button) findViewById(R.id.ops_approve);
+		ops_edit = (Button) findViewById(R.id.ops_edit);
 
 		doc_lv = (ListView) findViewById(R.id.doc_lv);
 	}
@@ -180,7 +182,6 @@ public class ShowTaskActivity extends ParentTaskActivity implements IApplyOps,
 					for (int i = 0; i < types.length; i++) {
 						String ops = types[i].substring(1,
 								types[i].length() - 1);
-						System.out.println("ops:" + ops);
 						map.put(ops, ops);
 					}
 					if (map.containsKey("签收任务")) {
@@ -197,6 +198,9 @@ public class ShowTaskActivity extends ParentTaskActivity implements IApplyOps,
 					}
 					if (map.containsKey("接受任务申请")) {
 						ops_get.setVisibility(View.VISIBLE);
+					}
+					if (map.containsKey("编辑任务")) {
+						ops_edit.setVisibility(View.VISIBLE);
 					}
 				}
 
@@ -242,6 +246,13 @@ public class ShowTaskActivity extends ParentTaskActivity implements IApplyOps,
 		} else if (R.id.ops_approve == v.getId()) {
 			TaskUtil.no_login_alter(v, ShowTaskActivity.this,
 					ShowTaskActivity.this);
+			return;
+		} else if (R.id.ops_edit == v.getId()) {
+			Intent intent = new Intent(ShowTaskActivity.this,
+					EditTaskActivity.class);
+			intent.putExtra("taskId", taskId);
+			startActivity(intent);
+			finish();
 			return;
 		}
 		StringBuilder param = new StringBuilder("");
