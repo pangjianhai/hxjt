@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import cn.com.hxjt.core.R;
 import cn.com.hxjt.core.entity.TaskBean;
@@ -57,13 +58,15 @@ public class TaskAdapter extends BaseAdapter {
 					.findViewById(R.id.item_task_name);
 			holder.item_task_time = (TextView) convertview
 					.findViewById(R.id.item_task_time);
+			holder.task_item_single = (RelativeLayout) convertview
+					.findViewById(R.id.task_item_single);
 			convertview.setTag(holder);
 		} else {
 			holder = (HolderView) convertview.getTag();
 		}
 		holder.item_task_name.setText(t.getName());
 
-		holder.item_task_name.setOnClickListener(new OnClickListener() {
+		holder.task_item_single.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
@@ -76,6 +79,7 @@ public class TaskAdapter extends BaseAdapter {
 
 	private class HolderView {
 		private TextView item_task_name, item_task_time;
+		private RelativeLayout task_item_single;
 	}
 
 }

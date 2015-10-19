@@ -337,12 +337,10 @@ public class ShowTaskActivity extends ParentTaskActivity implements IApplyOps,
 							fe.setId(identifier);
 							fe.setName(name);
 							ds.add(fe);
-							System.out.println("---<>");
 						}
 					} catch (JSONException e) {
 						e.printStackTrace();
 					}
-					System.out.println("<><><><><><><>");
 					adapter.notifyDataSetChanged();
 				}
 

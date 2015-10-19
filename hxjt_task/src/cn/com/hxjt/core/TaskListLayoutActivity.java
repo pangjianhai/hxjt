@@ -114,7 +114,7 @@ public class TaskListLayoutActivity extends BaseActivity implements
 									int d = CommonDateUtil.getDay(day);
 									int h = CommonDateUtil.getHour(day);
 									int mi = CommonDateUtil.getMinut(day);
-									requiredCompletionDate = m + "—" + d + " "
+									requiredCompletionDate = m + "-" + d + " "
 											+ h + ":" + mi;
 								}
 								TaskBean tb = new TaskBean();
