@@ -91,7 +91,8 @@ public class TaskListLayoutActivity extends BaseActivity implements
 				public void onSuccess(ResponseInfo<String> responseInfo) {
 					String data = responseInfo.result;
 					System.out.println("responseInfo:" + data);
-					if ("[]".equals(data)) {
+					if (data == null || "[]".equals(data)
+							|| "null".equals(data)) {
 						return;
 					}
 					try {

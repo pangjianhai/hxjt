@@ -5,23 +5,11 @@
     android:background="@color/gray" >
 
     <TextView
-        android:id="@+id/add_att_name"
+        android:id="@+id/show_att_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="2dp"
         android:textColor="@color/blue"
         android:textSize="20sp" />
-
-    <TextView
-        android:id="@+id/show_doc_download"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:layout_toEndOf="@id/add_att_name"
-        android:layout_toRightOf="@id/add_att_name"
-        android:text="[下载]"
-        android:textColor="@color/blue"
-        android:textSize="18sp" />
 
 </RelativeLayout>

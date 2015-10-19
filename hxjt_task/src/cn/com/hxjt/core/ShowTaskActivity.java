@@ -317,12 +317,14 @@ public class ShowTaskActivity extends ParentTaskActivity implements IApplyOps,
 	private void loadDocData() {
 		String url = GlobalUrl.IP + GlobalUrl.getTaskAttachmentInfos
 				+ "?taskID=1333";
+		System.out.println("url:" + url);
 		try {
 			RequestCallBack<String> rcb = new RequestCallBack<String>() {
 
 				@Override
 				public void onSuccess(ResponseInfo<String> responseInfo) {
 					String data = responseInfo.result;
+					System.out.println("_______________data:" + data);
 					if (data == null || "".equals(data) || "[]".equals(data)) {
 						return;
 					}
@@ -336,11 +338,12 @@ public class ShowTaskActivity extends ParentTaskActivity implements IApplyOps,
 							fe.setId(identifier);
 							fe.setName(name);
 							ds.add(fe);
+							System.out.println("---<>");
 						}
 					} catch (JSONException e) {
 						e.printStackTrace();
 					}
-
+					System.out.println("<><><><><><><>");
 					adapter.notifyDataSetChanged();
 				}
 
@@ -365,7 +368,6 @@ public class ShowTaskActivity extends ParentTaskActivity implements IApplyOps,
 
 	@Override
 	public void download(String attId, String attName) {
-		System.out.println("attId:::::::::::::::::::::::::::" + attId);
 		real_download(attId, attName);
 	}
 

@@ -57,17 +57,15 @@ public class AttachmentAdapter extends BaseAdapter {
 		if (convertview == null) {
 			convertview = View.inflate(context, R.layout.showdoc_list_item,
 					null);
-			holder.add_att_name = (TextView) convertview
-					.findViewById(R.id.add_att_name);
-			holder.show_doc_download = (TextView) convertview
-					.findViewById(R.id.show_doc_download);
+			holder.show_att_name = (TextView) convertview
+					.findViewById(R.id.show_att_name);
 			convertview.setTag(holder);
 		} else {
 			holder = (HolderView) convertview.getTag();
 		}
-		holder.add_att_name.setText(t.getName());
+		holder.show_att_name.setText(t.getName());
 
-		holder.show_doc_download.setOnClickListener(new OnClickListener() {
+		holder.show_att_name.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
@@ -78,7 +76,7 @@ public class AttachmentAdapter extends BaseAdapter {
 	}
 
 	private class HolderView {
-		private TextView add_att_name, show_doc_download;
+		private TextView show_att_name;
 	}
 
 }
