@@ -232,7 +232,7 @@ public class ShowTaskActivity extends ParentTaskActivity implements IApplyOps {
 		String url = GlobalUrl.IP + GlobalUrl.approveTask;
 		StringBuilder param = new StringBuilder("");
 		param.append("?loginName=" + loginName + "&taskID=").append(taskId);
-		param.append("isApprovePass=").append(isPass);
+		param.append("&isApprovePass=").append(isPass);
 		real_ops_for_task(url + param.toString(), R.id.ops_approve);
 	}
 
