@@ -26,7 +26,9 @@ import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
 import cn.com.hxjt.core.cons.GlobalUrl;
+import cn.com.hxjt.core.entity.TaskBean;
 import cn.com.hxjt.core.util.CommonDateUtil;
+import cn.com.hxjt.core.util.TaskUtil;
 
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.ResponseInfo;
@@ -40,9 +42,8 @@ import com.lidroid.xutils.http.callback.RequestCallBack;
 public class EditTaskActivity extends ParentTaskActivity implements
 		View.OnTouchListener {
 	public static final int FILE_RESULT_CODE = 1;
-	private String taskID;
-
-	private String type;
+	private String taskId;
+	private TaskBean tb = null;
 	private EditText taskName;
 	private Spinner projectType, belongPro, belongProPosition;
 	private ArrayAdapter<String> proTypesAd = null;
@@ -55,10 +56,10 @@ public class EditTaskActivity extends ParentTaskActivity implements
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.edit_task_assigned);
-		taskID = getIntent().getStringExtra("taskID");
+		taskId = getIntent().getStringExtra("taskId");
 		initPart();
 		initProType();
-
+		getDetail();
 		projectType.setOnItemSelectedListener(new OnItemSelectedListener() {
 			@Override
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
@@ -251,6 +252,31 @@ public class EditTaskActivity extends ParentTaskActivity implements
 		return true;
 	}
 
+	private void getDetail() {
+		String url = GlobalUrl.IP + GlobalUrl.getTaskInfo + "?taskID=" + taskId;
+		try {
+			RequestCallBack<String> rcb = new RequestCallBack<String>() {
+
+				@Override
+				public void onSuccess(ResponseInfo<String> responseInfo) {
+					String data = responseInfo.result;
+					System.out.println("***********data:" + data);
+					tb = TaskUtil.getBeanByJson(data);
+				}
+
+				@Override
+				public void onFailure(HttpException error, String msg) {
+					Toast.makeText(getApplicationContext(), "哦，服务器出问题了",
+							Toast.LENGTH_SHORT).show();
+				}
+			};
+			Map param_map = new HashMap();
+			send_normal_request(url, param_map, rcb);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	/**
 	 * 
 	 * @param v
@@ -263,7 +289,7 @@ public class EditTaskActivity extends ParentTaskActivity implements
 
 		if (v.getId() == R.id.add_save_task) {
 			StringBuilder param = new StringBuilder("?");
-			param.append("taskID=" + taskID);
+			param.append("taskID=" + taskId);
 			param.append("&loginName=" + loginName);
 			param.append("&taskName=" + taskName.getText().toString());
 			param.append("&projectType="
