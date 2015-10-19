@@ -23,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="编辑任务"
+            android:text="编辑"
             android:textColor="@color/black"
             android:textSize="20sp" />
     </RelativeLayout>
@@ -58,9 +58,11 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/layout_space_form"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_below="@+id/layout_space_ops"
+        android:background="@color/white"
         android:orientation="vertical" >
 
         <LinearLayout
@@ -76,7 +78,7 @@
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/etaskName"
+                android:id="@+id/taskName"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3" />
@@ -95,9 +97,8 @@
                 android:textStyle="bold" />
 
             <Spinner
-                android:id="@+id/eprojectType"
+                android:id="@+id/projectType"
                 android:layout_width="150dp"
-                style="@style/spinner_style"
                 android:layout_height="wrap_content"
                 android:layout_weight="3" />
         </LinearLayout>
@@ -115,7 +116,7 @@
                 android:textStyle="bold" />
 
             <Spinner
-                android:id="@+id/ebelongPro"
+                android:id="@+id/belongPro"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3" />
@@ -134,7 +135,7 @@
                 android:textStyle="bold" />
 
             <Spinner
-                android:id="@+id/ebelongProPosition"
+                android:id="@+id/belongProPosition"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3" />
@@ -153,7 +154,7 @@
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/est"
+                android:id="@+id/st"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3" />

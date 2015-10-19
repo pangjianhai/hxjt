@@ -1,6 +1,7 @@
 package cn.com.hxjt.core;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,7 +26,6 @@ import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
 import cn.com.hxjt.core.cons.GlobalUrl;
-import cn.com.hxjt.core.entity.TaskEntity;
 import cn.com.hxjt.core.util.CommonDateUtil;
 
 import com.lidroid.xutils.exception.HttpException;
@@ -40,20 +40,22 @@ import com.lidroid.xutils.http.callback.RequestCallBack;
 public class EditTaskActivity extends ParentTaskActivity implements
 		View.OnTouchListener {
 	public static final int FILE_RESULT_CODE = 1;
+	private String taskID;
 
 	private String type;
 	private EditText taskName;
 	private Spinner projectType, belongPro, belongProPosition;
-	private EditText st;
 	private ArrayAdapter<String> proTypesAd = null;
 	private ArrayAdapter<String> proPositionsAd = null;
 	private ArrayAdapter<String> proAd = null;
+	private EditText st;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.edit_task_assigned);
+		taskID = getIntent().getStringExtra("taskID");
 		initPart();
 		initProType();
 
@@ -74,11 +76,11 @@ public class EditTaskActivity extends ParentTaskActivity implements
 	}
 
 	private void initPart() {
-		taskName = (EditText) findViewById(R.id.etaskName);
-		projectType = (Spinner) findViewById(R.id.eprojectType);
-		belongPro = (Spinner) findViewById(R.id.ebelongPro);
-		belongProPosition = (Spinner) findViewById(R.id.ebelongProPosition);
-		st = (EditText) findViewById(R.id.est);
+		taskName = (EditText) findViewById(R.id.taskName);
+		projectType = (Spinner) findViewById(R.id.projectType);
+		belongPro = (Spinner) findViewById(R.id.belongPro);
+		belongProPosition = (Spinner) findViewById(R.id.belongProPosition);
+		st = (EditText) findViewById(R.id.st);
 		st.setOnTouchListener(this);
 		String date = CommonDateUtil.getCurrTime();
 		st.setText(date.subSequence(0, date.length() - 3));
@@ -101,7 +103,7 @@ public class EditTaskActivity extends ParentTaskActivity implements
 						nt[i] = types[i].substring(1, types[i].length() - 1);
 					}
 					proTypesAd = new ArrayAdapter<String>(
-							getApplicationContext(),
+							EditTaskActivity.this,
 							android.R.layout.simple_spinner_item, nt);
 					projectType.setAdapter(proTypesAd);
 				}
@@ -136,7 +138,7 @@ public class EditTaskActivity extends ParentTaskActivity implements
 					for (int i = 0; i < nt.length; i++) {
 						nt[i] = types[i].substring(1, types[i].length() - 1);
 					}
-					proAd = new ArrayAdapter<String>(getApplicationContext(),
+					proAd = new ArrayAdapter<String>(EditTaskActivity.this,
 							android.R.layout.simple_spinner_item, nt);
 					belongPro.setAdapter(proAd);
 				}
@@ -172,7 +174,7 @@ public class EditTaskActivity extends ParentTaskActivity implements
 						nt[i] = types[i].substring(1, types[i].length() - 1);
 					}
 					proPositionsAd = new ArrayAdapter<String>(
-							getApplicationContext(),
+							EditTaskActivity.this,
 							android.R.layout.simple_spinner_item, nt);
 					belongProPosition.setAdapter(proPositionsAd);
 				}
@@ -254,12 +256,26 @@ public class EditTaskActivity extends ParentTaskActivity implements
 	 * @param v
 	 * @user:pang
 	 * @data:2015年7月21日
-	 * @todo:创建任务
+	 * @todo:保存任务
 	 * @return:void
 	 */
 	public void save_or_cancel(View v) {
 
 		if (v.getId() == R.id.add_save_task) {
+			StringBuilder param = new StringBuilder("?");
+			param.append("taskID=" + taskID);
+			param.append("&loginName=" + loginName);
+			param.append("&taskName=" + taskName.getText().toString());
+			param.append("&projectType="
+					+ projectType.getSelectedItem().toString());
+			param.append("&projectPosition="
+					+ belongProPosition.getSelectedItem().toString());
+			param.append("&project=" + belongPro.getSelectedItem().toString());
+			String st_str = st.getText().toString() + ":00";
+			Date dt = CommonDateUtil.getTime(st_str);
+			String str = CommonDateUtil.getDateTimeForStr(dt);
+			param.append("&requiredCompletionDate=" + str);
+			update(param.toString());
 		} else if (v.getId() == R.id.add_cancel_task) {
 			finish();
 		}
@@ -270,19 +286,13 @@ public class EditTaskActivity extends ParentTaskActivity implements
 	 * @param param
 	 * @user:pang
 	 * @data:2015年9月30日
-	 * @todo:真正的添加
+	 * @todo:修改任务
 	 * @return:void
 	 */
-	private void save(String param) {
-		String url = "";
-		if (type.equals(TaskEntity.TASK_TYPE_ASSIGN)) {
-			url = GlobalUrl.IP + GlobalUrl.assignTask;
-		} else if (type.equals(TaskEntity.TASK_TYPE_APPLY)) {
-			url = GlobalUrl.IP + GlobalUrl.applyTask;
-		} else if (type.equals(TaskEntity.TASK_TYPE_CREATE)) {
-			url = GlobalUrl.IP + GlobalUrl.createOwnTask;
-		}
+	private void update(String param) {
+		String url = GlobalUrl.IP + GlobalUrl.updateTask;
 		url = url + param;
+		System.out.println("修改的链接地址：" + url);
 		try {
 			RequestCallBack<String> rcb = new RequestCallBack<String>() {
 
@@ -291,10 +301,7 @@ public class EditTaskActivity extends ParentTaskActivity implements
 					String data = responseInfo.result;
 					try {
 						JSONObject j = new JSONObject(data);
-						String taskId = j.getString("ID");
-						Toast.makeText(getApplicationContext(),
-								"taskId:" + taskId, Toast.LENGTH_SHORT).show();
-						showTaskDetail(taskId);
+						toHome();
 					} catch (JSONException e) {
 						e.printStackTrace();
 					}
@@ -319,13 +326,11 @@ public class EditTaskActivity extends ParentTaskActivity implements
 	 * @param taskId
 	 * @user:pang
 	 * @data:2015年9月28日
-	 * @todo:查看项目详情
+	 * @todo:返回首页
 	 * @return:void
 	 */
-	private void showTaskDetail(String taskId) {
-		Intent intent = new Intent(getApplicationContext(),
-				ShowTaskActivity.class);
-		intent.putExtra("taskId", taskId);
+	private void toHome() {
+		Intent intent = new Intent(EditTaskActivity.this, HomeActivity.class);
 		startActivity(intent);
 	}
 }

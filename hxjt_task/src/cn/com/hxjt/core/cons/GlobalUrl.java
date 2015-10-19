@@ -50,6 +50,11 @@ public class GlobalUrl {
 	public static String createOwnTask = "task/CreateOwnTask";
 
 	/**
+	 * 修改任务
+	 */
+	public static String updateTask = "task/UpdateTask";
+
+	/**
 	 * 获取任务详情
 	 */
 	public static String getTaskInfo = "task/GetTaskInfo";
