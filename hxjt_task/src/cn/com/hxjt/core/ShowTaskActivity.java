@@ -375,7 +375,7 @@ public class ShowTaskActivity extends ParentTaskActivity implements IApplyOps,
 
 	@Override
 	public void download(String attId, String attName) {
-		real_download(attId, attName);
+		// real_download(attId, attName);
 	}
 
 	/**
