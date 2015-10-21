@@ -260,7 +260,6 @@ public class EditTaskActivity extends ParentTaskActivity implements
 				@Override
 				public void onSuccess(ResponseInfo<String> responseInfo) {
 					String data = responseInfo.result;
-					System.out.println("***********data:" + data);
 					tb = TaskUtil.getBeanByJson(data);
 				}
 
@@ -318,7 +317,8 @@ public class EditTaskActivity extends ParentTaskActivity implements
 	private void update(String param) {
 		String url = GlobalUrl.IP + GlobalUrl.updateTask;
 		url = url + param;
-		System.out.println("修改的链接地址：" + url);
+		Toast.makeText(getApplicationContext(), url, Toast.LENGTH_SHORT).show();
+		System.out.println("url:" + url);
 		try {
 			RequestCallBack<String> rcb = new RequestCallBack<String>() {
 
