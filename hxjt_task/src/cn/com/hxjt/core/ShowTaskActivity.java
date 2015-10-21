@@ -199,7 +199,7 @@ public class ShowTaskActivity extends ParentTaskActivity implements IApplyOps,
 					if (map.containsKey("接受任务申请")) {
 						ops_get.setVisibility(View.VISIBLE);
 					}
-					if (map.containsKey("编辑任务")) {
+					if (map.containsKey("修改任务")) {
 						ops_edit.setVisibility(View.VISIBLE);
 					}
 				}
@@ -322,13 +322,12 @@ public class ShowTaskActivity extends ParentTaskActivity implements IApplyOps,
 		adapter = new AttachmentAdapter(ShowTaskActivity.this,
 				ShowTaskActivity.this, ds);
 		doc_lv.setAdapter(adapter);
-		loadDocData();
+		// loadDocData();
 	}
 
 	private void loadDocData() {
 		String url = GlobalUrl.IP + GlobalUrl.getTaskAttachmentInfos
 				+ "?taskID=1333";
-		System.out.println("url:" + url);
 		try {
 			RequestCallBack<String> rcb = new RequestCallBack<String>() {
 
