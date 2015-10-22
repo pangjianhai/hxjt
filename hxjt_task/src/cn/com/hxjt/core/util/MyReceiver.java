@@ -22,9 +22,6 @@ public class MyReceiver extends BroadcastReceiver {
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
-		System.out
-				.println("----------->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-		System.out.println(intent.getAction());
 		Bundle bundle = intent.getExtras();
 		Log.d(TAG, "[MyReceiver] onReceive - " + intent.getAction()
 				+ ", extras: " + printBundle(bundle));
@@ -42,7 +39,6 @@ public class MyReceiver extends BroadcastReceiver {
 		} else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent
 				.getAction())) {
 			String str = bundle.getString(EXTRAS_KEY);
-			System.out.println("----------->>>>>>>>>" + str);
 			String taskId = processCommonNotice(context,
 					bundle.getString(EXTRAS_KEY));
 			System.out.println("接收到的参数taskId:" + taskId);

@@ -164,8 +164,6 @@ public class EditTaskActivity extends ParentTaskActivity implements
 	}
 
 	private void getPro(String proT) {
-		Toast.makeText(getApplicationContext(), "****>" + proT,
-				Toast.LENGTH_LONG).show();
 		String url = GlobalUrl.IP + GlobalUrl.getProByType + "?projectType="
 				+ proT;
 		try {
@@ -189,6 +187,16 @@ public class EditTaskActivity extends ParentTaskActivity implements
 					proAd = new ArrayAdapter<String>(EditTaskActivity.this,
 							android.R.layout.simple_spinner_item, nt);
 					belongPro.setAdapter(proAd);
+					// 制定位置
+					if (old_pro != null && !"".equals(old_pro)
+							&& !"null".equals(old_pro)) {
+						if (nt != null && nt.length > 0) {
+							int index = proAd.getPosition(old_pro);
+							if (index >= 0) {
+								belongPro.setSelection(index, true);
+							}
+						}
+					}
 				}
 
 				@Override
@@ -227,6 +235,16 @@ public class EditTaskActivity extends ParentTaskActivity implements
 							EditTaskActivity.this,
 							android.R.layout.simple_spinner_item, nt);
 					belongProPosition.setAdapter(proPositionsAd);
+
+					if (old_pro_p != null && !"".equals(old_pro_p)
+							&& !"null".equals(old_pro_p)) {
+						if (nt != null && nt.length > 0) {
+							int index = proPositionsAd.getPosition(old_pro_p);
+							if (index >= 0) {
+								belongProPosition.setSelection(index, true);
+							}
+						}
+					}
 				}
 
 				@Override
@@ -313,7 +331,10 @@ public class EditTaskActivity extends ParentTaskActivity implements
 		old_pro_t = tb.getProjectType();
 		old_pro = tb.getPro();
 		old_pro_p = tb.getProPosition();
-		st.setText(tb.getRequireCompleteDate());
+		String time = tb.getRequireCompleteDate();
+		time = time.replace("T", " ");
+		time = time.substring(0, time.length() - 3);
+		st.setText(time);
 	}
 
 	/**
@@ -360,14 +381,12 @@ public class EditTaskActivity extends ParentTaskActivity implements
 	private void update(String param) {
 		String url = GlobalUrl.IP + GlobalUrl.updateTask;
 		url = url + param;
-		Toast.makeText(getApplicationContext(), url, Toast.LENGTH_SHORT).show();
 		try {
 			RequestCallBack<String> rcb = new RequestCallBack<String>() {
 
 				@Override
 				public void onSuccess(ResponseInfo<String> responseInfo) {
 					String data = responseInfo.result;
-					System.out.println("data:" + data);
 					toHome();
 				}
 

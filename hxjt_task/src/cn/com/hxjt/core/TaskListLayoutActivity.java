@@ -90,7 +90,6 @@ public class TaskListLayoutActivity extends BaseActivity implements
 				@Override
 				public void onSuccess(ResponseInfo<String> responseInfo) {
 					String data = responseInfo.result;
-					System.out.println("responseInfo:" + data);
 					if (data == null || "[]".equals(data)
 							|| "null".equals(data)) {
 						return;

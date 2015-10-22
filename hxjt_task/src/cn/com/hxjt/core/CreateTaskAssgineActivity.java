@@ -426,8 +426,6 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity implements
 					try {
 						JSONObject j = new JSONObject(data);
 						String taskId = j.getString("ID");
-						Toast.makeText(getApplicationContext(),
-								"taskId:" + taskId, Toast.LENGTH_SHORT).show();
 						showTaskDetail(taskId);
 					} catch (JSONException e) {
 						// TODO Auto-generated catch block
