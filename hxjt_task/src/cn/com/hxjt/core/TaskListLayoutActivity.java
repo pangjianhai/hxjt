@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import cn.com.hxjt.core.cons.GlobalUrl;
 import cn.com.hxjt.core.entity.TaskBean;
@@ -34,6 +35,7 @@ import com.lidroid.xutils.http.callback.RequestCallBack;
 public class TaskListLayoutActivity extends BaseActivity implements
 		TaskClickOps {
 	private TextView no_task_notice;
+	private ProgressBar progressBar1;
 	private ListView tasks_lv;
 	private List<TaskBean> ds = new ArrayList<TaskBean>();
 	private TaskAdapter adapter = null;
@@ -79,6 +81,7 @@ public class TaskListLayoutActivity extends BaseActivity implements
 				TaskListLayoutActivity.this, ds);
 		tasks_lv.setAdapter(adapter);
 		no_task_notice = (TextView) findViewById(R.id.no_task_notice);
+		progressBar1 = (ProgressBar) findViewById(R.id.progressBar1);
 	}
 
 	/**
@@ -88,6 +91,7 @@ public class TaskListLayoutActivity extends BaseActivity implements
 	 * @return:void
 	 */
 	private void loadData() {
+		progressBar1.setVisibility(View.VISIBLE);
 		try {
 			RequestCallBack<String> rcb = new RequestCallBack<String>() {
 
@@ -134,10 +138,12 @@ public class TaskListLayoutActivity extends BaseActivity implements
 					} catch (JSONException e) {
 						e.printStackTrace();
 					}
+					progressBar1.setVisibility(View.GONE);
 				}
 
 				@Override
 				public void onFailure(HttpException error, String msg) {
+					progressBar1.setVisibility(View.GONE);
 					error.printStackTrace();
 				}
 			};
