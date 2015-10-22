@@ -12,8 +12,10 @@ import org.json.JSONObject;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.view.Window;
 import android.widget.ListView;
+import android.widget.TextView;
 import cn.com.hxjt.core.cons.GlobalUrl;
 import cn.com.hxjt.core.entity.TaskBean;
 import cn.com.hxjt.core.part.TaskAdapter;
@@ -31,6 +33,7 @@ import com.lidroid.xutils.http.callback.RequestCallBack;
  */
 public class TaskListLayoutActivity extends BaseActivity implements
 		TaskClickOps {
+	private TextView no_task_notice;
 	private ListView tasks_lv;
 	private List<TaskBean> ds = new ArrayList<TaskBean>();
 	private TaskAdapter adapter = null;
@@ -75,6 +78,7 @@ public class TaskListLayoutActivity extends BaseActivity implements
 		adapter = new TaskAdapter(TaskListLayoutActivity.this,
 				TaskListLayoutActivity.this, ds);
 		tasks_lv.setAdapter(adapter);
+		no_task_notice = (TextView) findViewById(R.id.no_task_notice);
 	}
 
 	/**
@@ -92,6 +96,7 @@ public class TaskListLayoutActivity extends BaseActivity implements
 					String data = responseInfo.result;
 					if (data == null || "[]".equals(data)
 							|| "null".equals(data)) {
+						no_task_notice.setVisibility(View.VISIBLE);
 						return;
 					}
 					try {
@@ -123,6 +128,8 @@ public class TaskListLayoutActivity extends BaseActivity implements
 								ds.add(tb);
 							}
 							adapter.notifyDataSetChanged();
+						} else {
+							no_task_notice.setVisibility(View.VISIBLE);
 						}
 					} catch (JSONException e) {
 						e.printStackTrace();

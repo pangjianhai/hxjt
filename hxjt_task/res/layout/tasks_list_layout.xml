@@ -27,11 +27,22 @@
             android:textSize="20sp" />
     </RelativeLayout>
 
+    <TextView
+        android:id="@+id/no_task_notice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layout_space_title_bar"
+        android:layout_centerInParent="true"
+        android:text="没有任务"
+        android:textColor="@color/blue"
+        android:textSize="22sp"
+        android:visibility="gone" />
+
     <LinearLayout
         android:id="@+id/layout_space_content"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/layout_space_title_bar"
+        android:layout_below="@+id/no_task_notice"
         android:layout_marginTop="5dp"
         android:orientation="vertical" >
 
