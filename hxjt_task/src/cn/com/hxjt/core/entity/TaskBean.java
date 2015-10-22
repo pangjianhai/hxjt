@@ -9,6 +9,7 @@ public class TaskBean {
 
 	private String id;
 	private String name;
+	private String projectType;
 	private String pro;
 	private String proPosition;
 	private String runningState;
@@ -26,6 +27,14 @@ public class TaskBean {
 
 	public String getId() {
 		return id;
+	}
+
+	public String getProjectType() {
+		return projectType;
+	}
+
+	public void setProjectType(String projectType) {
+		this.projectType = projectType;
 	}
 
 	public void setId(String id) {

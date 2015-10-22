@@ -32,6 +32,7 @@ public class TaskUtil {
 			String name = j.getString("Name");
 			String pro = j.getString("Project");
 			String proPosition = j.getString("ProjectPosition");
+			String projectType = j.getString("ProjectType");
 			String runningState = j.getString("RunningState");
 			String arranger = j.getString("Arranger");
 			String receiver = j.getString("Receiver");
@@ -48,6 +49,7 @@ public class TaskUtil {
 
 			tb.setId(id);
 			tb.setName(name);
+			tb.setProjectType(projectType);
 			tb.setPro(pro);
 			tb.setProPosition(proPosition);
 			tb.setRunningState(runningState);

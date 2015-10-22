@@ -49,9 +49,10 @@ public class ShowTaskActivity extends ParentTaskActivity implements IApplyOps,
 	private String taskId;
 	private TaskBean tb = null;
 
-	private TextView taskName, belongPro, belongProPosition, arranger,
-			receiver, creator, requiredCompletionDate, completionDate,
-			importantLevel, emergentLevel, show_runningState;
+	private TextView taskName, show_belongProType, belongPro,
+			belongProPosition, arranger, receiver, creator,
+			requiredCompletionDate, completionDate, importantLevel,
+			emergentLevel, show_runningState;
 
 	private Button ops_sig, ops_cancel, ops_submit, ops_get, ops_approve,
 			ops_edit;
@@ -80,6 +81,7 @@ public class ShowTaskActivity extends ParentTaskActivity implements IApplyOps,
 	 */
 	private void initPart() {
 		taskName = (TextView) findViewById(R.id.show_taskName);
+		show_belongProType = (TextView) findViewById(R.id.show_belongProType);
 		belongPro = (TextView) findViewById(R.id.show_belongPro);
 		belongProPosition = (TextView) findViewById(R.id.show_belongProPosition);
 		arranger = (TextView) findViewById(R.id.show_arranger);
@@ -116,6 +118,9 @@ public class ShowTaskActivity extends ParentTaskActivity implements IApplyOps,
 				public void onSuccess(ResponseInfo<String> responseInfo) {
 					String data = responseInfo.result;
 					tb = TaskUtil.getBeanByJson(data);
+					System.out.println("data:" + data);
+					Toast.makeText(getApplicationContext(), data,
+							Toast.LENGTH_LONG).show();
 					renderFace(tb);
 				}
 
@@ -142,6 +147,7 @@ public class ShowTaskActivity extends ParentTaskActivity implements IApplyOps,
 	 */
 	private void renderFace(TaskBean tb) {
 		taskName.setText(tb.getName());
+		show_belongProType.setText(tb.getProjectType());
 		belongPro.setText(tb.getPro());
 		belongProPosition.setText(tb.getProPosition());
 		show_runningState.setText(tb.getRunningState());

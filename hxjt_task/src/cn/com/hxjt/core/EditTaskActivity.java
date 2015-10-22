@@ -48,6 +48,11 @@ public class EditTaskActivity extends ParentTaskActivity implements
 	private ArrayAdapter<String> proAd = null;
 	private EditText st;
 
+	// old
+	private String old_pro_t;
+	private String old_pro;
+	private String old_pro_p;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -55,22 +60,7 @@ public class EditTaskActivity extends ParentTaskActivity implements
 		setContentView(R.layout.edit_task_assigned);
 		taskId = getIntent().getStringExtra("taskId");
 		initPart();
-		initProType();
 		getDetail();
-		projectType.setOnItemSelectedListener(new OnItemSelectedListener() {
-			@Override
-			public void onItemSelected(AdapterView<?> arg0, View arg1,
-					int arg2, long arg3) {
-				String proType = proTypesAd.getItem(arg2);
-				getPro(proType);
-				getProPosition(proType);
-			}
-
-			@Override
-			public void onNothingSelected(AdapterView<?> arg0) {
-
-			}
-		});
 	}
 
 	/**
@@ -107,6 +97,23 @@ public class EditTaskActivity extends ParentTaskActivity implements
 					String data = responseInfo.result;
 					tb = TaskUtil.getBeanByJson(data);
 					render(tb);
+					initProType();
+					projectType
+							.setOnItemSelectedListener(new OnItemSelectedListener() {
+								@Override
+								public void onItemSelected(AdapterView<?> arg0,
+										View arg1, int arg2, long arg3) {
+									String proType = proTypesAd.getItem(arg2);
+									getPro(proType);
+									getProPosition(proType);
+								}
+
+								@Override
+								public void onNothingSelected(
+										AdapterView<?> arg0) {
+
+								}
+							});
 				}
 
 				@Override
@@ -293,9 +300,14 @@ public class EditTaskActivity extends ParentTaskActivity implements
 	 * @todo:渲染界面
 	 * @return:void
 	 */
-	public void render(TaskBean tb){
+	public void render(TaskBean tb) {
 		taskName.setText(tb.getName());
+		old_pro_t = tb.getProjectType();
+		old_pro = tb.getPro();
+		old_pro_p = tb.getProPosition();
+		st.setText(tb.getRequireCompleteDate());
 	}
+
 	/**
 	 * 
 	 * @param v
