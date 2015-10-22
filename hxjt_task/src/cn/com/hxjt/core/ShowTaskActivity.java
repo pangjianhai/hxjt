@@ -118,9 +118,8 @@ public class ShowTaskActivity extends ParentTaskActivity implements IApplyOps,
 				public void onSuccess(ResponseInfo<String> responseInfo) {
 					String data = responseInfo.result;
 					tb = TaskUtil.getBeanByJson(data);
-					System.out.println("data:" + data);
-					Toast.makeText(getApplicationContext(), data,
-							Toast.LENGTH_LONG).show();
+					// Toast.makeText(getApplicationContext(), data,
+					// Toast.LENGTH_LONG).show();
 					renderFace(tb);
 				}
 

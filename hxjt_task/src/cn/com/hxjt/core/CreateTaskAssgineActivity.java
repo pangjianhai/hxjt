@@ -170,15 +170,17 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity implements
 				@Override
 				public void onSuccess(ResponseInfo<String> responseInfo) {
 					String data = responseInfo.result;
+					String[] nt = {};
 					if (data == null || "".equals(data) || "[]".equals(data)) {
-						return;
-					}
-					// ["数据仓库建设","软件开发","未知"]
-					String newData = data.substring(1, data.length() - 1);
-					String[] types = newData.split(",");
-					String[] nt = new String[types.length];
-					for (int i = 0; i < nt.length; i++) {
-						nt[i] = types[i].substring(1, types[i].length() - 1);
+					} else {
+						// ["数据仓库建设","软件开发","未知"]
+						String newData = data.substring(1, data.length() - 1);
+						String[] types = newData.split(",");
+						nt = new String[types.length];
+						for (int i = 0; i < nt.length; i++) {
+							nt[i] = types[i]
+									.substring(1, types[i].length() - 1);
+						}
 					}
 					proAd = new ArrayAdapter<String>(
 							CreateTaskAssgineActivity.this,
@@ -207,14 +209,16 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity implements
 				@Override
 				public void onSuccess(ResponseInfo<String> responseInfo) {
 					String data = responseInfo.result;
+					String[] nt = {};
 					if (data == null || "".equals(data) || "[]".equals(data)) {
-						return;
-					}
-					String newData = data.substring(1, data.length() - 1);
-					String[] types = newData.split(",");
-					String[] nt = new String[types.length];
-					for (int i = 0; i < nt.length; i++) {
-						nt[i] = types[i].substring(1, types[i].length() - 1);
+					} else {
+						String newData = data.substring(1, data.length() - 1);
+						String[] types = newData.split(",");
+						nt = new String[types.length];
+						for (int i = 0; i < nt.length; i++) {
+							nt[i] = types[i]
+									.substring(1, types[i].length() - 1);
+						}
 					}
 					proPositionsAd = new ArrayAdapter<String>(
 							CreateTaskAssgineActivity.this,
