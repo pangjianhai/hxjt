@@ -5,9 +5,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -76,6 +73,12 @@ public class EditTaskActivity extends ParentTaskActivity implements
 		});
 	}
 
+	/**
+	 * @user:pang
+	 * @data:2015年10月22日
+	 * @todo:初始化控件
+	 * @return:void
+	 */
 	private void initPart() {
 		taskName = (EditText) findViewById(R.id.taskName);
 		projectType = (Spinner) findViewById(R.id.projectType);
@@ -86,6 +89,37 @@ public class EditTaskActivity extends ParentTaskActivity implements
 		String date = CommonDateUtil.getCurrTime();
 		st.setText(date.subSequence(0, date.length() - 3));
 
+	}
+
+	/**
+	 * @user:pang
+	 * @data:2015年9月28日
+	 * @todo:获取任务详情
+	 * @return:void
+	 */
+	private void getDetail() {
+		String url = GlobalUrl.IP + GlobalUrl.getTaskInfo + "?taskID=" + taskId;
+		try {
+			RequestCallBack<String> rcb = new RequestCallBack<String>() {
+
+				@Override
+				public void onSuccess(ResponseInfo<String> responseInfo) {
+					String data = responseInfo.result;
+					tb = TaskUtil.getBeanByJson(data);
+					render(tb);
+				}
+
+				@Override
+				public void onFailure(HttpException error, String msg) {
+					Toast.makeText(getApplicationContext(), "哦，服务器出问题了",
+							Toast.LENGTH_SHORT).show();
+				}
+			};
+			Map param_map = new HashMap();
+			send_normal_request(url, param_map, rcb);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	private void initProType() {
@@ -252,30 +286,16 @@ public class EditTaskActivity extends ParentTaskActivity implements
 		return true;
 	}
 
-	private void getDetail() {
-		String url = GlobalUrl.IP + GlobalUrl.getTaskInfo + "?taskID=" + taskId;
-		try {
-			RequestCallBack<String> rcb = new RequestCallBack<String>() {
-
-				@Override
-				public void onSuccess(ResponseInfo<String> responseInfo) {
-					String data = responseInfo.result;
-					tb = TaskUtil.getBeanByJson(data);
-				}
-
-				@Override
-				public void onFailure(HttpException error, String msg) {
-					Toast.makeText(getApplicationContext(), "哦，服务器出问题了",
-							Toast.LENGTH_SHORT).show();
-				}
-			};
-			Map param_map = new HashMap();
-			send_normal_request(url, param_map, rcb);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	/**
+	 * @param tb
+	 * @user:pang
+	 * @data:2015年10月22日
+	 * @todo:渲染界面
+	 * @return:void
+	 */
+	public void render(TaskBean tb){
+		taskName.setText(tb.getName());
 	}
-
 	/**
 	 * 
 	 * @param v
@@ -285,7 +305,6 @@ public class EditTaskActivity extends ParentTaskActivity implements
 	 * @return:void
 	 */
 	public void save_or_cancel(View v) {
-
 		if (v.getId() == R.id.add_save_task) {
 			StringBuilder param = new StringBuilder("?");
 			param.append("taskID=" + taskId);
@@ -318,19 +337,14 @@ public class EditTaskActivity extends ParentTaskActivity implements
 		String url = GlobalUrl.IP + GlobalUrl.updateTask;
 		url = url + param;
 		Toast.makeText(getApplicationContext(), url, Toast.LENGTH_SHORT).show();
-		System.out.println("url:" + url);
 		try {
 			RequestCallBack<String> rcb = new RequestCallBack<String>() {
 
 				@Override
 				public void onSuccess(ResponseInfo<String> responseInfo) {
 					String data = responseInfo.result;
-					try {
-						JSONObject j = new JSONObject(data);
-						toHome();
-					} catch (JSONException e) {
-						e.printStackTrace();
-					}
+					System.out.println("data:" + data);
+					toHome();
 				}
 
 				@Override
