@@ -165,10 +165,21 @@ public class ShowTaskActivity extends ParentTaskActivity implements IApplyOps,
 		arranger.setText(tb.getArranger());
 		receiver.setText(tb.getReceiver());
 		creator.setText(tb.getCreator());
-		requiredCompletionDate.setText(tb.getRequireCompleteDate());
+		String rct = tb.getRequireCompleteDate();
+		if ("null".equals(rct)) {
+			rct = "";
+		} else {
+			rct = rct.replace("T", " ");
+			rct = rct.substring(0, rct.length() - 3);
+		}
+
+		requiredCompletionDate.setText(rct);
 		String ct = tb.getCompleteDate();
 		if ("null".equals(ct)) {
 			ct = "";
+		} else {
+			ct = ct.replace("T", " ");
+			ct = ct.substring(0, ct.length() - 3);
 		}
 		completionDate.setText(ct);
 		importantLevel.setText(tb.getImportantLevel());
