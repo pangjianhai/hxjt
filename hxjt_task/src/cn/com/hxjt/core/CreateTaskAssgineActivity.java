@@ -357,11 +357,15 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity implements
 			StringBuilder param = new StringBuilder("?");
 			param.append("loginName=" + loginName);
 			param.append("&taskName=" + taskName.getText().toString());
-			param.append("&projectType="
-					+ projectType.getSelectedItem().toString());
-			param.append("&projectPosition="
-					+ belongProPosition.getSelectedItem().toString());
-			param.append("&project=" + belongPro.getSelectedItem().toString());
+			String type = projectType.getSelectedItem() != null ? projectType
+					.getSelectedItem().toString() : "";
+			param.append("&projectType=" + type);
+			String ps = belongProPosition.getSelectedItem() != null ? belongProPosition
+					.getSelectedItem().toString() : "";
+			param.append("&projectPosition=" + ps);
+			String pro = belongPro.getSelectedItem() != null ? belongPro
+					.getSelectedItem().toString() : "";
+			param.append("&project=" + pro);
 			String st_str = st.getText().toString() + ":00";
 			Date dt = CommonDateUtil.getTime(st_str);
 			String str = CommonDateUtil.getDateTimeForStr(dt);
@@ -386,6 +390,8 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity implements
 				param.append("&arranger="
 						+ receiver.getSelectedItem().toString());
 			}
+			Toast.makeText(getApplicationContext(), param, Toast.LENGTH_LONG)
+					.show();
 			save(param.toString());
 		} else if (v.getId() == R.id.add_cancel_task) {
 			finish();
