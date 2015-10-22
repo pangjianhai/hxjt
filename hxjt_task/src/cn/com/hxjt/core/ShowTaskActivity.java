@@ -146,9 +146,21 @@ public class ShowTaskActivity extends ParentTaskActivity implements IApplyOps,
 	 */
 	private void renderFace(TaskBean tb) {
 		taskName.setText(tb.getName());
-		show_belongProType.setText(tb.getProjectType());
-		belongPro.setText(tb.getPro());
-		belongProPosition.setText(tb.getProPosition());
+		String t = tb.getProjectType();
+		if (t == null) {
+			t = "未选";
+		}
+		show_belongProType.setText(t);
+		String pro = tb.getPro();
+		if (pro == null) {
+			pro = "未选";
+		}
+		belongPro.setText(pro);
+		String po = tb.getProPosition();
+		if (po == null) {
+			po = "未选";
+		}
+		belongProPosition.setText(po);
 		show_runningState.setText(tb.getRunningState());
 		arranger.setText(tb.getArranger());
 		receiver.setText(tb.getReceiver());
@@ -221,14 +233,6 @@ public class ShowTaskActivity extends ParentTaskActivity implements IApplyOps,
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		// ops_cancel.setOnClickListener(new OnClickListener() {
-		//
-		// @Override
-		// public void onClick(View v) {
-		// TaskUtil.no_login_alter(v, ShowTaskActivity.this,
-		// ShowTaskActivity.this);
-		// }
-		// });
 	}
 
 	/**
