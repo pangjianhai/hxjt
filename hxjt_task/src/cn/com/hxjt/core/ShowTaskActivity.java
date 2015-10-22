@@ -147,17 +147,17 @@ public class ShowTaskActivity extends ParentTaskActivity implements IApplyOps,
 	private void renderFace(TaskBean tb) {
 		taskName.setText(tb.getName());
 		String t = tb.getProjectType();
-		if (t == null) {
+		if (t == null || "null".equals(t)) {
 			t = "未选";
 		}
 		show_belongProType.setText(t);
 		String pro = tb.getPro();
-		if (pro == null) {
+		if (pro == null || "null".equals(pro)) {
 			pro = "未选";
 		}
 		belongPro.setText(pro);
 		String po = tb.getProPosition();
-		if (po == null) {
+		if (po == null || "null".equals(po)) {
 			po = "未选";
 		}
 		belongProPosition.setText(po);
