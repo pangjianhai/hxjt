@@ -17,6 +17,7 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import cn.com.hxjt.core.cons.GlobalUrl;
 import cn.com.hxjt.core.entity.TaskEntity;
@@ -33,6 +34,7 @@ import com.lidroid.xutils.http.callback.RequestCallBack;
  */
 public class HomeActivity extends BaseActivity {
 
+	private ProgressBar main_progressBar1;
 	private ExpandableListView mExpandableListView;
 
 	/**
@@ -63,7 +65,7 @@ public class HomeActivity extends BaseActivity {
 	}
 
 	private void initPart() {
-
+		main_progressBar1 = (ProgressBar) findViewById(R.id.main_progressBar1);
 		initData();
 		mExpandableListView = (ExpandableListView) findViewById(R.id.expandablelistview);
 		mExpandableListView.setGroupIndicator(null);
@@ -98,6 +100,7 @@ public class HomeActivity extends BaseActivity {
 	}
 
 	private void initData() {
+		main_progressBar1.setVisibility(View.VISIBLE);
 		arrows = new int[] { R.drawable.arrow_bottom, R.drawable.arrow_bottom };
 		tasks = new ArrayList();
 		tasks.add("我的任务");
@@ -162,10 +165,12 @@ public class HomeActivity extends BaseActivity {
 
 					}
 					render();
+					main_progressBar1.setVisibility(View.GONE);
 				}
 
 				@Override
 				public void onFailure(HttpException error, String msg) {
+					main_progressBar1.setVisibility(View.GONE);
 					error.printStackTrace();
 				}
 			};
