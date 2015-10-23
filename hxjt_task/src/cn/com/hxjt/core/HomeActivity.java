@@ -189,6 +189,7 @@ public class HomeActivity extends BaseActivity {
 	 */
 	private void render() {
 		mExpandableListView.setAdapter(new MyExpandableListAdapter());
+		mExpandableListView.expandGroup(0);
 	}
 
 	/**
