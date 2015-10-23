@@ -154,7 +154,7 @@ public class BaseActivity extends InstrumentedActivity {
 				logs = "Failed with errorCode = " + code;
 			}
 
-			ExampleUtil.showToast(logs, getApplicationContext());
+			// ExampleUtil.showToast(logs, getApplicationContext());
 		}
 
 	};
