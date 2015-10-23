@@ -101,6 +101,7 @@ public class TaskListLayoutActivity extends BaseActivity implements
 					if (data == null || "[]".equals(data)
 							|| "null".equals(data)) {
 						no_task_notice.setVisibility(View.VISIBLE);
+						progressBar1.setVisibility(View.GONE);
 						return;
 					}
 					try {
