@@ -3,9 +3,11 @@ package cn.com.hxjt.core;
 import java.util.HashMap;
 import java.util.Map;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import cn.com.hxjt.core.cons.GlobalUrl;
@@ -30,6 +32,8 @@ public class ShowTaskActivity extends ParentTaskActivity {
 			receiver, creator, requiredCompletionDate, completionDate,
 			importantLevel, emergentLevel, show_runningState;
 
+	private Button ops_sig, ops_cancel, ops_submit, ops_get, ops_approve;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -39,6 +43,7 @@ public class ShowTaskActivity extends ParentTaskActivity {
 		initPart();
 		taskId = "1180";// getIntent().getStringExtra("taskId");
 		getDetail();
+		renderBtn();
 	}
 
 	/**
@@ -59,6 +64,12 @@ public class ShowTaskActivity extends ParentTaskActivity {
 		importantLevel = (TextView) findViewById(R.id.show_important);
 		emergentLevel = (TextView) findViewById(R.id.show_emergent);
 		show_runningState = (TextView) findViewById(R.id.show_runningState);
+
+		ops_sig = (Button) findViewById(R.id.ops_sig);
+		ops_cancel = (Button) findViewById(R.id.ops_cancel);
+		ops_submit = (Button) findViewById(R.id.ops_submit);
+		ops_get = (Button) findViewById(R.id.ops_get);
+		ops_approve = (Button) findViewById(R.id.ops_approve);
 	}
 
 	/**
@@ -119,8 +130,59 @@ public class ShowTaskActivity extends ParentTaskActivity {
 		emergentLevel.setText(tb.getEmergentLevel());
 	}
 
+	/**
+	 * @user:pang
+	 * @data:2015年10月23日
+	 * @todo:渲染可进行的操作按钮
+	 * @return:void
+	 */
+	private void renderBtn() {
+		String url = GlobalUrl.IP + GlobalUrl.getTaskInfo + "?loginName="
+				+ loginName + "taskID=" + taskId;
+		try {
+			RequestCallBack<String> rcb = new RequestCallBack<String>() {
+
+				@Override
+				public void onSuccess(ResponseInfo<String> responseInfo) {
+					String data = responseInfo.result;
+				}
+
+				@Override
+				public void onFailure(HttpException error, String msg) {
+					Toast.makeText(getApplicationContext(), "哦，服务器出问题了",
+							Toast.LENGTH_SHORT).show();
+				}
+			};
+			Map param_map = new HashMap();
+			send_normal_request(url, param_map, rcb);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * @param v
+	 * @user:pang
+	 * @data:2015年10月23日
+	 * @todo:操作
+	 * @return:void
+	 */
 	public void ops_task(View v) {
 
+	}
+
+	/**
+	 * @user:pang
+	 * @data:2015年10月23日
+	 * @todo:刷新页面
+	 * @return:void
+	 */
+	private void freshPage() {
+		Intent intent = new Intent(ShowTaskActivity.this,
+				ShowTaskActivity.class);
+		intent.putExtra("taskId", taskId);
+		startActivity(intent);
+		finish();
 	}
 
 }

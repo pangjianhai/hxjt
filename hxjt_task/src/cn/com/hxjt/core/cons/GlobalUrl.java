@@ -48,4 +48,17 @@ public class GlobalUrl {
 	 * 获取任务详情
 	 */
 	public static String getTaskInfo = "task/GetTaskInfo";
+
+	// 获取可以执行的操作
+	public static String getAvailableOpsByTaskAndUser = "task/GetAvailableOpsByTaskAndUser";
+	// 签收
+	public static String signForTask = "task/SignForTask";
+	// 删除
+	public static String cancelTask = "task/CancelTask";
+	// 提交
+	public static String submitTask = "task/SubmitTask";
+	// 接收
+	public static String acceptTaskApply = "task/AcceptTaskApply";
+	// 审核
+	public static String approveTask = "task/ApproveTask";
 }
