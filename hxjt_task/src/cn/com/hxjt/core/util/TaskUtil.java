@@ -69,7 +69,8 @@ public class TaskUtil {
 		return tb;
 	}
 
-	public static void no_login_alter(View v, final Activity ctx) {
+	public static void no_login_alter(View v, final Activity ctx,
+			final IApplyOps apply) {
 		LayoutInflater inflater = (LayoutInflater) ctx
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		final View noLoginAlter = inflater.inflate(R.layout.app_nologin_alter,
@@ -83,6 +84,7 @@ public class TaskUtil {
 			@Override
 			public void onClick(View v) {
 				popWindow.dismiss();
+				apply.apply(true);
 			}
 		});
 
@@ -93,6 +95,7 @@ public class TaskUtil {
 			@Override
 			public void onClick(View v) {
 				popWindow.dismiss();
+				apply.apply(false);
 			}
 
 		});

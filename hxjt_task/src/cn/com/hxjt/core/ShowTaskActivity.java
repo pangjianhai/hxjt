@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import cn.com.hxjt.core.cons.GlobalUrl;
 import cn.com.hxjt.core.entity.TaskBean;
+import cn.com.hxjt.core.util.IApplyOps;
 import cn.com.hxjt.core.util.TaskUtil;
 
 import com.lidroid.xutils.exception.HttpException;
@@ -23,7 +24,7 @@ import com.lidroid.xutils.http.callback.RequestCallBack;
  * @author pang
  *
  */
-public class ShowTaskActivity extends ParentTaskActivity {
+public class ShowTaskActivity extends ParentTaskActivity implements IApplyOps {
 	// 任务ID
 	private String taskId;
 	private TaskBean tb = null;
@@ -186,13 +187,14 @@ public class ShowTaskActivity extends ParentTaskActivity {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		ops_cancel.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				TaskUtil.no_login_alter(v, ShowTaskActivity.this);
-			}
-		});
+		// ops_cancel.setOnClickListener(new OnClickListener() {
+		//
+		// @Override
+		// public void onClick(View v) {
+		// TaskUtil.no_login_alter(v, ShowTaskActivity.this,
+		// ShowTaskActivity.this);
+		// }
+		// });
 	}
 
 	/**
@@ -213,7 +215,9 @@ public class ShowTaskActivity extends ParentTaskActivity {
 		} else if (R.id.ops_get == v.getId()) {
 			url = GlobalUrl.IP + GlobalUrl.acceptTaskApply;
 		} else if (R.id.ops_approve == v.getId()) {
-			url = GlobalUrl.IP + GlobalUrl.approveTask;
+			TaskUtil.no_login_alter(v, ShowTaskActivity.this,
+					ShowTaskActivity.this);
+			return;
 		}
 		StringBuilder param = new StringBuilder("");
 		param.append("?loginName=" + loginName + "&taskID=").append(taskId);
@@ -221,6 +225,15 @@ public class ShowTaskActivity extends ParentTaskActivity {
 			param.append("isApprovePass=true");
 		}
 		real_ops_for_task(url + param.toString(), v.getId());
+	}
+
+	@Override
+	public void apply(boolean isPass) {
+		String url = GlobalUrl.IP + GlobalUrl.acceptTaskApply;
+		StringBuilder param = new StringBuilder("");
+		param.append("?loginName=" + loginName + "&taskID=").append(taskId);
+		param.append("isApprovePass=").append(isPass);
+		real_ops_for_task(url + param.toString(), R.id.ops_approve);
 	}
 
 	/**
