@@ -424,7 +424,7 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity implements
 			url = GlobalUrl.IP + GlobalUrl.createOwnTask;
 		}
 		url = url + param;
-		// System.out.println("url:" + url);
+		System.out.println("申请url:" + url);
 		try {
 			RequestCallBack<String> rcb = new RequestCallBack<String>() {
 
@@ -446,6 +446,7 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity implements
 				public void onFailure(HttpException error, String msg) {
 					Toast.makeText(getApplicationContext(), "服务器出问题了",
 							Toast.LENGTH_SHORT).show();
+					// System.out.println(error.getExceptionCode());
 					error.printStackTrace();
 				}
 			};
