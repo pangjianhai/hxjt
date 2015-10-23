@@ -24,6 +24,7 @@ import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -43,6 +44,7 @@ import com.lidroid.xutils.http.callback.RequestCallBack;
  */
 public class CreateTaskAssgineActivity extends ParentTaskActivity implements
 		View.OnTouchListener {
+	private ProgressBar create_loading_now;
 	public static final int FILE_RESULT_CODE = 1;
 
 	private String type;
@@ -72,6 +74,7 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity implements
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.create_task_assigned);
 		initPart();
+		create_loading_now.setVisibility(View.VISIBLE);
 		initProType();
 		initUser();
 		initCheck();
@@ -127,6 +130,8 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity implements
 		// CreateTaskAssgineActivity.this, ds);
 		// create_docs_list.setAdapter(adapter);
 
+		create_loading_now = (ProgressBar) findViewById(R.id.create_loading_now);
+
 	}
 
 	private void initProType() {
@@ -148,10 +153,12 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity implements
 							CreateTaskAssgineActivity.this,
 							android.R.layout.simple_spinner_item, nt);
 					projectType.setAdapter(proTypesAd);
+					create_loading_now.setVisibility(View.GONE);
 				}
 
 				@Override
 				public void onFailure(HttpException error, String msg) {
+					create_loading_now.setVisibility(View.GONE);
 				}
 			};
 			Map param_map = new HashMap();
@@ -354,6 +361,7 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity implements
 	public void save_or_cancel(View v) {
 
 		if (v.getId() == R.id.add_save_task) {
+			create_loading_now.setVisibility(View.VISIBLE);
 			StringBuilder param = new StringBuilder("?");
 			param.append("loginName=" + loginName);
 			param.append("&taskName=" + taskName.getText().toString());
@@ -427,8 +435,9 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity implements
 						JSONObject j = new JSONObject(data);
 						String taskId = j.getString("ID");
 						showTaskDetail(taskId);
+						create_loading_now.setVisibility(View.GONE);
 					} catch (JSONException e) {
-						// TODO Auto-generated catch block
+						create_loading_now.setVisibility(View.GONE);
 						e.printStackTrace();
 					}
 				}

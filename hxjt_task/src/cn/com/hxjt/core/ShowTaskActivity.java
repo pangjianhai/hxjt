@@ -310,17 +310,20 @@ public class ShowTaskActivity extends ParentTaskActivity implements IApplyOps,
 	 * @return:void
 	 */
 	private void real_ops_for_task(String url, int ops_type) {
+		show_task_loading_now.setVisibility(View.VISIBLE);
 		try {
 			RequestCallBack<String> rcb = new RequestCallBack<String>() {
 
 				@Override
 				public void onSuccess(ResponseInfo<String> responseInfo) {
 					String data = responseInfo.result;
+					show_task_loading_now.setVisibility(View.GONE);
 					freshPage();
 				}
 
 				@Override
 				public void onFailure(HttpException error, String msg) {
+					show_task_loading_now.setVisibility(View.GONE);
 					Toast.makeText(getApplicationContext(), "哦，服务器出问题了",
 							Toast.LENGTH_SHORT).show();
 					error.printStackTrace();
