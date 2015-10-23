@@ -138,14 +138,13 @@ public class ShowTaskActivity extends ParentTaskActivity {
 	 */
 	private void renderBtn() {
 		String url = GlobalUrl.IP + GlobalUrl.getAvailableOpsByTaskAndUser
-				+ "?loginName=" + loginName + "taskID=" + taskId;
+				+ "?loginName=" + loginName + "&taskID=" + taskId;
 		try {
 			RequestCallBack<String> rcb = new RequestCallBack<String>() {
 
 				@Override
 				public void onSuccess(ResponseInfo<String> responseInfo) {
 					String data = responseInfo.result;
-					System.out.println("***********data:" + data);
 					if (data == null || "".equals(data) || "[]".equals(data)) {
 						return;
 					}
@@ -179,6 +178,7 @@ public class ShowTaskActivity extends ParentTaskActivity {
 				public void onFailure(HttpException error, String msg) {
 					Toast.makeText(getApplicationContext(), "哦，服务器出问题了",
 							Toast.LENGTH_SHORT).show();
+					error.printStackTrace();
 				}
 			};
 			Map param_map = new HashMap();
@@ -208,6 +208,44 @@ public class ShowTaskActivity extends ParentTaskActivity {
 		} else if (R.id.ops_approve == v.getId()) {
 			url = GlobalUrl.IP + GlobalUrl.approveTask;
 		}
+		StringBuilder param = new StringBuilder("");
+		param.append("?loginName=" + loginName + "&taskID=").append(taskId);
+		if (R.id.ops_approve == v.getId()) {
+			param.append("isApprovePass=true");
+		}
+		real_ops_for_task(url, param.toString(), v.getId());
+	}
+
+	/**
+	 * @param url
+	 * @param param
+	 * @param ops_type
+	 * @user:pang
+	 * @data:2015年10月23日
+	 * @todo:真正进行业务处理的地方
+	 * @return:void
+	 */
+	private void real_ops_for_task(String url, String param, int ops_type) {
+		try {
+			RequestCallBack<String> rcb = new RequestCallBack<String>() {
+
+				@Override
+				public void onSuccess(ResponseInfo<String> responseInfo) {
+					String data = responseInfo.result;
+				}
+
+				@Override
+				public void onFailure(HttpException error, String msg) {
+					Toast.makeText(getApplicationContext(), "哦，服务器出问题了",
+							Toast.LENGTH_SHORT).show();
+					error.printStackTrace();
+				}
+			};
+			Map param_map = new HashMap();
+			send_normal_request(url, param_map, rcb);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -217,10 +255,10 @@ public class ShowTaskActivity extends ParentTaskActivity {
 	 * @return:void
 	 */
 	private void freshPage() {
-		Intent intent = new Intent(ShowTaskActivity.this,
-				ShowTaskActivity.class);
-		intent.putExtra("taskId", taskId);
-		startActivity(intent);
+		// Intent intent = new Intent(ShowTaskActivity.this,
+		// ShowTaskActivity.class);
+		// intent.putExtra("taskId", taskId);
+		// startActivity(intent);
 		finish();
 	}
 
