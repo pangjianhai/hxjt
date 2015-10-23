@@ -3,9 +3,9 @@ package cn.com.hxjt.core;
 import java.util.HashMap;
 import java.util.Map;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
@@ -186,6 +186,13 @@ public class ShowTaskActivity extends ParentTaskActivity {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		ops_cancel.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				TaskUtil.no_login_alter(v, ShowTaskActivity.this);
+			}
+		});
 	}
 
 	/**
@@ -213,7 +220,7 @@ public class ShowTaskActivity extends ParentTaskActivity {
 		if (R.id.ops_approve == v.getId()) {
 			param.append("isApprovePass=true");
 		}
-		real_ops_for_task(url, param.toString(), v.getId());
+		real_ops_for_task(url + param.toString(), v.getId());
 	}
 
 	/**
@@ -225,7 +232,7 @@ public class ShowTaskActivity extends ParentTaskActivity {
 	 * @todo:真正进行业务处理的地方
 	 * @return:void
 	 */
-	private void real_ops_for_task(String url, String param, int ops_type) {
+	private void real_ops_for_task(String url, int ops_type) {
 		try {
 			RequestCallBack<String> rcb = new RequestCallBack<String>() {
 
