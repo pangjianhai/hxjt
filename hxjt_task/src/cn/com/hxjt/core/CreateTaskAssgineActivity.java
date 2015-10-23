@@ -390,8 +390,8 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity implements
 				param.append("&arranger="
 						+ receiver.getSelectedItem().toString());
 			}
-			Toast.makeText(getApplicationContext(), param, Toast.LENGTH_LONG)
-					.show();
+			// Toast.makeText(getApplicationContext(), param, Toast.LENGTH_LONG)
+			// .show();
 			save(param.toString());
 		} else if (v.getId() == R.id.add_cancel_task) {
 			finish();

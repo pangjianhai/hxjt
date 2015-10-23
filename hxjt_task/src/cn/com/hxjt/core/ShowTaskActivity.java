@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import cn.com.hxjt.core.cons.GlobalUrl;
@@ -60,6 +61,8 @@ public class ShowTaskActivity extends ParentTaskActivity implements IApplyOps,
 	private ListView doc_lv;
 	private List<FileEntity> ds = new ArrayList<FileEntity>();
 	private AttachmentAdapter adapter;
+
+	private ProgressBar show_task_loading_now;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -101,6 +104,8 @@ public class ShowTaskActivity extends ParentTaskActivity implements IApplyOps,
 		ops_edit = (Button) findViewById(R.id.ops_edit);
 
 		doc_lv = (ListView) findViewById(R.id.doc_lv);
+
+		show_task_loading_now = (ProgressBar) findViewById(R.id.show_task_loading_now);
 	}
 
 	/**
@@ -110,6 +115,7 @@ public class ShowTaskActivity extends ParentTaskActivity implements IApplyOps,
 	 * @return:void
 	 */
 	private void getDetail() {
+		show_task_loading_now.setVisibility(View.VISIBLE);
 		String url = GlobalUrl.IP + GlobalUrl.getTaskInfo + "?taskID=" + taskId;
 		try {
 			RequestCallBack<String> rcb = new RequestCallBack<String>() {
@@ -121,12 +127,14 @@ public class ShowTaskActivity extends ParentTaskActivity implements IApplyOps,
 					// Toast.makeText(getApplicationContext(), data,
 					// Toast.LENGTH_LONG).show();
 					renderFace(tb);
+					show_task_loading_now.setVisibility(View.GONE);
 				}
 
 				@Override
 				public void onFailure(HttpException error, String msg) {
 					Toast.makeText(getApplicationContext(), "哦，服务器出问题了",
 							Toast.LENGTH_SHORT).show();
+					show_task_loading_now.setVisibility(View.GONE);
 				}
 			};
 			Map param_map = new HashMap();
