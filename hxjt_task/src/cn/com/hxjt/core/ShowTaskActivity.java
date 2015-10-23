@@ -137,14 +137,42 @@ public class ShowTaskActivity extends ParentTaskActivity {
 	 * @return:void
 	 */
 	private void renderBtn() {
-		String url = GlobalUrl.IP + GlobalUrl.getTaskInfo + "?loginName="
-				+ loginName + "taskID=" + taskId;
+		String url = GlobalUrl.IP + GlobalUrl.getAvailableOpsByTaskAndUser
+				+ "?loginName=" + loginName + "taskID=" + taskId;
 		try {
 			RequestCallBack<String> rcb = new RequestCallBack<String>() {
 
 				@Override
 				public void onSuccess(ResponseInfo<String> responseInfo) {
 					String data = responseInfo.result;
+					System.out.println("***********data:" + data);
+					if (data == null || "".equals(data) || "[]".equals(data)) {
+						return;
+					}
+					String newData = data.substring(1, data.length() - 1);
+					String[] types = newData.split(",");
+					Map<String, String> map = new HashMap();
+					for (int i = 0; i < types.length; i++) {
+						String ops = types[i].substring(1,
+								types[i].length() - 1);
+						System.out.println("ops:" + ops);
+						map.put(ops, ops);
+					}
+					if (map.containsKey("签收任务")) {
+						ops_sig.setVisibility(View.VISIBLE);
+					}
+					if (map.containsKey("提交任务")) {
+						ops_submit.setVisibility(View.VISIBLE);
+					}
+					if (map.containsKey("取消任务")) {
+						ops_cancel.setVisibility(View.VISIBLE);
+					}
+					if (map.containsKey("审核任务")) {
+						ops_approve.setVisibility(View.VISIBLE);
+					}
+					if (map.containsKey("接受任务申请")) {
+						ops_get.setVisibility(View.VISIBLE);
+					}
 				}
 
 				@Override
@@ -168,7 +196,18 @@ public class ShowTaskActivity extends ParentTaskActivity {
 	 * @return:void
 	 */
 	public void ops_task(View v) {
-
+		String url = null;
+		if (R.id.ops_sig == v.getId()) {
+			url = GlobalUrl.IP + GlobalUrl.signForTask;
+		} else if (R.id.ops_cancel == v.getId()) {
+			url = GlobalUrl.IP + GlobalUrl.cancelTask;
+		} else if (R.id.ops_submit == v.getId()) {
+			url = GlobalUrl.IP + GlobalUrl.submitTask;
+		} else if (R.id.ops_get == v.getId()) {
+			url = GlobalUrl.IP + GlobalUrl.acceptTaskApply;
+		} else if (R.id.ops_approve == v.getId()) {
+			url = GlobalUrl.IP + GlobalUrl.approveTask;
+		}
 	}
 
 	/**
