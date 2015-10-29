@@ -365,9 +365,9 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity implements
 			StringBuilder param = new StringBuilder("?");
 			param.append("loginName=" + loginName);
 			param.append("&taskName=" + taskName.getText().toString());
-			String type = projectType.getSelectedItem() != null ? projectType
+			String proT = projectType.getSelectedItem() != null ? projectType
 					.getSelectedItem().toString() : "";
-			param.append("&projectType=" + type);
+			param.append("&projectType=" + proT);
 			String ps = belongProPosition.getSelectedItem() != null ? belongProPosition
 					.getSelectedItem().toString() : "";
 			param.append("&projectPosition=" + ps);
@@ -400,6 +400,7 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity implements
 			}
 			// Toast.makeText(getApplicationContext(), param, Toast.LENGTH_LONG)
 			// .show();
+			System.out.println("---->param:" + param);
 			save(param.toString());
 		} else if (v.getId() == R.id.add_cancel_task) {
 			finish();
