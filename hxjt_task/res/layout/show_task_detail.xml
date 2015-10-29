@@ -336,7 +336,7 @@
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="规定完成时间"
+                android:text="规定时间"
                 android:textStyle="bold" />
 
             <TextView
@@ -376,7 +376,7 @@
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="附件"
+                android:text="附        件"
                 android:textStyle="bold" />
 
             <ListView
