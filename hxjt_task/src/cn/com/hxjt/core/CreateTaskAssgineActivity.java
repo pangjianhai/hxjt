@@ -361,10 +361,16 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity implements
 	public void save_or_cancel(View v) {
 
 		if (v.getId() == R.id.add_save_task) {
+			String taskN = taskName.getText().toString();
+			if (taskN == null || "".equals(taskN)) {
+				Toast.makeText(getApplicationContext(), "任务内容不得为空",
+						Toast.LENGTH_SHORT).show();
+				return;
+			}
 			create_loading_now.setVisibility(View.VISIBLE);
 			StringBuilder param = new StringBuilder("?");
 			param.append("loginName=" + loginName);
-			param.append("&taskName=" + taskName.getText().toString());
+			param.append("&taskName=" + taskN);
 			String proT = projectType.getSelectedItem() != null ? projectType
 					.getSelectedItem().toString() : "";
 			param.append("&projectType=" + proT);
