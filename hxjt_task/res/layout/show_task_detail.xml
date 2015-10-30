@@ -100,7 +100,7 @@
             android:text="编辑"
             android:textColor="@color/orange"
             android:textSize="14dp"
-            android:visibility="visible" />
+            android:visibility="gone" />
     </LinearLayout>
 
     <LinearLayout
