@@ -431,7 +431,7 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity implements
 			url = GlobalUrl.IP + GlobalUrl.createOwnTask;
 		}
 		url = url + param;
-		System.out.println("申请url:" + url);
+		// System.out.println("申请url:" + url);
 		try {
 			RequestCallBack<String> rcb = new RequestCallBack<String>() {
 
@@ -477,6 +477,7 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity implements
 				ShowTaskActivity.class);
 		intent.putExtra("taskId", taskId);
 		startActivity(intent);
+		finish();
 	}
 	/*
 	*//**

@@ -421,5 +421,6 @@ public class EditTaskActivity extends ParentTaskActivity implements
 	private void toHome() {
 		Intent intent = new Intent(EditTaskActivity.this, HomeActivity.class);
 		startActivity(intent);
+		finish();
 	}
 }
