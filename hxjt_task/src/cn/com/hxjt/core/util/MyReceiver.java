@@ -39,11 +39,11 @@ public class MyReceiver extends BroadcastReceiver {
 
 		} else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent
 				.getAction())) {
-			String str = bundle.getString(EXTRAS_KEY);
 			String taskId = processCommonNotice(context,
 					bundle.getString(EXTRAS_KEY));
-			System.out.println("接收到的参数taskId:" + taskId);
-			showTaskDetail(context, taskId);
+			if (taskId != null && !"".equals(taskId)) {
+				showTaskDetail(context, taskId);
+			}
 
 		} else if (JPushInterface.ACTION_RICHPUSH_CALLBACK.equals(intent
 				.getAction())) {
@@ -61,9 +61,14 @@ public class MyReceiver extends BroadcastReceiver {
 
 	private String processCommonNotice(Context context, String jsonExtra) {
 		try {
-			JSONObject j = new JSONObject(jsonExtra);
-			String taskId = j.getString("taskId");
-			return taskId;
+			System.out.println("收到的通知:" + jsonExtra);
+			if (jsonExtra != null && !"".equals(jsonExtra)) {
+				JSONObject j = new JSONObject(jsonExtra);
+				if (j.has("taskID")) {
+					String taskId = j.getString("taskID");
+					return taskId;
+				}
+			}
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -88,6 +93,8 @@ public class MyReceiver extends BroadcastReceiver {
 
 	private void showTaskDetail(Context ctx, String taskId) {
 		Intent intent = new Intent(ctx, ShowTaskActivity.class);
+		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+				| Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		intent.putExtra("taskId", taskId);
 		ctx.startActivity(intent);
 	}
