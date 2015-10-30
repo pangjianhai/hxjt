@@ -406,7 +406,6 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity implements
 			}
 			// Toast.makeText(getApplicationContext(), param, Toast.LENGTH_LONG)
 			// .show();
-			System.out.println("---->param:" + param);
 			save(param.toString());
 		} else if (v.getId() == R.id.add_cancel_task) {
 			finish();
