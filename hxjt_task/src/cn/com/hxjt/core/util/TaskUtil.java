@@ -86,10 +86,10 @@ public class TaskUtil {
 			@Override
 			public void onClick(View v) {
 				popWindow.dismiss();
-				apply.apply(true);
 			}
 		});
 
+		// 通过按钮添加事件
 		Button alert_login = (Button) noLoginAlter
 				.findViewById(R.id.alert_login);
 		alert_login.setOnClickListener(new OnClickListener() {
@@ -97,16 +97,18 @@ public class TaskUtil {
 			@Override
 			public void onClick(View v) {
 				popWindow.dismiss();
-				apply.apply(false);
+				apply.apply(true);
 			}
 
 		});
+		// 不通过按钮添加事件
 		Button alert_reg = (Button) noLoginAlter.findViewById(R.id.alert_reg);
 		alert_reg.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 				popWindow.dismiss();
+				apply.apply(false);
 			}
 
 		});
