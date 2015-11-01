@@ -36,6 +36,7 @@ public class HomeActivity extends BaseActivity {
 
 	private ProgressBar main_progressBar1;
 	private ExpandableListView mExpandableListView;
+	private MyExpandableListAdapter adapter = new MyExpandableListAdapter();
 
 	/**
 	 * 箭头
@@ -68,7 +69,7 @@ public class HomeActivity extends BaseActivity {
 		main_progressBar1 = (ProgressBar) findViewById(R.id.main_progressBar1);
 		initData();
 		mExpandableListView = (ExpandableListView) findViewById(R.id.expandablelistview);
-		mExpandableListView.setAdapter(new MyExpandableListAdapter());
+		mExpandableListView.setAdapter(adapter);
 		mExpandableListView.setGroupIndicator(null);
 		mExpandableListView.setOnChildClickListener(new OnChildClickListener() {
 
@@ -316,6 +317,134 @@ public class HomeActivity extends BaseActivity {
 	@Override
 	public void onRestart() {
 		super.onRestart();
+		loadData();
 	}
 
+	private void loadData() {
+		main_progressBar1.setVisibility(View.VISIBLE);
+		String url = GlobalUrl.IP + GlobalUrl.getTasksCountInfo + "?loginName="
+				+ loginName;
+		try {
+			RequestCallBack<String> rcb = new RequestCallBack<String>() {
+
+				@Override
+				public void onSuccess(ResponseInfo<String> responseInfo) {
+					String data = responseInfo.result;
+					data = data.substring(1, data.length() - 1);
+					Pattern datePattern = Pattern.compile("\"\\w*,\\w*,\\d*\"",
+							Pattern.CASE_INSENSITIVE);
+					Matcher matcher = datePattern.matcher(data);
+					while (matcher.find()) {
+						String orginalStr = matcher.group();
+						orginalStr = orginalStr.substring(1,
+								orginalStr.length() - 1);
+						String[] str = orginalStr.split(",");
+						String type = str[0];
+						String param = str[1];
+						String num = str[2];
+						String display = "";
+						TaskNumBean tnb = new TaskNumBean();
+						if ("Today".equals(param)) {
+							param = "Today";
+							display = "今天";
+						} else if ("Tomorrow".equals(param)) {
+							param = "Tomorrow";
+							display = "明天";
+						} else if ("ThiwWeek".equals(param)) {
+							param = "ThisWeek";
+							display = "本周";
+						} else if ("NextWeek".equals(param)) {
+							param = "NextWeek";
+							display = "下周";
+						} else if ("Later".equals(param)) {
+							param = "Later";
+							display = "即将";
+						} else if ("LongLater".equals(param)) {
+							param = "LongLater";
+							display = "以后再说";
+						} else if ("Overdue".equals(param)) {
+							param = "Overdue";
+							display = "逾期";
+						} else if ("All".equals(param)) {
+							param = "All";
+							display = "所有";
+						}
+						tnb.setDisplay(display);
+						tnb.setType(param);
+						tnb.setNum(num);
+						e(type, param, tnb);
+					}
+					adapter.notifyDataSetChanged();
+					main_progressBar1.setVisibility(View.GONE);
+				}
+
+				@Override
+				public void onFailure(HttpException error, String msg) {
+					main_progressBar1.setVisibility(View.GONE);
+					error.printStackTrace();
+				}
+			};
+			Map param_map = new HashMap();
+			send_normal_request(url, param_map, rcb);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void e(String type, String param, TaskNumBean tbn) {
+		if ("MyTask".equals(type)) {
+			TaskNumBean b = null;
+			if ("Today".equals(param)) {
+				param = "Today";
+				myNumList.get(0).setNum(tbn.getNum());
+			} else if ("Tomorrow".equals(param)) {
+				param = "Tomorrow";
+				myNumList.get(1).setNum(tbn.getNum());
+			} else if ("ThiwWeek".equals(param)) {
+				param = "ThisWeek";
+				myNumList.get(2).setNum(tbn.getNum());
+			} else if ("NextWeek".equals(param)) {
+				param = "NextWeek";
+				myNumList.get(3).setNum(tbn.getNum());
+			} else if ("Later".equals(param)) {
+				param = "Later";
+				myNumList.get(4).setNum(tbn.getNum());
+			} else if ("LongLater".equals(param)) {
+				param = "LongLater";
+				myNumList.get(5).setNum(tbn.getNum());
+			} else if ("Overdue".equals(param)) {
+				param = "Overdue";
+				myNumList.get(6).setNum(tbn.getNum());
+			} else if ("All".equals(param)) {
+				param = "All";
+				myNumList.get(7).setNum(tbn.getNum());
+			}
+		} else if ("ArrangeTask".equals(type)) {
+			if ("Today".equals(param)) {
+				param = "Today";
+				assignNumList.get(0).setNum(tbn.getNum());
+			} else if ("Tomorrow".equals(param)) {
+				param = "Tomorrow";
+				assignNumList.get(1).setNum(tbn.getNum());
+			} else if ("ThiwWeek".equals(param)) {
+				param = "ThisWeek";
+				assignNumList.get(2).setNum(tbn.getNum());
+			} else if ("NextWeek".equals(param)) {
+				param = "NextWeek";
+				assignNumList.get(3).setNum(tbn.getNum());
+			} else if ("Later".equals(param)) {
+				param = "Later";
+				assignNumList.get(4).setNum(tbn.getNum());
+			} else if ("LongLater".equals(param)) {
+				param = "LongLater";
+				assignNumList.get(5).setNum(tbn.getNum());
+			} else if ("Overdue".equals(param)) {
+				param = "Overdue";
+				assignNumList.get(6).setNum(tbn.getNum());
+			} else if ("All".equals(param)) {
+				param = "All";
+				assignNumList.get(7).setNum(tbn.getNum());
+			}
+		}
+	}
 }
