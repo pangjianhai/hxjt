@@ -190,14 +190,14 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity implements
 						nt = new String[types.length];
 						for (int i = 0; i < nt.length; i++) {
 							nt[i] = types[i]
-									.substring(1, types[i].length() - 1);
+									.substring(1, types[i].length() - 1).trim();
 						}
 					}
 					proAd = new ArrayAdapter<String>(
 							CreateTaskAssgineActivity.this,
 							android.R.layout.simple_spinner_item, nt);
 					belongPro.setAdapter(proAd);
-					int index = proAd.getPosition("其他");
+					int index = proAd.getPosition("其它");
 					if (index >= 0) {
 						belongPro.setSelection(index, true);
 					}
