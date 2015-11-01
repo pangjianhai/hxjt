@@ -116,6 +116,7 @@ public class HomeActivity extends BaseActivity {
 				@Override
 				public void onSuccess(ResponseInfo<String> responseInfo) {
 					String data = responseInfo.result;
+					System.out.println("**data:"+data);
 					data = data.substring(1, data.length() - 1);
 					Pattern datePattern = Pattern.compile("\"\\w*,\\w*,\\d*\"",
 							Pattern.CASE_INSENSITIVE);
