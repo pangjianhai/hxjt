@@ -213,6 +213,7 @@ public class ShowTaskActivity extends ParentTaskActivity implements IApplyOps,
 						return;
 					}
 					String newData = data.substring(1, data.length() - 1);
+					// System.out.println("newData:" + newData);
 					String[] types = newData.split(",");
 					Map<String, String> map = new HashMap();
 					for (int i = 0; i < types.length; i++) {
@@ -280,7 +281,6 @@ public class ShowTaskActivity extends ParentTaskActivity implements IApplyOps,
 					EditTaskActivity.class);
 			intent.putExtra("taskId", taskId);
 			startActivity(intent);
-			finish();
 			return;
 		}
 		StringBuilder param = new StringBuilder("");
@@ -485,6 +485,16 @@ public class ShowTaskActivity extends ParentTaskActivity implements IApplyOps,
 		n.defaults |= Notification.FLAG_AUTO_CANCEL;
 
 		nm.notify(0, n);
+	}
+
+	/**
+	 * 
+	 */
+	@Override
+	public void onResume() {
+		super.onResume();
+		if (ops_sig != null)
+			renderBtn();
 	}
 
 }
