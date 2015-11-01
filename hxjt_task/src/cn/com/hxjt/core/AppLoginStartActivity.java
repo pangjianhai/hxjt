@@ -32,6 +32,8 @@ public class AppLoginStartActivity extends ParentTaskActivity {
 
 	/**
 	 * 保存到手机本地的账号信息
+	 * 
+	 * 登录名、汉字名、登录密码
 	 */
 	private String loginName, name, pwd;
 
@@ -157,6 +159,7 @@ public class AppLoginStartActivity extends ParentTaskActivity {
 		 * 全局变量设置
 		 */
 		GloableApplication.setLoginName(loginName);
+		GloableApplication.setChineseName(name);
 		Intent intent = new Intent();
 		intent.setClass(AppLoginStartActivity.this, HomeActivity.class);
 		startActivity(intent);

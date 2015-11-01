@@ -9,12 +9,22 @@ public class GloableApplication extends Application {
 
 	private static String loginName = "";
 
+	private static String chineseName = "";
+
 	public static void setLoginName(String str) {
 		loginName = str;
 	}
 
 	public static String getLoginName() {
 		return loginName;
+	}
+
+	public static String getChineseName() {
+		return chineseName;
+	}
+
+	public static void setChineseName(String chineseName) {
+		GloableApplication.chineseName = chineseName;
 	}
 
 	@Override
