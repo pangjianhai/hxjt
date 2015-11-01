@@ -92,6 +92,7 @@ public class TaskListLayoutActivity extends BaseActivity implements
 	 */
 	private void loadData() {
 		progressBar1.setVisibility(View.VISIBLE);
+		ds.clear();
 		try {
 			RequestCallBack<String> rcb = new RequestCallBack<String>() {
 
@@ -161,5 +162,11 @@ public class TaskListLayoutActivity extends BaseActivity implements
 				ShowTaskActivity.class);
 		intent.putExtra("taskId", taskId);
 		startActivity(intent);
+	}
+
+	@Override
+	public void onRestart() {
+		super.onRestart();
+		loadData();
 	}
 }
