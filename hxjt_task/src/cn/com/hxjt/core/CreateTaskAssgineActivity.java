@@ -153,6 +153,10 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity implements
 							CreateTaskAssgineActivity.this,
 							android.R.layout.simple_spinner_item, nt);
 					projectType.setAdapter(proTypesAd);
+					int index = proTypesAd.getPosition("未知");
+					if (index >= 0) {
+						projectType.setSelection(index, true);
+					}
 					create_loading_now.setVisibility(View.GONE);
 				}
 
@@ -193,6 +197,10 @@ public class CreateTaskAssgineActivity extends ParentTaskActivity implements
 							CreateTaskAssgineActivity.this,
 							android.R.layout.simple_spinner_item, nt);
 					belongPro.setAdapter(proAd);
+					int index = proAd.getPosition("其他");
+					if (index >= 0) {
+						belongPro.setSelection(index, true);
+					}
 				}
 
 				@Override
