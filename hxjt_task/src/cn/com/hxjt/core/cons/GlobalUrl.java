@@ -7,7 +7,7 @@ package cn.com.hxjt.core.cons;
  */
 public class GlobalUrl {
 
-	public static String IP = "http://222.174.100.181:8998/";
+	public static String IP = "http://www.sinogeotech.cn:8998 /";
 
 	/**
 	 * 登录
