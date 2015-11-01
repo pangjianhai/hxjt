@@ -68,6 +68,7 @@ public class HomeActivity extends BaseActivity {
 		main_progressBar1 = (ProgressBar) findViewById(R.id.main_progressBar1);
 		initData();
 		mExpandableListView = (ExpandableListView) findViewById(R.id.expandablelistview);
+		mExpandableListView.setAdapter(new MyExpandableListAdapter());
 		mExpandableListView.setGroupIndicator(null);
 		mExpandableListView.setOnChildClickListener(new OnChildClickListener() {
 
@@ -188,7 +189,6 @@ public class HomeActivity extends BaseActivity {
 	 * @return:void
 	 */
 	private void render() {
-		mExpandableListView.setAdapter(new MyExpandableListAdapter());
 		mExpandableListView.expandGroup(0);
 	}
 
@@ -311,6 +311,11 @@ public class HomeActivity extends BaseActivity {
 			intent.putExtra("type", TaskEntity.TASK_TYPE_CREATE);
 			startActivity(intent);
 		}
+	}
+
+	@Override
+	public void onRestart() {
+		super.onRestart();
 	}
 
 }
