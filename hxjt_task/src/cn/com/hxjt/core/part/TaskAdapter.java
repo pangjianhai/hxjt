@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import cn.com.hxjt.core.GloableApplication;
 import cn.com.hxjt.core.R;
 import cn.com.hxjt.core.entity.TaskBean;
 import cn.com.hxjt.core.util.TaskClickOps;
@@ -58,12 +59,37 @@ public class TaskAdapter extends BaseAdapter {
 					.findViewById(R.id.item_task_name);
 			holder.item_task_time = (TextView) convertview
 					.findViewById(R.id.item_task_time);
+			holder.item_task_mine = (TextView) convertview
+					.findViewById(R.id.item_task_mine);
 			holder.task_item_single = (RelativeLayout) convertview
 					.findViewById(R.id.task_item_single);
 			convertview.setTag(holder);
 		} else {
 			holder = (HolderView) convertview.getTag();
 		}
+		String creator = t.getCreator();
+		String arranger = t.getArranger();
+		String receiver = t.getReceiver();
+		String cu = GloableApplication.getChineseName();
+		StringBuffer mine = new StringBuffer("");
+		if (cu.equals(arranger)) {
+			mine.append("我分配的");
+		} else {
+			mine.append(arranger + "分配的 ");
+		}
+		mine.append(" |");
+		if (cu.equals(receiver)) {
+			mine.append("我接收");
+		} else {
+			mine.append(receiver + "接收 ");
+		}
+		mine.append(" |");
+		if (cu.equals(creator)) {
+			mine.append("我创建的");
+		} else {
+			mine.append(creator + "我创建的 ");
+		}
+		holder.item_task_mine.setText(mine);
 		holder.item_task_name.setText(t.getName());
 
 		holder.task_item_single.setOnClickListener(new OnClickListener() {
@@ -78,7 +104,7 @@ public class TaskAdapter extends BaseAdapter {
 	}
 
 	private class HolderView {
-		private TextView item_task_name, item_task_time;
+		private TextView item_task_name, item_task_time, item_task_mine;
 		private RelativeLayout task_item_single;
 	}
 

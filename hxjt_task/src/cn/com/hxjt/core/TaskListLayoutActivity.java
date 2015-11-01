@@ -114,6 +114,11 @@ public class TaskListLayoutActivity extends BaseActivity implements
 								String name = j.getString("Name");
 								String requiredCompletionDate = j
 										.getString("RequiredCompletionDate");
+
+								String creator = j.getString("Creator");
+								String receiver = j.getString("Receiver");
+								String arranger = j.getString("Arranger");
+
 								if (requiredCompletionDate != null
 										&& !"".equals(requiredCompletionDate)) {
 									requiredCompletionDate = requiredCompletionDate
@@ -131,6 +136,9 @@ public class TaskListLayoutActivity extends BaseActivity implements
 								tb.setId(id);
 								tb.setName(name);
 								tb.setRequireCompleteDate(requiredCompletionDate);
+								tb.setCreator(creator);
+								tb.setArranger(arranger);
+								tb.setReceiver(receiver);
 								ds.add(tb);
 							}
 							adapter.notifyDataSetChanged();
