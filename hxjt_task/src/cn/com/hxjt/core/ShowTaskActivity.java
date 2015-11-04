@@ -209,11 +209,13 @@ public class ShowTaskActivity extends ParentTaskActivity implements IApplyOps,
 				@Override
 				public void onSuccess(ResponseInfo<String> responseInfo) {
 					String data = responseInfo.result;
+					System.out.println("获取可执行操作：" + data);
+					Toast.makeText(getApplicationContext(), "获取可操作数据：" + data,
+							Toast.LENGTH_LONG).show();
 					if (data == null || "".equals(data) || "[]".equals(data)) {
 						return;
 					}
 					String newData = data.substring(1, data.length() - 1);
-					// System.out.println("newData:" + newData);
 					String[] types = newData.split(",");
 					Map<String, String> map = new HashMap();
 					for (int i = 0; i < types.length; i++) {
@@ -223,21 +225,33 @@ public class ShowTaskActivity extends ParentTaskActivity implements IApplyOps,
 					}
 					if (map.containsKey("签收任务")) {
 						ops_sig.setVisibility(View.VISIBLE);
+					} else {
+						ops_sig.setVisibility(View.GONE);
 					}
 					if (map.containsKey("提交任务")) {
 						ops_submit.setVisibility(View.VISIBLE);
+					} else {
+						ops_submit.setVisibility(View.GONE);
 					}
 					if (map.containsKey("取消任务")) {
 						ops_cancel.setVisibility(View.VISIBLE);
+					} else {
+						ops_cancel.setVisibility(View.GONE);
 					}
 					if (map.containsKey("审核任务")) {
 						ops_approve.setVisibility(View.VISIBLE);
+					} else {
+						ops_approve.setVisibility(View.GONE);
 					}
 					if (map.containsKey("接受任务申请")) {
 						ops_get.setVisibility(View.VISIBLE);
+					} else {
+						ops_get.setVisibility(View.GONE);
 					}
 					if (map.containsKey("修改任务")) {
 						ops_edit.setVisibility(View.VISIBLE);
+					} else {
+						ops_edit.setVisibility(View.GONE);
 					}
 				}
 
@@ -309,7 +323,8 @@ public class ShowTaskActivity extends ParentTaskActivity implements IApplyOps,
 	 * @todo:真正进行业务处理的地方
 	 * @return:void
 	 */
-	private void real_ops_for_task(String url, int ops_type) {
+	private void real_ops_for_task(String url, final int ops_type) {
+		System.out.println(" real_ops_for_task  url:" + url);
 		show_task_loading_now.setVisibility(View.VISIBLE);
 		try {
 			RequestCallBack<String> rcb = new RequestCallBack<String>() {
@@ -317,8 +332,14 @@ public class ShowTaskActivity extends ParentTaskActivity implements IApplyOps,
 				@Override
 				public void onSuccess(ResponseInfo<String> responseInfo) {
 					String data = responseInfo.result;
+					System.out.println("操作成功 real_ops_for_task data:" + data);
 					show_task_loading_now.setVisibility(View.GONE);
-					freshPage();
+					renderBtn();
+					// 如果是取消则是删除
+					if (R.id.ops_cancel == ops_type) {
+						freshPage();
+					}
+
 				}
 
 				@Override
@@ -493,7 +514,7 @@ public class ShowTaskActivity extends ParentTaskActivity implements IApplyOps,
 	@Override
 	public void onRestart() {
 		super.onRestart();
-		//System.out.println("***********onRestart");
+		// System.out.println("***********onRestart");
 		renderBtn();
 	}
 
