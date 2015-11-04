@@ -201,14 +201,16 @@ public class ShowTaskActivity extends ParentTaskActivity implements IApplyOps,
 	 * @return:void
 	 */
 	private void renderBtn() {
-		String url = GlobalUrl.IP + GlobalUrl.getAvailableOpsByTaskAndUser
-				+ "?loginName=" + loginName + "&taskID=" + taskId;
+		final String url = GlobalUrl.IP
+				+ GlobalUrl.getAvailableOpsByTaskAndUser + "?loginName="
+				+ loginName + "&taskID=" + taskId;
 		try {
 			RequestCallBack<String> rcb = new RequestCallBack<String>() {
 
 				@Override
 				public void onSuccess(ResponseInfo<String> responseInfo) {
 					String data = responseInfo.result;
+					System.out.println("获取可执行操作接口：" + url);
 					System.out.println("获取可执行操作：" + data);
 					Toast.makeText(getApplicationContext(), "获取可操作数据：" + data,
 							Toast.LENGTH_LONG).show();
@@ -324,7 +326,7 @@ public class ShowTaskActivity extends ParentTaskActivity implements IApplyOps,
 	 * @return:void
 	 */
 	private void real_ops_for_task(String url, final int ops_type) {
-		System.out.println(" real_ops_for_task  url:" + url);
+		System.out.println(" http进行操作的接口  url:" + url);
 		show_task_loading_now.setVisibility(View.VISIBLE);
 		try {
 			RequestCallBack<String> rcb = new RequestCallBack<String>() {
@@ -332,7 +334,7 @@ public class ShowTaskActivity extends ParentTaskActivity implements IApplyOps,
 				@Override
 				public void onSuccess(ResponseInfo<String> responseInfo) {
 					String data = responseInfo.result;
-					System.out.println("操作成功 real_ops_for_task data:" + data);
+					System.out.println("操作之后的结果 data:" + data);
 					show_task_loading_now.setVisibility(View.GONE);
 					renderBtn();
 					// 如果是取消则是删除
