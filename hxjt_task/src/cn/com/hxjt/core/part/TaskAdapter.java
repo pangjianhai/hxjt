@@ -25,13 +25,15 @@ public class TaskAdapter extends BaseAdapter {
 	private HolderView holder;
 	private Context context;
 	private TaskClickOps ops;
+	private String taskType;
 
 	public TaskAdapter(Context context, TaskClickOps ops,
-			List<TaskBean> dataSourceList) {
+			List<TaskBean> dataSourceList, String taskType) {
 		super();
 		this.context = context;
 		this.ops = ops;
 		this.dataSourceList = dataSourceList;
+		this.taskType = taskType;
 	}
 
 	@Override
@@ -72,22 +74,10 @@ public class TaskAdapter extends BaseAdapter {
 		String receiver = t.getReceiver();
 		String cu = GloableApplication.getChineseName();
 		StringBuffer mine = new StringBuffer("");
-		if (cu.equals(arranger)) {
-			mine.append("我分配的");
-		} else {
-			mine.append(arranger + "分配的 ");
-		}
-		mine.append(" |");
-		if (cu.equals(receiver)) {
-			mine.append("我接收");
-		} else {
-			mine.append(receiver + "接收 ");
-		}
-		mine.append(" |");
-		if (cu.equals(creator)) {
-			mine.append("我创建的");
-		} else {
-			mine.append(creator + "我创建的 ");
+		if ("0".equals(taskType)) {
+			mine.append("[" + arranger + "]安排的任务");
+		} else if ("1".equals(taskType)) {
+			mine.append("安排给[" + receiver + "]的任务");
 		}
 		holder.item_task_mine.setText(mine);
 		holder.item_task_name.setText(t.getName());

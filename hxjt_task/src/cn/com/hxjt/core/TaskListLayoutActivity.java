@@ -78,7 +78,7 @@ public class TaskListLayoutActivity extends BaseActivity implements
 	private void initPart() {
 		tasks_lv = (ListView) findViewById(R.id.tasks_lv);
 		adapter = new TaskAdapter(TaskListLayoutActivity.this,
-				TaskListLayoutActivity.this, ds);
+				TaskListLayoutActivity.this, ds, type + "");
 		tasks_lv.setAdapter(adapter);
 		no_task_notice = (TextView) findViewById(R.id.no_task_notice);
 		progressBar1 = (ProgressBar) findViewById(R.id.progressBar1);
