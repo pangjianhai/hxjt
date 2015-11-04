@@ -491,10 +491,10 @@ public class ShowTaskActivity extends ParentTaskActivity implements IApplyOps,
 	 * 
 	 */
 	@Override
-	public void onResume() {
-		super.onResume();
-		if (ops_sig != null)
-			renderBtn();
+	public void onRestart() {
+		super.onRestart();
+		//System.out.println("***********onRestart");
+		renderBtn();
 	}
 
 }
