@@ -35,7 +35,7 @@ public class HttpCache {
     private final LruMemoryCache<String, String> mMemoryCache;
 
     private final static int DEFAULT_CACHE_SIZE = 1024 * 100;// string length
-    private final static long DEFAULT_EXPIRY_TIME =1;// 1000 * 60; // 60 seconds
+    private final static long DEFAULT_EXPIRY_TIME = 1000 * 60; // 60 seconds
 
     private int cacheSize = DEFAULT_CACHE_SIZE;
 

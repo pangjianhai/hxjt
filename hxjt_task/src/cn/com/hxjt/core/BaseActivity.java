@@ -89,6 +89,7 @@ public class BaseActivity extends InstrumentedActivity {
 			}
 		}
 		HttpUtils http = new HttpUtils();
+		http.configCurrentHttpCacheExpiry(10);
 		http.send(HttpRequest.HttpMethod.GET, url, params, rcb);
 	}
 
@@ -183,7 +184,7 @@ public class BaseActivity extends InstrumentedActivity {
 				logs = "Failed with errorCode = " + code;
 			}
 
-			 ExampleUtil.showToast(logs, getApplicationContext());
+			ExampleUtil.showToast(logs, getApplicationContext());
 		}
 
 	};
